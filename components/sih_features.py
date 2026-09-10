@@ -20,19 +20,39 @@ def load_demo_scenario(session):
     audit = session.get("audit_log", [])
     audit.append({"action": "load_demo_scenario", "timestamp": __import__("time").time()})
     session["audit_log"] = audit[:1000]
+
+    import data_loader
+    all_assets = data_loader.get_assets()
+    all_vulns = {a["asset_id"]: data_loader.get_vulnerabilities(a["asset_id"]) for a in all_assets}
+
     selected = {
-        asset_id: [v for v in vulns if v["vuln_id"] in DEMO_SCENARIO[asset_id]]
-        for asset_id, vulns in session["vulns_by_asset"].items()
+        asset_id: [v for v in vulns if v["vuln_id"] in DEMO_SCENARIO.get(asset_id, [])]
+        for asset_id, vulns in all_vulns.items()
         if asset_id in DEMO_SCENARIO
     }
     session["vulns_by_asset"] = {k: v for k, v in selected.items() if v}
-    session["assets"] = [a for a in session["assets"] if a["asset_id"] in selected]
+    session["assets"] = [a for a in all_assets if a["asset_id"] in selected]
     # Trigger risk matrix recompute
     from risk_engine import compute_risk_matrix
     session["risk_matrix"] = compute_risk_matrix(
         session["assets"], session["vulns_by_asset"]
     )
-    st.success("Loaded UPI Switch Demo Scenario (high-risk subset).")
+    st.success("Loaded UPI Switch Demo Scenario (high-risk subset: 5 assets, 8 vulnerabilities).")
+
+
+def reset_full_portfolio(session):
+    """Restore the full dataset from data_loader."""
+    import data_loader
+    from risk_engine import compute_risk_matrix
+    from controls_library import CONTROLS
+    assets = data_loader.get_assets()
+    vulns_by_asset = {a["asset_id"]: data_loader.get_vulnerabilities(a["asset_id"]) for a in assets}
+    risk_matrix = compute_risk_matrix(assets, vulns_by_asset)
+    session["assets"] = assets
+    session["vulns_by_asset"] = vulns_by_asset
+    session["risk_matrix"] = risk_matrix
+    session["controls"] = list(CONTROLS.values())
+    st.success("Reset to full portfolio (10 assets, 17 vulnerabilities).")
 
 
 def generate_sih_summary(session):
@@ -40,11 +60,11 @@ def generate_sih_summary(session):
     assets = session["assets"]
     vulns_by_asset = session["vulns_by_asset"]
     exposure = total_exposure(assets, vulns_by_asset)
-    cr_i = compute_overall_cr_i({a: vulns_by_asset[a["asset_id"]] for a in assets})
+    cr_i = compute_overall_cr_i(assets, vulns_by_asset)
     num_vulns = sum(len(v) for v in vulns_by_asset.values())
     users_impacted = sum(a["daily_transaction_volume"] for a in assets)
     # MGNREGA-day equivalence: ~₹266/day wage (typical)
-    mgnrega_days = int(exposure / 266)
+    mgnrega_days = int(exposure / 266) if exposure > 0 else 0
 
     content = f"""# Smart India Hackathon 2024 — CyberLens 2.0 Submission
 
@@ -101,3 +121,9 @@ public-sector banks and payment systems.
     with open("SIH_Submission.md", "w", encoding="utf-8") as f:
         f.write(content)
     st.success("Generated `SIH_Submission.md` — ready for SIH portal upload.")
+    st.download_button(
+        label="📥 Download SIH_Submission.md",
+        data=content,
+        file_name="SIH_Submission.md",
+        mime="text/markdown",
+    )

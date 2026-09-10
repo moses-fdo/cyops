@@ -9,6 +9,6 @@ RUN useradd -m -s /bin/bash appuser && chown -R appuser:appuser /app
 USER appuser
 EXPOSE 8501
 
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 CMD ["python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8501')"] || exit 1
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 CMD python3 -c "import urllib.request; urllib.request.urlopen('http://localhost:8501')" || exit 1
 
 CMD ["streamlit", "run", "streamlit_app.py", "--server.port=8501", "--server.address=0.0.0.0"]

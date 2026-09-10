@@ -23,9 +23,16 @@ def render(session):
 
     section_header("Technical View", "Asset-level drill-down for CISOs and security engineers")
 
+    if not assets:
+        st.info("No assets recorded.")
+        return
+
     asset_options = {a["name"]: a for a in assets}
     selected_name = st.selectbox("Select Asset", list(asset_options.keys()))
-    asset = asset_options[selected_name]
+    asset = asset_options.get(selected_name)
+    if not asset:
+        st.warning("Asset not found.")
+        return
     vulns = vulns_by_asset.get(asset["asset_id"], [])
 
     st.caption(
@@ -58,13 +65,19 @@ def render(session):
         }
         for v in vulns
     ])
-    st.dataframe(table, use_container_width=True, hide_index=True)
+    try:
+        st.dataframe(table, width="stretch", hide_index=True)
+    except TypeError:
+        st.dataframe(table, use_container_width=True, hide_index=True)
 
     st.markdown("### Vulnerability Detail & What-If")
     sel_vuln = st.selectbox("Select Vulnerability", [v["vuln_id"] for v in vulns])
-    detail = next(v for v in vulns if v["vuln_id"] == sel_vuln)
+    detail = next((v for v in vulns if v["vuln_id"] == sel_vuln), None)
+    if not detail:
+        st.warning("Selected vulnerability not found.")
+        return
 
-    _render_detail(session, detail, asset, controls)
+    _render_detail(session, detail, asset, controls, vulns)
 
 
 def _rbi(vuln, asset):
@@ -72,7 +85,7 @@ def _rbi(vuln, asset):
     return rbi_weighted_cvss(vuln, asset)
 
 
-def _render_detail(session, vuln, asset, controls):
+def _render_detail(session, vuln, asset, controls, asset_vulns):
     from data_loader import get_rbi_mapping
     mapping = get_rbi_mapping(asset["asset_type"], vuln["category"])
 
@@ -88,7 +101,7 @@ def _render_detail(session, vuln, asset, controls):
         else:
             st.warning("No regulatory mapping found for this combination.")
 
-    lang = st.radio("Remediation Language", ["English", "हिंदी"], horizontal=True)
+    lang = st.radio("Remediation Language", ["English", "हिंदी"], horizontal=True, key=f"remed_lang_{vuln['vuln_id']}")
     lang_code = "en" if lang == "English" else "hi"
     with st.expander("Remediation Steps (Template)", expanded=True):
         result = llm_remediate(vuln, asset, language=lang_code)
@@ -99,12 +112,14 @@ def _render_detail(session, vuln, asset, controls):
     from risk_engine import effective_eal
     base_eal = expected_annual_loss(vuln, asset)
     st.caption(f"Current annual loss: {inr(base_eal)}")
+    matching_controls = [c for c in controls if control_impacts_control(c, vuln)]
+    if not matching_controls:
+        st.info(f"No controls in the library currently target '{vuln['category']}'.")
     applied = []
-    for c in controls:
-        if control_impacts_control(c, vuln):
-            key = f"wi_{vuln['vuln_id']}_{c['control_id']}"
-            if st.toggle(f"{c['name']} (effective {int(c['effectiveness']*100)}%)", key=key):
-                applied.append(c)
+    for c in matching_controls:
+        key = f"wi_{vuln['vuln_id']}_{c['control_id']}"
+        if st.toggle(f"{c['name']} (effective {int(c['effectiveness']*100)}%)", key=key):
+            applied.append(c)
     if applied:
         new_eal = effective_eal(vuln, asset, applied)
         reduction = base_eal - new_eal

@@ -1,0 +1,104 @@
+- generic [ref=f1e2]:
+  - generic [ref=f1e60]:
+    - heading "CyberLens 2.0" [level=1] [ref=f1e64]
+    - paragraph [ref=f1e69]: RBI-Aligned Cyber Risk Quantification
+    - button [ref=f1e72] [cursor=pointer]:
+      - paragraph [ref=f1e77]: Load UPI Switch Demo Scenario
+    - generic [ref=f1e79]:
+      - paragraph [ref=f1e83]: Dashboard View
+      - radiogroup "Dashboard View" [ref=f1e84]:
+        - generic [ref=f1e85] [cursor=pointer]:
+          - radio "Executive View" [checked] [ref=f1e87]
+          - paragraph [ref=f1e93]: Executive View
+        - generic [ref=f1e94] [cursor=pointer]:
+          - radio "Technical View" [ref=f1e96]
+          - paragraph [ref=f1e102]: Technical View
+    - button [ref=f1e105] [cursor=pointer]:
+      - paragraph [ref=f1e110]: Generate SIH Summary
+    - separator [ref=f1e115]
+    - paragraph [ref=f1e120]: ⚠️ DEMO ONLY — Not for production banking use. See README for security limitations and hardening requirements.
+    - paragraph [ref=f1e125]: Demo uses synthetic Indian financial sector data.
+  - generic [ref=f1e3]:
+    - banner [ref=f1e6]:
+      - generic [ref=f1e9]:
+        - button "Deploy" [ref=f1e11] [cursor=pointer]
+        - button "Main menu" [ref=f1e15] [cursor=pointer]
+    - generic [ref=f1e19]:
+      - heading "Executive Overview" [level=2] [ref=f1e132]:
+        - text: Executive Overview
+        - generic [ref=f1e133]:
+          - link "Link to heading":
+            - /url: "#executive-overview"
+      - paragraph [ref=f1e137]: RBI-Aligned Cyber Risk Quantification
+      - generic [ref=f1e139]:
+        - generic [ref=f1e145]:
+          - generic [ref=f1e146]:
+            - generic [ref=f1e147]: Total Annual Cyber Risk Exposure
+            - generic [ref=f1e148]: ₹18,45,33,407
+            - paragraph [ref=f1e149]: Expected Annual Loss across all assets
+          - paragraph
+        - generic [ref=f1e155]:
+          - generic [ref=f1e156]:
+            - generic [ref=f1e157]: Cyber Resilience Index (CR-I)
+            - generic [ref=f1e158]: 11.0/100
+            - paragraph [ref=f1e159]: Higher = more resilient
+          - paragraph
+        - generic [ref=f1e165]:
+          - generic [ref=f1e166]:
+            - generic [ref=f1e167]: Vulnerability-to-Regulation Mapping Rate
+            - generic [ref=f1e168]: 100.0%
+            - paragraph [ref=f1e169]: Share of vulnerabilities mapped to a known RBI/SEBI/NPCI clause
+          - paragraph
+      - heading "Cyber Resilience Index" [level=3] [ref=f1e175]:
+        - text: Cyber Resilience Index
+        - generic [ref=f1e176]:
+          - link "Link to heading":
+            - /url: "#cyber-resilience-index"
+      - progressbar "progress" [ref=f1e180]
+      - generic [ref=f1e187]:
+        - generic [ref=f1e188]: 0 (High Risk)
+        - generic [ref=f1e189]: 100 (Resilient)
+      - heading "Top Risk Contributors" [level=3] [ref=f1e195]:
+        - text: Top Risk Contributors
+        - generic [ref=f1e196]:
+          - link "Link to heading":
+            - /url: "#top-risk-contributors"
+      - list [ref=f1e201]:
+        - listitem [ref=f1e202]:
+          - strong [ref=f1e203]: Core Banking Server
+          - text: "— ₹2,70,00,090/yr · SQL Injection · <span style=\"background-color: #ef4444; color: white; padding: 2px 6px; border-radius: 3px; font-size: 0.8em;\">🔴 CRITICAL</span> · RBI RBI/2023-24/105.C.1"
+      - list [ref=f1e208]:
+        - listitem [ref=f1e209]:
+          - strong [ref=f1e210]: Core Banking Server
+          - text: "— ₹2,70,00,090/yr · Privilege Escalation · <span style=\"background-color: #ef4444; color: white; padding: 2px 6px; border-radius: 3px; font-size: 0.8em;\">🔴 CRITICAL</span> · RBI RBI/2022-23/098.A.1"
+      - list [ref=f1e215]:
+        - listitem [ref=f1e216]:
+          - strong [ref=f1e217]: Customer Database Primary
+          - text: "— ₹2,16,00,450/yr · Privilege Escalation · <span style=\"background-color: #ef4444; color: white; padding: 2px 6px; border-radius: 3px; font-size: 0.8em;\">🔴 CRITICAL</span> · RBI RBI/2023-24/105.A.1"
+      - heading "ROSI-Driven Budget Allocator" [level=3] [ref=f1e223]:
+        - text: ROSI-Driven Budget Allocator
+        - generic [ref=f1e224]:
+          - link "Link to heading":
+            - /url: "#rosi-driven-budget-allocator"
+      - generic [ref=f1e227]:
+        - paragraph [ref=f1e231]: Available Budget (₹ Crore)
+        - group "Available Budget (₹ Crore)" [ref=f1e232]:
+          - generic [ref=f1e233]:
+            - generic [ref=f1e234]:
+              - slider "Available Budget (₹ Crore) Available Budget (₹ Crore)" [ref=f1e236]: "1"
+              - generic:
+                - generic:
+                  - paragraph: ₹1.0 Cr
+            - generic:
+              - generic:
+                - paragraph: ₹0.0 Cr
+              - generic:
+                - paragraph: ₹10.0 Cr
+      - paragraph [ref=f1e241]:
+        - strong [ref=f1e242]: "Optimal plan for ₹1.0 Cr:"
+        - text: 3 controls, total cost ₹65,00,000, risk reduction ₹12,15,75,012/yr, ₹35,00,000 unallocated.
+      - generic [ref=f1e247]:
+        - button "Show/hide columns" [ref=f1e251] [cursor=pointer]
+        - button "Download as CSV" [ref=f1e257] [cursor=pointer]
+        - button "Search" [ref=f1e263] [cursor=pointer]
+        - button "Fullscreen" [ref=f1e269] [cursor=pointer]

@@ -43,9 +43,7 @@ def render(session):
     rows = session["risk_matrix"]
     assets = session["assets"]
     vulns_by_asset = session["vulns_by_asset"]
-    overall_cr_i = compute_overall_cr_i(
-        {a: vulns_by_asset[a["asset_id"]] for a in assets}
-    )
+    overall_cr_i = compute_overall_cr_i(assets, vulns_by_asset)
     exposure = total_exposure(assets, vulns_by_asset)
 
     section_header("Executive Overview", "RBI-Aligned Cyber Risk Quantification")
@@ -94,11 +92,14 @@ def render(session):
                 "Control": c["name"],
                 "Cost (₹)": c["cost_inr"],
                 "Risk Reduction (₹/yr)": round(c["risk_reduction_inr"]),
-                "ROSI %": round((c["risk_reduction_inr"] - c["cost_inr"]) / c["cost_inr"] * 100, 1),
+                "ROSI %": round((c["risk_reduction_inr"] - c["cost_inr"]) / c["cost_inr"] * 100, 1) if c.get("cost_inr", 0) > 0 else 0.0,
             }
             for c in sorted(plan["controls"], key=lambda c: c["cost_inr"])
         ])
-        st.dataframe(table, use_container_width=True, hide_index=True)
+        try:
+            st.dataframe(table, width="stretch", hide_index=True)
+        except TypeError:
+            st.dataframe(table, use_container_width=True, hide_index=True)
     else:
         st.info("No controls fit within the selected budget.")
 

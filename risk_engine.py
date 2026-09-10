@@ -3,6 +3,7 @@ Implements RBI-weighted CVSS, Cyber Resilience Index, Expected Annual Loss,
 LLM remediation (with rule-based fallback), and ROSI-driven budget optimizer.
 """
 
+import json
 import time
 
 # RBI multipliers by asset_type -> vuln category (from RBI/SEBI/NPCI guidance)
@@ -35,7 +36,7 @@ def rbi_weighted_cvss(vuln, asset):
     threat_factor = 1.0  # TODO: integrate CERT-In feed
     txn_anomaly_factor = 1.0  # TODO: integrate transaction anomaly detection
     score = base * crit_mult * rbi_mult * (1 + patch_penalty / 10) * exploit_boost * threat_factor * txn_anomaly_factor
-    return min(score, 10.0)
+    return max(0.0, min(score, 10.0))
 
 
 def asset_risk_weight(asset):
@@ -64,11 +65,38 @@ def compute_asset_cr_i(asset, vulnerabilities):
     return max(0.0, min(cr_i, 100.0))
 
 
-def compute_overall_cr_i(vulns_by_asset):
-    """Aggregate CR-I across assets, weighted by risk weight."""
+def compute_overall_cr_i(assets_or_mapping, vulns_by_asset=None):
+    """Aggregate CR-I across assets, weighted by risk weight.
+
+    Supports both signatures:
+    - compute_overall_cr_i(assets, vulns_by_asset)
+    - compute_overall_cr_i(vulns_by_asset_dict)  # where keys are asset_id or asset objects
+    """
+    if vulns_by_asset is None and isinstance(assets_or_mapping, dict):
+        total_w = 0.0
+        total_score = 0.0
+        for asset, vulns in assets_or_mapping.items():
+            if isinstance(asset, dict):
+                w = asset_risk_weight(asset)
+                total_score += compute_asset_cr_i(asset, vulns) * w
+                total_w += w
+            elif isinstance(asset, str):
+                from data_loader import get_asset
+                a = get_asset(asset)
+                if a:
+                    w = asset_risk_weight(a)
+                    total_score += compute_asset_cr_i(a, vulns) * w
+                    total_w += w
+        if total_w <= 0:
+            return 100.0
+        return max(0.0, min(total_score / total_w, 100.0))
+
+    assets = assets_or_mapping or []
+    vulns_by_asset = vulns_by_asset or {}
     total_w = 0.0
     total_score = 0.0
-    for asset, vulns in vulns_by_asset.items():
+    for asset in assets:
+        vulns = vulns_by_asset.get(asset["asset_id"], [])
         w = asset_risk_weight(asset)
         total_score += compute_asset_cr_i(asset, vulns) * w
         total_w += w
@@ -83,11 +111,13 @@ def expected_annual_loss(vuln, asset):
     downtime_loss = float(asset["downtime_cost_per_hour"]) * AVG_INCIDENT_HOURS
     fraud_loss = float(asset["daily_transaction_volume"]) * FRAUD_LOSS_RATE
     loss_per_incident = downtime_loss + fraud_loss
-    return prob * loss_per_incident
+    return max(0.0, prob * loss_per_incident)
 
 
 def total_exposure(assets, vulns_by_asset):
     """Sum of EAL across all (asset, vuln) pairs."""
+    if not assets or not vulns_by_asset:
+        return 0.0
     return sum(
         expected_annual_loss(v, a)
         for a in assets
@@ -100,7 +130,9 @@ WEAK_CRYPTO_MARKERS = ("RSA-512", "RSA-1024", "DES", "3DES", "SHA-1", "MD5", "SE
 
 def weakly_crypto(profile):
     """True if the crypto profile uses algorithms weaker than RSA-2048/ECC-224."""
-    profile = profile.upper()
+    if not profile:
+        return False
+    profile = str(profile).upper()
     return any(x in profile for x in WEAK_CRYPTO_MARKERS)
 
 
@@ -342,7 +374,7 @@ def compute_risk_matrix(assets, vulns_by_asset):
     }
     try:
         with open("audit_log.jsonl", "a") as f:
-            f.write(str(audit_entry) + "\n")
+            f.write(json.dumps(audit_entry) + "\n")
     except Exception:
         pass  # Demo: non-critical if audit file unavailable
     return rows
@@ -365,11 +397,12 @@ if __name__ == "__main__":
         # v is a risk matrix row, we can't retrieve the original vulnerability's exploit status
         # but we can check that exploiting entries have higher scores than non-exploiting ones
         pass
-    # Budget optimizer sanity
+    # Budget optimizer sanity (₹1 Crore)
     from controls_library import CONTROLS
     enriched = enrich_controls_with_reduction(list(CONTROLS.values()), assets, vulns_by_asset)
-    plan = optimize_budget(enriched, 1_00_00_00, assets, vulns_by_asset)
-    assert sum(c["cost_inr"] for c in plan["controls"]) <= 1_00_00_00
+    budget = 1_00_00_000  # ₹1 Crore
+    plan = optimize_budget(enriched, budget, assets, vulns_by_asset)
+    assert sum(c["cost_inr"] for c in plan["controls"]) <= budget
     print(f"Optimizer OK: {len(plan['controls'])} controls, ₹{plan['total_cost']:,.0f} cost, "
           f"₹{plan['total_reduction']:,.0f} reduction")
     # Combined reduction check

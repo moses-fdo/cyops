@@ -1,0 +1,41 @@
+- generic [ref=e2]:
+  - generic [ref=e70]:
+    - button "keyboard_double_arrow_left" [ref=e73] [cursor=pointer]
+    - generic [ref=e78]:
+      - heading "CyberLens 2.0" [level=1] [ref=e82]
+      - paragraph [ref=e87]: RBI-Aligned Cyber Risk Quantification
+      - button [ref=e90] [cursor=pointer]:
+        - paragraph [ref=e95]: Load UPI Switch Demo Scenario
+      - generic [ref=e97]:
+        - paragraph [ref=e101]: Dashboard View
+        - radiogroup "Dashboard View" [ref=e102]:
+          - generic [ref=e103] [cursor=pointer]:
+            - radio "Executive View" [checked] [ref=e105]
+            - paragraph [ref=e111]: Executive View
+          - generic [ref=e112] [cursor=pointer]:
+            - radio "Technical View" [ref=e114]
+            - paragraph [ref=e120]: Technical View
+      - button [ref=e123] [cursor=pointer]:
+        - paragraph [ref=e128]: Generate SIH Summary
+  - generic [ref=e3]:
+    - banner [ref=e6]:
+      - generic [ref=e9]:
+        - button "Deploy" [ref=e11] [cursor=pointer]
+        - button "Main menu" [ref=e15] [cursor=pointer]
+    - alert [ref=e133]:
+      - generic [ref=e135]:
+        - generic [ref=e136]: "TypeError: cannot use 'dict' as a dict key (unhashable type: 'dict')"
+        - generic [ref=e137]:
+          - generic [ref=e138]: "Traceback:"
+          - code [ref=e141]:
+            - generic [ref=e142]: File "/home/mosesfdo/Documents/GitHub/cyops/.venv/lib/python3.14/site-packages/streamlit/runtime/scriptrunner/exec_code.py", line 136, in exec_func_with_error_handling result = func()
+            - generic [ref=e143]: "File \"/home/mosesfdo/Documents/GitHub/cyops/.venv/lib/python3.14/site-packages/streamlit/runtime/scriptrunner/script_runner.py\", line 827, in code_to_exec exec(code, module.__dict__) # noqa: S102 ~~~~^^^^^^^^^^^^^^^^^^^^^^^"
+            - generic [ref=e144]: File "/home/mosesfdo/Documents/GitHub/cyops/streamlit_app.py", line 104, in <module> main() ~~~~^^
+            - generic [ref=e145]: File "/home/mosesfdo/Documents/GitHub/cyops/streamlit_app.py", line 93, in main render_executive(session) ~~~~~~~~~~~~~~~~^^^^^^^^^
+            - generic [ref=e146]: File "/home/mosesfdo/Documents/GitHub/cyops/components/executive_view.py", line 47, in render exposure = total_exposure(assets, vulns_by_asset) ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        - generic [ref=e147]:
+          - button "Copy" [ref=e148] [cursor=pointer]
+          - link "Ask Google" [ref=e149] [cursor=pointer]:
+            - /url: https://www.google.com/search?q=TypeError%3A%20cannot%20use%20'dict'%20as%20a%20dict%20key%20(unhashable%20type%3A%20'dict')
+          - link "Ask ChatGPT" [ref=e150] [cursor=pointer]:
+            - /url: https://chatgpt.com/?q=TypeError%3A%20cannot%20use%20'dict'%20as%20a%20dict%20key%20(unhashable%20type%3A%20'dict')%0A%0AFile%20%22%2Fhome%2Fmosesfdo%2FDocuments%2FGitHub%2Fcyops%2F.venv%2Flib%2Fpython3.14%2Fsite-packages%2Fstreamlit%2Fruntime%2Fscriptrunner%2Fexec_code.py%22%2C%20line%20136%2C%20in%20exec_func_with_error_handling%0A%20%20%20%20result%20%3D%20func()%0AFile%20%22%2Fhome%2Fmosesfdo%2FDocuments%2FGitHub%2Fcyops%2F.venv%2Flib%2Fpython3.14%2Fsite-packages%2Fstreamlit%2Fruntime%2Fscriptrunner%2Fscript_runner.py%22%2C%20line%20827%2C%20in%20code_to_exec%0A%20%20%20%20exec(code%2C%20module.__dict__)%20%20%23%20noqa%3A%20S102%0A%20%20%20%20~~~~%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%0AFile%20%22%2Fhome%2Fmosesfdo%2FDocuments%2FGitHub%2Fcyops%2Fstreamlit_app.py%22%2C%20line%20104%2C%20in%20%3Cmodule%3E%0A%20%20%20%20main()%0A%20%20%20%20~~~~%5E%5E%0AFile%20%22%2Fhome%2Fmosesfdo%2FDocuments%2FGitHub%2Fcyops%2Fstreamlit_app.py%22%2C%20line%2093%2C%20in%20main%0A%20%20%20%20render_executive(session)%0A%20%20%20%20~~~~~~~~~~~~~~~~%5E%5E%5E%5E%5E%5E%5E%5E%5E%0AFile%20%22%2Fhome%2Fmosesfdo%2FDocuments%2FGitHub%2Fcyops%2Fcomponents%2Fexecutive_view.py%22%2C%20line%2047%2C%20in%20render%0A%20%20%20%20exposure%20%3D%20total_exposure(assets%2C%20vulns_by_asset)%0A%20%20%20%20%20%20%20%20%20%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E

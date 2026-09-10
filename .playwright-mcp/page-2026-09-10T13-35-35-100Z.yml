@@ -1,0 +1,126 @@
+- generic [ref=f1e2]:
+  - generic [ref=f1e60]:
+    - heading "CyberLens 2.0" [level=1] [ref=f1e64]
+    - paragraph [ref=f1e69]: RBI-Aligned Cyber Risk Quantification
+    - button [ref=f1e72] [cursor=pointer]:
+      - paragraph [ref=f1e77]: Load UPI Switch Demo Scenario
+    - generic [ref=f1e79]:
+      - paragraph [ref=f1e83]: Dashboard View
+      - radiogroup "Dashboard View" [ref=f1e84]:
+        - generic [ref=f1e85] [cursor=pointer]:
+          - radio "Executive View" [ref=f1e87]
+          - paragraph [ref=f1e93]: Executive View
+        - generic [ref=f1e94] [cursor=pointer]:
+          - radio "Technical View" [checked] [active] [ref=f1e96]
+          - paragraph [ref=f1e102]: Technical View
+    - button [ref=f1e105] [cursor=pointer]:
+      - paragraph [ref=f1e110]: Generate SIH Summary
+  - generic [ref=f1e3]:
+    - banner [ref=f1e6]:
+      - generic [ref=f1e9]:
+        - button "Deploy" [ref=f1e11] [cursor=pointer]
+        - button "Main menu" [ref=f1e15] [cursor=pointer]
+    - generic [ref=f1e19]:
+      - heading "Technical View" [level=2] [ref=f1e281]:
+        - text: Technical View
+        - link "Link to heading" [ref=f1e282] [cursor=pointer]:
+          - /url: "#technical-view"
+      - paragraph [ref=f1e137]: Asset-level drill-down for CISOs and security engineers
+      - generic [ref=f1e286]:
+        - paragraph [ref=f1e290]: Select Asset
+        - group [ref=f1e292]:
+          - combobox "Select Asset" [ref=f1e293]: Core Banking Server
+          - button "Open" [ref=f1e294] [cursor=pointer]
+      - paragraph [ref=f1e298]: CBS_SERVER · Criticality 10/10 · 1,000,000 txns/day · Downtime cost ₹50,00,000/hr
+      - generic [ref=f1e300]:
+        - generic [ref=f1e305]:
+          - paragraph [ref=f1e309]: Asset CR-I
+          - paragraph [ref=f1e312]: 0.0/100
+        - generic [ref=f1e317]:
+          - paragraph [ref=f1e321]: Asset Annual Exposure
+          - paragraph [ref=f1e324]: ₹5,40,00,180
+      - generic [ref=f1e328]:
+        - button "Show/hide columns" [ref=f1e332] [cursor=pointer]
+        - button "Download as CSV" [ref=f1e338] [cursor=pointer]
+        - button "Search" [ref=f1e344] [cursor=pointer]
+        - button "Fullscreen" [ref=f1e350] [cursor=pointer]
+      - heading "Vulnerability Detail & What-If" [level=3] [ref=f1e363]:
+        - text: Vulnerability Detail & What-If
+        - generic [ref=f1e364]:
+          - link "Link to heading":
+            - /url: "#vulnerability-detail-and-what-if"
+      - generic [ref=f1e366]:
+        - paragraph [ref=f1e370]: Select Vulnerability
+        - group [ref=f1e372]:
+          - combobox "Select Vulnerability" [ref=f1e373]: V_CBS_001
+          - button "Open" [ref=f1e374] [cursor=pointer]
+      - heading "CVE-2024-3456" [level=3] [ref=f1e381]:
+        - text: CVE-2024-3456
+        - generic [ref=f1e382]:
+          - link "Link to heading":
+            - /url: "#cve-2024-3456"
+      - paragraph [ref=f1e383]: Remote code execution via crafted SQL queries in transaction processing
+      - group [ref=f1e386]:
+        - generic "keyboard_arrow_right RBI / SEBI / NPCI Mapping" [ref=f1e387] [cursor=pointer]:
+          - generic [ref=f1e388]:
+            - generic [ref=f1e389]: keyboard_arrow_right
+            - paragraph [ref=f1e393]: RBI / SEBI / NPCI Mapping
+      - generic [ref=f1e395]:
+        - paragraph [ref=f1e399]: Remediation Language
+        - radiogroup "Remediation Language" [ref=f1e400]:
+          - generic [ref=f1e401] [cursor=pointer]:
+            - radio "English" [checked] [ref=f1e403]
+            - paragraph [ref=f1e409]: English
+          - generic [ref=f1e410] [cursor=pointer]:
+            - radio "हिंदी" [ref=f1e412]
+            - paragraph [ref=f1e418]: हिंदी
+      - group [ref=f1e421]:
+        - generic "keyboard_arrow_down Remediation Steps (Template)" [ref=f1e422] [cursor=pointer]:
+          - generic [ref=f1e423]:
+            - generic [ref=f1e424]: keyboard_arrow_down
+            - paragraph [ref=f1e428]: Remediation Steps (Template)
+        - generic [ref=f1e430]:
+          - list [ref=f1e435]:
+            - listitem [ref=f1e436]: Apply the vendor's security patch for the SQL injection vulnerability.
+          - list [ref=f1e441]:
+            - listitem [ref=f1e442]: Switch all dynamic queries to parameterized statements or stored procedures.
+          - list [ref=f1e447]:
+            - listitem [ref=f1e448]: Restrict database access using least-privilege service accounts.
+      - heading "What-If Simulator" [level=4] [ref=f1e450]:
+        - text: What-If Simulator
+        - generic [ref=f1e451]:
+          - link "Link to heading":
+            - /url: "#what-if-simulator"
+      - paragraph [ref=f1e455]: "Current annual loss: ₹2,70,00,090"
+      - generic [ref=f1e458] [cursor=pointer]:
+        - switch "Web Application Firewall (effective 60%)" [ref=f1e460]
+        - paragraph [ref=f1e467]: Web Application Firewall (effective 60%)
+      - generic [ref=f1e470] [cursor=pointer]:
+        - switch "Accelerated Patch Management Program (effective 80%)" [ref=f1e472]
+        - paragraph [ref=f1e479]: Accelerated Patch Management Program (effective 80%)
+      - generic [ref=f1e482] [cursor=pointer]:
+        - switch "Annual Penetration Testing & Review (effective 45%)" [ref=f1e484]
+        - paragraph [ref=f1e491]: Annual Penetration Testing & Review (effective 45%)
+      - heading "Compliance Heatmap (this asset)" [level=4] [ref=f1e497]:
+        - text: Compliance Heatmap (this asset)
+        - generic [ref=f1e498]:
+          - link "Link to heading":
+            - /url: "#compliance-heatmap-this-asset"
+      - alert [ref=f1e502]:
+        - generic [ref=f1e504]:
+          - generic [ref=f1e505]: "NameError: name 'asset_vulns' is not defined"
+          - generic [ref=f1e506]:
+            - generic [ref=f1e507]: "Traceback:"
+            - code [ref=f1e510]:
+              - generic [ref=f1e511]: File "/home/mosesfdo/Documents/GitHub/cyops/venv/lib/python3.14/site-packages/streamlit/runtime/scriptrunner/exec_code.py", line 136, in exec_func_with_error_handling result = func()
+              - generic [ref=f1e512]: "File \"/home/mosesfdo/Documents/GitHub/cyops/venv/lib/python3.14/site-packages/streamlit/runtime/scriptrunner/script_runner.py\", line 827, in code_to_exec exec(code, module.__dict__) # noqa: S102 ~~~~^^^^^^^^^^^^^^^^^^^^^^^"
+              - generic [ref=f1e513]: File "/home/mosesfdo/Documents/GitHub/cyops/streamlit_app.py", line 104, in <module> main() ~~~~^^
+              - generic [ref=f1e514]: File "/home/mosesfdo/Documents/GitHub/cyops/streamlit_app.py", line 96, in main render_technical(session) ~~~~~~~~~~~~~~~~^^^^^^^^^
+              - generic [ref=f1e515]: File "/home/mosesfdo/Documents/GitHub/cyops/components/technical_view.py", line 67, in render _render_detail(session, detail, asset, controls) ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+              - generic [ref=f1e516]: "File \"/home/mosesfdo/Documents/GitHub/cyops/components/technical_view.py\", line 118, in _render_detail categories = sorted({v[\"category\"] for v in asset_vulns}) ^^^^^^^^^^^"
+          - generic [ref=f1e517]:
+            - button "Copy" [ref=f1e518] [cursor=pointer]
+            - link "Ask Google" [ref=f1e519] [cursor=pointer]:
+              - /url: https://www.google.com/search?q=NameError%3A%20name%20'asset_vulns'%20is%20not%20defined
+            - link "Ask ChatGPT" [ref=f1e520] [cursor=pointer]:
+              - /url: https://chatgpt.com/?q=NameError%3A%20name%20'asset_vulns'%20is%20not%20defined%0A%0AFile%20%22%2Fhome%2Fmosesfdo%2FDocuments%2FGitHub%2Fcyops%2Fvenv%2Flib%2Fpython3.14%2Fsite-packages%2Fstreamlit%2Fruntime%2Fscriptrunner%2Fexec_code.py%22%2C%20line%20136%2C%20in%20exec_func_with_error_handling%0A%20%20%20%20result%20%3D%20func()%0AFile%20%22%2Fhome%2Fmosesfdo%2FDocuments%2FGitHub%2Fcyops%2Fvenv%2Flib%2Fpython3.14%2Fsite-packages%2Fstreamlit%2Fruntime%2Fscriptrunner%2Fscript_runner.py%22%2C%20line%20827%2C%20in%20code_to_exec%0A%20%20%20%20exec(code%2C%20module.__dict__)%20%20%23%20noqa%3A%20S102%0A%20%20%20%20~~~~%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%0AFile%20%22%2Fhome%2Fmosesfdo%2FDocuments%2FGitHub%2Fcyops%2Fstreamlit_app.py%22%2C%20line%20104%2C%20in%20%3Cmodule%3E%0A%20%20%20%20main()%0A%20%20%20%20~~~~%5E%5E%0AFile%20%22%2Fhome%2Fmosesfdo%2FDocuments%2FGitHub%2Fcyops%2Fstreamlit_app.py%22%2C%20line%2096%2C%20in%20main%0A%20%20%20%20render_technical(session)%0A%20%20%20%20~~~~~~~~~~~~~~~~%5E%5E%5E%5E%5E%5E%5E%5E%5E%0AFile%20%22%2Fhome%2Fmosesfdo%2FDocuments%2FGitHub%2Fcyops%2Fcomponents%2Ftechnical_view.py%22%2C%20line%2067%2C%20in%20render%0A%20%20%20%20_render_detail(session%2C%20detail%2C%20asset%2C%20controls)%0A%20%20%20%20~~~~~~~~~~~~~~%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%0AFile%20%22%2Fhome%2Fmosesfdo%2FDocuments%2FGitHub%2Fcyops%2Fcomponents%2Ftechnical_view.py%22%2C%20line%20118%2C%20in%20_render_detail%0A%20%20%20%20categories%20%3D%20sorted(%7Bv%5B%22category%22%5D%20for%20v%20in%20asset_vulns%7D)%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E

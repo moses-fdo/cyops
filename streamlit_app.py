@@ -37,17 +37,19 @@ def main():
     if not session_auth:
         st.title("CyberLens 2.0 — RBI-Aligned Cyber Risk Quantification")
         st.warning("Authentication required. This is a demo with synthetic data — production deployment requires OAuth2/JWT.")
-        auth_key = st.text_input("Access Key (demo: 'cyberlens-demo-2024')", type="password")
-        if st.button("Authenticate"):
-            if auth_key == "cyberlens-demo-2024":
-                st.session_state.authenticated = True
-                st.success("Authenticated. Loading data...")
-                st.rerun()
-            else:
-                st.error("Invalid access key.")
+        with st.form("login_form"):
+            auth_key = st.text_input("Access Key (demo: 'cyberlens-demo-2024')", type="password")
+            submitted = st.form_submit_button("Authenticate")
+            if submitted:
+                if auth_key == "cyberlens-demo-2024":
+                    st.session_state.authenticated = True
+                    st.success("Authenticated. Loading data...")
+                    st.rerun()
+                else:
+                    st.error("Invalid access key.")
         st.stop()
 
-    # Rate limiting: 30 requests per minute (server-session based)
+    # Rate limiting: 120 requests per minute (server-session based)
     import time
     rate_window = st.session_state.get("rate_window", 0)
     rate_count = st.session_state.get("rate_count", 0)
@@ -59,8 +61,8 @@ def main():
         rate_count += 1
     st.session_state.rate_window = rate_window
     st.session_state.rate_count = rate_count
-    if rate_count > 30:
-        st.error("Too many requests (rate limit exceeded: 30/min). Please wait 60 seconds.")
+    if rate_count > 120:
+        st.error("Too many requests (rate limit exceeded: 120/min). Please wait a moment.")
         st.stop()
 
     # Audit logging: register session start
@@ -69,10 +71,11 @@ def main():
     st.session_state.audit_log = audit_log[:1000]  # cap at 1000 entries
 
     # Load cached dataset after auth passes
+    import copy
     data = _load_data()
     session = st.session_state
     if not session.get("loaded"):
-        session.update(data)
+        session.update(copy.deepcopy(data))
         session["loaded"] = True
 
     st.sidebar.title("CyberLens 2.0")
@@ -81,6 +84,10 @@ def main():
     if st.sidebar.button("Load UPI Switch Demo Scenario"):
         from components.sih_features import load_demo_scenario
         load_demo_scenario(session)
+
+    if st.sidebar.button("Reset Full Portfolio"):
+        from components.sih_features import reset_full_portfolio
+        reset_full_portfolio(session)
 
     view = st.sidebar.radio("Dashboard View", ["Executive View", "Technical View"])
 
@@ -101,4 +108,10 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    if not st.runtime.exists():
+        from streamlit.web import cli as stcli
+        sys.argv = ["streamlit", "run", __file__] + sys.argv[1:]
+        sys.exit(stcli.main())
+    else:
+        main()
