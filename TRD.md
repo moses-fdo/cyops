@@ -52,13 +52,17 @@ def rbi_weighted_cvss(vuln: dict, asset: dict) -> float:
 ```
 
 #### 4.2.2 Cyber Resilience Index (CR‑I)
-CR‑I = 100 – (Weighted Average of (10 – RBI‑Weighted CVSS) across assets, weighted by asset criticality and transaction volume).  
-Formula:
+CR‑I = 100 – (Weighted Average of normalized risk gap across assets, weighted by asset criticality and transaction volume).
+
+**Formula:**
 ```
-CR_I = 100 - Σ [ (10 - rbi_weighted_cvss(v)) * w_i ] / Σ w_i
+CR_I = 100 * Σ[ ((10 - rbi_weighted_cvss(v)) / 10) * w_i ] / Σ w_i
 where w_i = asset[i].criticality * asset[i].daily_transaction_volume
 ```
+The gap `(10 - score) / 10` normalizes to [0,1], then weighted averaging produces a 0–100 index where higher = more resilient.
 Result clamped to 0‑100.
+
+> **Note:** This formula differs from the earlier `100 - Σ[(10 - score)·w]/Σw` definition, which produces a squeezed range (90–100) and is inverted (higher vuln score → higher resilience). The current implementation uses the normalized formula above.
 
 #### 4.2.3 Financial Impact Calculator (EAL)
 ```python

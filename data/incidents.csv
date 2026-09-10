@@ -1,0 +1,9 @@
+incident_id,asset_id,incident_type,financial_loss_inr,downtime_hours,incident_date,description
+INC_001,UPI_SWITCH_001,Fraud,15000000,4,2024-06-15,Unauthorized fund transfers via compromised session tokens
+INC_002,MOBILE_BANKING_001,Data Breach,8000000,8,2024-04-20,Customer data exposed via insecure local storage
+INC_003,WEB_PORTAL_001,DDoS,2000000,12,2024-03-10,Distributed denial of service attack disrupted online banking
+INC_004,ATM_NETWORK_001,Fraud,5000000,2,2024-07-01,Card skimming attack compromised 500+ cards
+INC_005,CBS_SERVER_001,Ransomware,25000000,24,2024-02-14,Ransomware encrypted core banking systems
+INC_006,AUTH_SERVER_001,Unauthorized Access,1000000,6,2024-05-18,Attacker gained admin access via token bypass
+INC_007,API_GATEWAY_001,Fraud,12000000,3,2024-08-05,API injection allowed unauthorized bulk transactions
+INC_008,USSD_GATEWAY_001,Fraud,6000000,5,2024-01-25,OTP bypass enabled unauthorized transfers

@@ -1,0 +1,18 @@
+vuln_id,asset_id,cve_id,cvss_base_score,exploit_available,days_unpatched,category,affected_component,description
+V_UPI_001,UPI_SWITCH_001,CVE-2024-1234,8.5,True,12,Authentication Bypass,Payment Gateway,Allows unauthorized transaction initiation via session token manipulation
+V_UPI_002,UPI_SWITCH_001,CVE-2024-2345,7.2,False,25,Data Exposure,Transaction Logs,Exposes transaction metadata in debug logs accessible to unauthorized users
+V_CBS_001,CBS_SERVER_001,CVE-2024-3456,9.1,True,8,SQL Injection,Query Handler,Remote code execution via crafted SQL queries in transaction processing
+V_CBS_002,CBS_SERVER_001,CVE-2024-4567,6.5,False,40,Privilege Escalation,User Management,Allows lower-privileged users to access administrative functions
+V_MOBILE_001,MOBILE_BANKING_001,CVE-2024-5678,7.8,True,15,Insecure Storage,Client-Side Storage,Encryption keys stored in plaintext on rooted devices
+V_MOBILE_002,MOBILE_BANKING_001,CVE-2024-6789,6.2,False,35,Input Validation,Transfer Module,Allows injection attacks in beneficiary details field
+V_ATM_001,ATM_NETWORK_001,CVE-2024-7890,8.0,True,20,Network Sniffing,Communication Module,Unencrypted communication allows interception of card data
+V_WEB_001,WEB_PORTAL_001,CVE-2024-8901,8.8,True,5,Session Fixation,Session Management,Attackers can hijack user sessions via predictable session tokens
+V_WEB_002,WEB_PORTAL_001,CVE-2024-9012,5.5,False,55,Cross-Site Scripting,Input Fields,Stored XSS vulnerabilities in user profile and transaction comments
+V_USSD_001,USSD_GATEWAY_001,CVE-2024-0123,7.0,True,30,Authentication Bypass,OTP Verification,OTP validation bypass allows unauthorized fund transfers
+V_API_001,API_GATEWAY_001,CVE-2024-1111,9.5,True,3,Injection,API Endpoint,Remote code execution via API parameter injection
+V_API_002,API_GATEWAY_001,CVE-2024-2222,6.8,False,18,Rate Limiting,Request Handler,Denial of service due to missing rate limits on high-value transactions
+V_DB_001,DATABASE_PRIMARY_001,CVE-2024-3333,8.2,True,10,Privilege Escalation,Database Access,Escalation from application role to database admin via stored procedures
+V_DB_002,DATABASE_PRIMARY_001,CVE-2024-4444,5.8,False,45,Data Exposure,Backup Module,Unencrypted backups accessible to unauthorized personnel
+V_AUTH_001,AUTH_SERVER_001,CVE-2024-5555,9.0,True,7,Authentication Bypass,Token Validation,Token signature verification bypass allows session hijacking
+V_AUTH_002,AUTH_SERVER_001,CVE-2024-6666,7.5,False,22,Weak Cryptography,Password Hashing,Use of MD5 for password storage vulnerable to brute force
+V_LOG_001,LOG_SERVER_001,CVE-2024-7777,4.5,False,60,Data Exposure,Log Files,Sensitive data logged without masking (PII, account numbers)
