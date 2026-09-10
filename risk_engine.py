@@ -403,8 +403,8 @@ if __name__ == "__main__":
     budget = 1_00_00_000  # ₹1 Crore
     plan = optimize_budget(enriched, budget, assets, vulns_by_asset)
     assert sum(c["cost_inr"] for c in plan["controls"]) <= budget
-    print(f"Optimizer OK: {len(plan['controls'])} controls, ₹{plan['total_cost']:,.0f} cost, "
-          f"₹{plan['total_reduction']:,.0f} reduction")
+    print(f"Optimizer OK: {len(plan['controls'])} controls, Rs.{plan['total_cost']:,.0f} cost, "
+          f"Rs.{plan['total_reduction']:,.0f} reduction")
     # Combined reduction check
     # Create a dummy controls list with a control affecting some vulns
     from controls_library import CONTROLS
