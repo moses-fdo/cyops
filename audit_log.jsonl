@@ -43,3 +43,7 @@
 {"timestamp": 1789049001.9482813, "function": "compute_risk_matrix", "vuln_rows": 8, "assets": 5}
 {"timestamp": 1789049001.9495485, "function": "compute_risk_matrix", "vuln_rows": 17, "assets": 10}
 {"timestamp": 1789049192.4743133, "function": "compute_risk_matrix", "vuln_rows": 17, "assets": 10}
+{"timestamp": 1789032392.9376757, "function": "compute_risk_matrix", "vuln_rows": 17, "assets": 10}
+{"timestamp": 1789032486.118304, "function": "compute_risk_matrix", "vuln_rows": 8, "assets": 5}
+{"timestamp": 1789032497.3908494, "function": "compute_risk_matrix", "vuln_rows": 8, "assets": 5}
+{"timestamp": 1789032502.545168, "function": "compute_risk_matrix", "vuln_rows": 17, "assets": 10}
