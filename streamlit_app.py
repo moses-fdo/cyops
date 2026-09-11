@@ -10,7 +10,7 @@ import streamlit as st
 import data_loader
 from controls_library import CONTROLS
 from risk_engine import compute_risk_matrix
-from components.widgets import inject_swiss_css
+from components.widgets import inject_swiss_css, render_html
 
 st.set_page_config(
     page_title="CyberLens 2.0 — RBI-Aligned Cyber Risk Dashboard",
@@ -42,14 +42,21 @@ def main():
     # Authentication
     session_auth = st.session_state.get("authenticated")
     if not session_auth:
-        st.markdown(
+        render_html(
             """
-            <div style="max-width:420px;margin:60px auto;padding:28px;background:#151D28;border:1px solid #263241;border-radius:8px;">
-                <h1 style="font-size:1.4rem;margin-bottom:0.3rem;color:#F5F7FA;">CyberLens 2.0</h1>
-                <p style="color:#718096;font-size:0.85rem;margin-bottom:1rem;">RBI-Aligned Cyber Risk Quantification & Investment Optimizer</p>
+            <div class="cl-card" style="max-width:460px;margin:80px auto 20px auto;padding:28px 26px;border:1px solid #1E2333;border-top:3px solid #38BDF8;">
+                <div style="font-size:0.68rem;font-weight:700;color:#38BDF8;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.35rem;font-family:'JetBrains Mono',monospace;">
+                    RESERVE BANK OF INDIA · FINANCIAL SUPERVISION PORTAL
+                </div>
+                <h1 style="font-size:1.35rem;margin-bottom:0.35rem;color:#F8FAFC;letter-spacing:-0.02em;">CyberLens Platform 2.0</h1>
+                <p style="color:#94A3B8;font-size:0.8rem;margin-bottom:1.15rem;line-height:1.45;">
+                    Cyber Risk Quantification (CRQ) & Capital Allocation System for Critical Payment Infrastructure (UPI, CBS, ATM).
+                </p>
+                <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(56,189,248,0.10);border:1px solid rgba(56,189,248,0.30);padding:3px 10px;border-radius:4px;font-size:0.725rem;color:#38BDF8;margin-bottom:1rem;font-family:'JetBrains Mono',monospace;">
+                    Audit Compliance: RBI/2023-24/105
+                </div>
             </div>
-            """,
-            unsafe_allow_html=True,
+            """
         )
         st.warning("Authentication required. Demo key: `cyberlens-demo-2024`")
         with st.form("login_form"):
@@ -76,10 +83,10 @@ def main():
     st.session_state.rate_window = rate_window
     st.session_state.rate_count = rate_count
     if rate_count > 120:
-        st.error("Rate limit exceeded (120 req/min). Please wait a moment.")
+        st.error("Rate limit exceeded (120 requests/minute). Please slow down.")
         st.stop()
 
-    # Audit log
+    # Log action
     audit_log = st.session_state.get("audit_log", [])
     audit_log.append({"action": "session_start", "timestamp": time.time(), "view": "dashboard"})
     st.session_state.audit_log = audit_log[:1000]
@@ -95,18 +102,26 @@ def main():
         session["current_view"] = "Executive View"
 
     # === TOP NAVIGATION HEADER ===
-    st.markdown('<div class="cl-topbar">', unsafe_allow_html=True)
-    header_col1, header_col2, header_col3, header_col4 = st.columns([2.5, 3.2, 3.8, 2.5], vertical_alignment="center")
+    header_col1, header_col2, header_col3, header_col4 = st.columns([2.8, 3.1, 3.6, 2.5], vertical_alignment="center")
 
     with header_col1:
-        st.markdown(
+        render_html(
             """
-            <div style="display:flex;flex-direction:column;justify-content:center;">
-                <div style="font-size:1.15rem;font-weight:700;color:#F5F7FA;letter-spacing:-0.02em;line-height:1.2;">🛡️ CyberLens 2.0</div>
-                <div style="font-size:0.68rem;color:#71869A;font-weight:500;">RBI-Aligned Cyber Risk Dashboard</div>
+            <div style="display:flex;align-items:center;gap:12px;">
+                <div style="background:rgba(56,189,248,0.12);border:1px solid rgba(56,189,248,0.35);color:#38BDF8;font-weight:700;font-size:0.8rem;padding:5px 9px;border-radius:4px;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;">
+                    CRQ//2.0
+                </div>
+                <div style="display:flex;flex-direction:column;justify-content:center;">
+                    <div style="font-size:1.05rem;font-weight:700;color:#F8FAFC;letter-spacing:-0.02em;line-height:1.2;">
+                        CyberLens Platform
+                    </div>
+                    <div style="font-size:0.675rem;color:#64748B;font-weight:500;display:flex;align-items:center;gap:6px;margin-top:1px;">
+                        <span style="width:6px;height:6px;border-radius:50%;background:#10B981;box-shadow:0 0 6px #10B981;display:inline-block;"></span>
+                        <span style="color:#94A3B8;">RBI Master Direction Framework</span> · Active
+                    </div>
+                </div>
             </div>
-            """,
-            unsafe_allow_html=True,
+            """
         )
 
     with header_col2:
@@ -132,31 +147,31 @@ def main():
                 st.rerun()
 
     with header_col3:
-        a_col1, a_col2, a_col3 = st.columns([1.1, 1.3, 1.4])
+        a_col1, a_col2, a_col3 = st.columns([1.2, 1.3, 1.3])
         with a_col1:
-            if st.button("▶ UPI Demo", key="top_upi_demo", help="Load UPI Switch Demo Scenario", width="stretch"):
+            if st.button("UPI Switch Demo", key="top_upi_demo", help="Load UPI Switch Demo Scenario", width="stretch"):
                 from components.sih_features import load_demo_scenario
                 load_demo_scenario(session)
                 st.rerun()
         with a_col2:
-            if st.button("↻ Reset Portfolio", key="top_reset_portfolio", help="Reset Full Portfolio", width="stretch"):
+            if st.button("Reset Portfolio", key="top_reset_portfolio", help="Reset Full Portfolio", width="stretch"):
                 from components.sih_features import reset_full_portfolio
                 reset_full_portfolio(session)
                 st.rerun()
         with a_col3:
-            if st.button("📄 Generate SIH", key="top_sih_summary", help="Generate SIH Summary", width="stretch"):
+            if st.button("Generate SIH", key="top_sih_summary", help="Generate SIH Summary", width="stretch"):
                 from components.sih_features import generate_sih_summary
                 generate_sih_summary(session)
 
     with header_col4:
         st.text_input(
             "Search",
-            placeholder="Search assets / vulns...",
+            placeholder="Filter assets or CVEs...",
             label_visibility="collapsed",
             key="global_search_input",
         )
 
-    st.markdown('</div>', unsafe_allow_html=True)
+    render_html('<div style="border-bottom:1px solid #1E2333;margin-top:0.4rem;margin-bottom:1.1rem;"></div>')
 
     # === HIDDEN SIDEBAR FOR BACKWARD TEST COMPATIBILITY ===
     st.sidebar.markdown(

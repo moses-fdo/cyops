@@ -19,6 +19,7 @@ from components.widgets import (
     render_compliance_gauge,
     inr,
     risk_badge,
+    render_html,
 )
 
 
@@ -39,12 +40,20 @@ def render(session):
     exposure = total_exposure(assets, vulns_by_asset)
     comp_pct = compliance_pct(rows)
 
-    # Scenario indicator
+    # Scenario indicator - Colorized
     is_demo = len(assets) <= 5
-    scenario_html = f'<span style="color:{"#35D39A" if is_demo else "#718096"};font-size:0.8rem;font-weight:500;">● {"Demo Scenario Active" if is_demo else "Baseline Portfolio"}</span>'
+    scenario_html = (
+        f'<div style="display:inline-flex;align-items:center;gap:7px;'
+        f'background:rgba(56,189,248,0.08);'
+        f'border:1px solid rgba(56,189,248,0.25);'
+        f'padding:4px 11px;border-radius:4px;font-size:0.75rem;font-weight:600;'
+        f'color:#38BDF8;font-family:\'JetBrains Mono\',monospace;">'
+        f'<span style="width:7px;height:7px;border-radius:50%;background:#10B981;box-shadow:0 0 6px #10B981;"></span>'
+        f'{"Demo Scenario Active" if is_demo else "Baseline Portfolio"}</div>'
+    )
     section_header(
-        "Executive View",
-        "High-level cyber risk overview with financial impact and investment recommendations.",
+        "Executive Summary",
+        "Reserve Bank of India (RBI) Cyber Risk Quantification & Supervisory Capital Schedule",
         right_html=scenario_html,
     )
 
@@ -53,10 +62,10 @@ def render(session):
     with kpi1:
         delta_str = "↑ vs baseline (demo subset)" if is_demo else "Full portfolio assessment"
         metric_card(
-            "Total Annual Cyber Risk Exposure",
+            "Total Annual Loss Exposure (EAL)",
             inr(exposure) + " /yr",
             delta=delta_str,
-            help_text="Expected Annual Loss across all active assets",
+            help_text="Expected Annual Loss across all active banking and UPI infrastructure",
         )
     with kpi2:
         render_cri_gauge(overall_cr_i, target=70)
@@ -64,12 +73,13 @@ def render(session):
         render_compliance_gauge(comp_pct, target=90)
 
     # === TOP 3 CYBER RISKS ===
-    st.markdown(
-        """<div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:0.5rem;">
-            <h2 style="margin:0;color:#F5F7FA;">Top 3 Cyber Risks</h2>
-            <span style="color:#718096;font-size:0.75rem;">Highest financial impact</span>
-        </div>""",
-        unsafe_allow_html=True,
+    render_html(
+        """
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:0.85rem;margin-bottom:0.35rem;">
+            <h2 style="margin:0;color:#F8FAFC;">Top 3 Systemic Risk Concentrations</h2>
+            <span style="color:#64748B;font-size:0.725rem;font-family:'JetBrains Mono',monospace;">Highest Expected Annual Loss (₹)</span>
+        </div>
+        """
     )
 
     top_risks = sorted(rows, key=lambda r: r["eal_inr"], reverse=True)[:3]
@@ -77,34 +87,41 @@ def render(session):
     for idx, (col, r) in enumerate(zip(risk_cols, top_risks), 1):
         with col:
             severity = "CRITICAL" if r["eal_inr"] >= 100_00_000 else ("HIGH" if r["eal_inr"] >= 50_00_000 else "MEDIUM")
-            st.markdown(
+            top_border = "#F43F5E" if severity == "CRITICAL" else ("#F59E0B" if severity == "HIGH" else "#38BDF8")
+            render_html(
                 f"""
-                <div class="cl-card" style="height:165px;display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;padding:0.85rem 1rem;">
+                <div class="cl-card" style="height:175px;display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;padding:1.1rem 1.25rem;border-top:2px solid {top_border};">
                     <div>
                         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">
-                            <span style="background:#1683FF;color:#fff;font-weight:700;width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:0.75rem;">{idx}</span>
+                            <span class="cl-mono" style="color:#38BDF8;font-size:0.75rem;font-weight:700;">#{idx:02d}</span>
                             {risk_badge(severity)}
                         </div>
-                        <div style="font-weight:600;font-size:0.9rem;color:#F5F7FA;margin-bottom:0.2rem;">{r['asset_name']}</div>
-                        <div style="font-size:1.2rem;font-weight:700;color:#F5F7FA;margin-bottom:0.25rem;">{inr(r['eal_inr'])} <span style="font-size:0.7rem;font-weight:400;color:#718096;">/year</span></div>
-                        <div style="font-size:0.775rem;color:#AAB4C3;margin-bottom:0.15rem;">{r['category']}</div>
+                        <div style="font-weight:600;font-size:0.95rem;color:#F8FAFC;margin-bottom:0.25rem;">{r['asset_name']}</div>
+                        <div class="cl-mono" style="font-size:1.35rem;font-weight:700;color:#FFFFFF;margin-bottom:0.35rem;">{inr(r['eal_inr'])} <span style="font-size:0.7rem;font-weight:400;color:#64748B;">/yr</span></div>
+                        <div style="display:inline-block;background:#161A24;border:1px solid #232838;color:#CBD5E1;padding:2px 8px;border-radius:3px;font-size:0.7rem;font-weight:500;">{r['category']}</div>
                     </div>
-                    <div style="font-size:0.725rem;color:#718096;border-top:1px solid #263241;padding-top:0.35rem;">{r['rbi_clause']}</div>
+                    <div class="cl-mono" style="font-size:0.675rem;color:#64748B;border-top:1px solid #1E2333;padding-top:0.45rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+                        Mandate: <span style="color:#94A3B8;">{r['rbi_clause']}</span>
+                    </div>
                 </div>
-                """,
-                unsafe_allow_html=True,
+                """
             )
-            if st.button("View Details →", key=f"tr_{idx}_{r['asset_id']}"):
+            if st.button("Inspect Asset →", key=f"tr_{idx}_{r['asset_id']}", width="stretch"):
                 session["current_view"] = "Technical View"
                 session["selected_asset"] = r["asset_name"]
                 st.rerun()
 
-    # === BUDGET + INVESTMENT PLAN (SIDE BY SIDE) ===
-    st.markdown('<div style="border-top:1px solid #263241;margin-top:0.5rem;padding-top:0.5rem;"></div>', unsafe_allow_html=True)
-    budget_col, plan_col = st.columns([1, 1.4])
+    # === BUDGET + INVESTMENT PLAN ===
+    render_html('<div style="border-top:1px solid #1E2333;margin-top:1rem;padding-top:0.85rem;"></div>')
+    budget_col, plan_col = st.columns([1, 1.45])
 
     with budget_col:
-        st.markdown('<h2 style="margin:0;color:#F5F7FA;">Budget Allocator</h2><div style="color:#718096;font-size:0.75rem;margin-bottom:0.4rem;">Set your available budget for security controls</div>', unsafe_allow_html=True)
+        render_html(
+            """
+            <h2 style="margin:0;color:#F8FAFC;">Capital Allocation Parameter</h2>
+            <div style="color:#94A3B8;font-size:0.75rem;margin-bottom:0.5rem;">Allocate defensive cybersecurity budget to minimize net portfolio liability</div>
+            """
+        )
 
         budget_crores = st.slider(
             "Budget (₹ Crore)",
@@ -118,14 +135,15 @@ def render(session):
         session["budget_crores"] = budget_crores
         budget_inr = budget_crores * 1_00_00_000
 
-        st.markdown(
-            f"""<div class="cl-card" style="text-align:center;padding:0.6rem;">
-                <div style="font-size:0.65rem;color:#718096;text-transform:uppercase;font-weight:600;">Selected Budget</div>
-                <div style="font-size:1.2rem;font-weight:700;color:#1683FF;margin-top:0.15rem;">₹{budget_crores:.1f} Crore</div>
-            </div>""",
-            unsafe_allow_html=True,
+        render_html(
+            f"""
+            <div class="cl-card" style="padding:0.85rem 1.15rem;margin-bottom:0.5rem;display:flex;justify-content:space-between;align-items:center;border-left:3px solid #38BDF8;">
+                <div style="font-size:0.75rem;color:#64748B;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;">Allocated CapEx</div>
+                <div class="cl-mono" style="font-size:1.35rem;font-weight:700;color:#38BDF8;">₹{budget_crores:.1f} Crore</div>
+            </div>
+            """
         )
-        show_plan = st.button("Show Optimal Investment Plan →", type="primary", key="show_plan_btn")
+        show_plan = st.button("Generate Allocation Schedule →", type="primary", key="show_plan_btn", width="stretch")
         if "show_plan_clicked" not in session:
             session["show_plan_clicked"] = True
         if show_plan:
@@ -133,59 +151,67 @@ def render(session):
 
     with plan_col:
         if session.get("show_plan_clicked"):
-            st.markdown('<h2 style="margin:0;color:#F5F7FA;">Optimal Investment Plan</h2><div style="color:#718096;font-size:0.75rem;margin-bottom:0.4rem;">Maximum risk reduction per rupee</div>', unsafe_allow_html=True)
+            render_html(
+                """
+                <h2 style="margin:0;color:#F8FAFC;">Optimal Security Investment Schedule</h2>
+                <div style="color:#94A3B8;font-size:0.75rem;margin-bottom:0.5rem;">Knapsack ROSI-optimized controls minimizing aggregate expected loss</div>
+                """
+            )
 
             enriched = enrich_controls_with_reduction(session["controls"], assets, vulns_by_asset)
             plan = optimize_budget(enriched, budget_inr, assets, vulns_by_asset)
 
             if plan["controls"]:
-                # Build HTML table for compact dark display
                 table_html = '<table style="width:100%;border-collapse:collapse;font-size:0.8rem;">'
-                table_html += '<tr style="border-bottom:1px solid #263241;color:#718096;font-weight:600;text-transform:uppercase;font-size:0.65rem;letter-spacing:0.05em;">'
-                table_html += '<td style="padding:6px 8px;">Control</td><td style="padding:6px 8px;text-align:right;">Cost (₹)</td><td style="padding:6px 8px;text-align:right;">Reduction (₹/yr)</td><td style="padding:6px 8px;text-align:right;">ROSI</td></tr>'
+                table_html += '<tr style="border-bottom:1px solid #1E2333;color:#64748B;font-weight:600;text-transform:uppercase;font-size:0.65rem;letter-spacing:0.06em;">'
+                table_html += '<td style="padding:8px 10px;">Security Control Intervention</td><td style="padding:8px 10px;text-align:right;">CapEx (₹)</td><td style="padding:8px 10px;text-align:right;">Annual Risk Reduction (₹/yr)</td><td style="padding:8px 10px;text-align:right;">ROSI</td></tr>'
 
                 for c in sorted(plan["controls"], key=lambda x: x["cost_inr"], reverse=True):
                     cost = c["cost_inr"]
                     red = c.get("risk_reduction_inr", 0.0)
                     rosi = ((red - cost) / cost * 100) if cost > 0 else 0.0
-                    rosi_color = "#35D39A" if rosi > 0 else "#FF4D5A"
-                    table_html += f'<tr style="border-bottom:1px solid #1A2431;color:#AAB4C3;">'
-                    table_html += f'<td style="padding:5px 8px;color:#F5F7FA;font-weight:500;">{c["name"]}</td>'
-                    table_html += f'<td style="padding:5px 8px;text-align:right;">{inr(cost)}</td>'
-                    table_html += f'<td style="padding:5px 8px;text-align:right;">{inr(red)}</td>'
-                    table_html += f'<td style="padding:5px 8px;text-align:right;color:{rosi_color};font-weight:600;">{rosi:.0f}%</td></tr>'
+                    table_html += f'<tr style="border-bottom:1px solid #161924;color:#CBD5E1;">'
+                    table_html += f'<td style="padding:7px 10px;color:#F8FAFC;font-weight:500;">{c["name"]}</td>'
+                    table_html += f'<td class="cl-mono" style="padding:7px 10px;text-align:right;color:#94A3B8;">{inr(cost)}</td>'
+                    table_html += f'<td class="cl-mono" style="padding:7px 10px;text-align:right;color:#F8FAFC;font-weight:600;">{inr(red)}</td>'
+                    table_html += f'<td style="padding:7px 10px;text-align:right;"><span class="cl-mono" style="background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.35);color:#34D399;font-weight:700;padding:2px 7px;border-radius:4px;font-size:0.7rem;">+{rosi:.0f}%</span></td></tr>'
 
                 total_cost = plan["total_cost"]
                 total_red = plan["total_reduction"]
                 overall_rosi = ((total_red - total_cost) / total_cost * 100) if total_cost > 0 else 0.0
 
-                table_html += f'<tr style="border-top:2px solid #263241;color:#F5F7FA;font-weight:700;">'
-                table_html += f'<td style="padding:6px 8px;">Total</td>'
-                table_html += f'<td style="padding:6px 8px;text-align:right;">{inr(total_cost)}</td>'
-                table_html += f'<td style="padding:6px 8px;text-align:right;">{inr(total_red)}</td>'
-                table_html += f'<td style="padding:6px 8px;text-align:right;color:#35D39A;">{overall_rosi:.0f}%</td></tr>'
+                table_html += f'<tr style="border-top:1px solid #1E2333;color:#FFFFFF;font-weight:700;background:#161924;">'
+                table_html += f'<td style="padding:9px 10px;">Total Allocated Portfolio</td>'
+                table_html += f'<td class="cl-mono" style="padding:9px 10px;text-align:right;color:#38BDF8;">{inr(total_cost)}</td>'
+                table_html += f'<td class="cl-mono" style="padding:9px 10px;text-align:right;color:#34D399;">{inr(total_red)}</td>'
+                table_html += f'<td style="padding:9px 10px;text-align:right;"><span class="cl-mono" style="background:#10B981;color:#041F16;border:1px solid #10B981;font-weight:800;padding:2px 8px;border-radius:4px;font-size:0.725rem;">+{overall_rosi:.0f}%</span></td></tr>'
                 table_html += '</table>'
 
-                st.markdown(f'<div class="cl-card" style="padding:0.5rem 0.75rem;">{table_html}</div>', unsafe_allow_html=True)
+                render_html(f'<div class="cl-card" style="padding:0.5rem 0.85rem;">{table_html}</div>')
 
                 remaining = plan["remaining_budget"]
-                st.markdown(
-                    f'<div style="display:flex;gap:1rem;margin-top:0.35rem;font-size:0.725rem;color:#718096;">'
-                    f'<span>Remaining: <strong style="color:#AAB4C3;">{inr(remaining)}</strong></span>'
-                    f'</div>',
-                    unsafe_allow_html=True,
+                render_html(
+                    f'<div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.45rem;font-size:0.75rem;color:#64748B;font-family:\'JetBrains Mono\',monospace;">'
+                    f'<span>Surplus Budget: <strong style="color:#38BDF8;">{inr(remaining)}</strong></span>'
+                    f'<span>Interventions Funded: <strong style="color:#34D399;">{len(plan["controls"])}</strong></span>'
+                    f'</div>'
                 )
             else:
                 st.info("No controls fit within the selected budget. Increase the slider.")
 
-    # === IMPACT VISUALIZATION (SIDE BY SIDE) ===
+    # === IMPACT VISUALIZATION ===
     if session.get("show_plan_clicked"):
         enriched = enrich_controls_with_reduction(session["controls"], assets, vulns_by_asset)
         plan = optimize_budget(enriched, budget_inr, assets, vulns_by_asset)
 
         if plan["controls"]:
-            st.markdown('<div style="border-top:1px solid #263241;margin-top:0.5rem;padding-top:0.5rem;"></div>', unsafe_allow_html=True)
-            st.markdown('<h2 style="margin:0;color:#F5F7FA;">Projected Risk Reduction</h2><div style="color:#718096;font-size:0.75rem;margin-bottom:0.25rem;">Before and after implementing recommended controls</div>', unsafe_allow_html=True)
+            render_html('<div style="border-top:1px solid #1E2333;margin-top:1rem;padding-top:0.85rem;"></div>')
+            render_html(
+                """
+                <h2 style="margin:0;color:#F8FAFC;">Net Risk Reduction Projection</h2>
+                <div style="color:#94A3B8;font-size:0.75rem;margin-bottom:0.4rem;">Comparative loss profile before and after implementing recommended controls</div>
+                """
+            )
 
             total_red = plan["total_reduction"]
             viz1, viz2 = st.columns(2)
@@ -195,20 +221,20 @@ def render(session):
                 pct_reduction = (total_red / exposure * 100) if exposure > 0 else 0.0
 
                 chart_df = pd.DataFrame([
-                    {"State": "Before", "Exposure": round(exposure / 1_00_00_000, 2)},
-                    {"State": "After", "Exposure": round(post_exposure / 1_00_00_000, 2)},
+                    {"State": "Current Exposure", "Exposure": round(exposure / 1_00_00_000, 2)},
+                    {"State": "Mitigated Exposure", "Exposure": round(post_exposure / 1_00_00_000, 2)},
                 ])
 
-                bar_chart = alt.Chart(chart_df).mark_bar(cornerRadiusTopLeft=3, cornerRadiusTopRight=3, size=50).encode(
-                    x=alt.X("State:N", sort=None, axis=alt.Axis(labelAngle=0, title=None, labelColor="#71869A", tickColor="#213447")),
-                    y=alt.Y("Exposure:Q", title="₹ Crore", axis=alt.Axis(labelColor="#71869A", titleColor="#71869A", gridColor="#142333", tickColor="#213447")),
-                    color=alt.Color("State:N", scale=alt.Scale(domain=["Before", "After"], range=["#FF4D5A", "#168BFF"]), legend=None),
-                ).properties(height=180, background="#101B27").configure_view(strokeWidth=0)
+                bar_chart = alt.Chart(chart_df).mark_bar(cornerRadiusTopLeft=4, cornerRadiusTopRight=4, size=55).encode(
+                    x=alt.X("State:N", sort=None, axis=alt.Axis(labelAngle=0, title=None, labelColor="#94A3B8", labelFont="Plus Jakarta Sans", labelFontSize=11, tickColor="#1E2333")),
+                    y=alt.Y("Exposure:Q", title="₹ Crore", axis=alt.Axis(labelColor="#64748B", titleColor="#64748B", gridColor="#161924", tickColor="#1E2333")),
+                    color=alt.Color("State:N", scale=alt.Scale(domain=["Current Exposure", "Mitigated Exposure"], range=["#F43F5E", "#10B981"]), legend=None),
+                ).properties(height=180, background="#10131B").configure_view(strokeWidth=0)
 
                 st.altair_chart(bar_chart, width="stretch")
-                st.markdown(
-                    f'<div style="text-align:center;background:rgba(50,214,160,0.1);color:#32D6A0;padding:5px 10px;border-radius:4px;font-weight:600;font-size:0.8rem;">↓ {pct_reduction:.1f}% · {inr(total_red)}/yr reduction</div>',
-                    unsafe_allow_html=True,
+                render_html(
+                    f'<div style="text-align:center;background:rgba(16,185,129,0.10);border:1px solid rgba(16,185,129,0.30);color:#34D399;padding:6px 12px;border-radius:4px;font-weight:600;font-size:0.8rem;font-family:\'JetBrains Mono\',monospace;">'
+                    f'↓ {pct_reduction:.1f}% Liability Reduction · <span class="cl-mono">{inr(total_red)}</span>/yr Averted</div>'
                 )
 
             with viz2:
@@ -224,10 +250,10 @@ def render(session):
                     for k, v in cat_dict.items()
                 ])
 
-                donut = alt.Chart(pie_data).mark_arc(innerRadius=45, outerRadius=70).encode(
+                donut = alt.Chart(pie_data).mark_arc(innerRadius=46, outerRadius=74).encode(
                     theta=alt.Theta("Reduction:Q"),
-                    color=alt.Color("Category:N", scale=alt.Scale(range=["#168BFF", "#329CFF", "#71869A", "#32D6A0", "#AAB8C8"]), legend=alt.Legend(orient="bottom", labelColor="#AAB8C8", titleColor="#71869A")),
+                    color=alt.Color("Category:N", scale=alt.Scale(range=["#38BDF8", "#818CF8", "#F43F5E", "#FB923C", "#10B981", "#A78BFA"]), legend=alt.Legend(orient="bottom", labelColor="#94A3B8", titleColor="#64748B", labelFont="Plus Jakarta Sans", labelFontSize=10)),
                     tooltip=["Category", "Reduction"]
-                ).properties(height=180, background="#101B27").configure_view(strokeWidth=0)
+                ).properties(height=180, background="#10131B").configure_view(strokeWidth=0)
 
                 st.altair_chart(donut, width="stretch")
