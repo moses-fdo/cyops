@@ -1,0 +1,22 @@
+{
+  "source": "CERT-In Cyber Threat Advisory Feed (Simulated)",
+  "published_at": "2026-09-10T00:00:00Z",
+  "threat_level": "AMBER",
+  "campaign_multipliers": {
+    "Authentication Bypass": 1.45,
+    "SQL Injection": 1.30,
+    "Privilege Escalation": 1.35,
+    "Insecure Storage": 1.20,
+    "Cross-Site Scripting": 1.15,
+    "Session Fixation": 1.25,
+    "Data Exposure": 1.30,
+    "Ransomware": 1.60,
+    "Rate Limiting": 1.20,
+    "Injection": 1.35,
+    "Weak Cryptography": 1.15,
+    "Network Sniffing": 1.25,
+    "Input Validation": 1.10,
+    "Default": 1.00
+  },
+  "targeted_sectors": ["Banking", "UPI Payment Ecosystem", "NBFCs", "Securities Market"]
+}
