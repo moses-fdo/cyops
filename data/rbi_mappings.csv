@@ -1,6 +1,6 @@
 mapping_id,asset_type,category,rbi_clause,nci_clause,sebi_clause,description
 RMAP_001,UPI_SWITCH,Authentication Bypass,RBI/2023-24/105.A.3,,,"Mandatory multi-factor authentication for all payment transactions above ₹50,000"
-RMAP_002,UPI_SWITCH,Data Exposure,RBI/2022-23/098.B.2,,SEBI/HO/ISD/ISD/CIR/P/2020/168,Encryption of all transaction data in transit and at rest
+RMAP_002,UPI_SWITCH,Data Exposure,RBI/2022-23/098.B.2,,SEBI/HO/ISD/ISD/CIR/P/2020/168,Encryption of all transaction data in transit and at rest; real-time transaction monitoring and anomaly detection
 RMAP_003,CBS_SERVER,SQL Injection,RBI/2023-24/105.C.1,,,"Input validation and parameterized queries for all database operations"
 RMAP_004,CBS_SERVER,Privilege Escalation,RBI/2022-23/098.A.1,RBI/2023-24/105.A.1,,"Role-based access control with principle of least privilege"
 RMAP_005,MOBILE_BANKING_APP,Insecure Storage,RBI/2023-24/105.B.2,,,"Secure storage of credentials using hardware-backed keystore"
@@ -16,4 +16,3 @@ RMAP_014,DATABASE,Data Exposure,RBI/2022-23/098.B.1,,,"Encryption of backups and
 RMAP_015,AUTH_SERVER,Authentication Bypass,RBI/2023-24/105.A.2,,,"Cryptographic token validation with key rotation"
 RMAP_016,AUTH_SERVER,Weak Cryptography,RBI/2023-24/105.D.2,,,"Use of bcrypt/scrypt with minimum cost factor 12"
 RMAP_017,LOG_SERVER,Data Exposure,RBI/2022-23/098.B.3,,,"Data masking for PII in logs"
-RMAP_018,UPI_SWITCH,Data Exposure,RBI/2023-24/105.D.1,,,"Real-time transaction monitoring and anomaly detection"

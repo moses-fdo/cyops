@@ -6,6 +6,7 @@ Run: streamlit run streamlit_app.py
 import copy
 import time
 import streamlit as st
+import os
 
 import data_loader
 from controls_library import CONTROLS
@@ -207,6 +208,61 @@ def main():
     if st.sidebar.button("📄 Generate SIH Summary", key="sb_sih"):
         from components.sih_features import generate_sih_summary
         generate_sih_summary(session)
+
+    # Phase 2.1: Compliance Report Export
+    if st.sidebar.button("Generate Compliance Report", key="sb_compliance_report"):
+        with st.spinner("Building compliance audit report..."):
+            result = data_loader.export_compliance_report()
+            st.session_state["compliance_report_result"] = result
+            st.session_state["compliance_report_generated"] = True
+            st.rerun()
+
+    # Show compliance report download links if generated
+    if st.session_state.get("compliance_report_generated"):
+        result = st.session_state.get("compliance_report_result")
+        if result:
+            st.sidebar.divider()
+            st.sidebar.markdown("### 📋 Compliance Report")
+            for fpath in result.get("files_generated", []):
+                fname = os.path.basename(fpath)
+                with open(fpath, "rb") as f:
+                    st.sidebar.download_button(
+                        label=f"⬇️ Download {fname}",
+                        data=f.read(),
+                        file_name=fname,
+                        mime="text/csv" if fname.endswith(".csv") else "application/json",
+                        key=f"dl_{fname}",
+                    )
+            # Show summary
+            summary = result.get("summary", {})
+            st.sidebar.metric("Coverage", f"{summary.get('compliance_coverage', {}).get('coverage_percentage', 0)}%")
+            if st.sidebar.button("Clear Report", key="sb_clear_report"):
+                st.session_state.pop("compliance_report_result", None)
+                st.session_state.pop("compliance_report_generated", None)
+                st.rerun()
+
+    # Phase 2.2: Before/After Breach Demo
+    if st.sidebar.button("Run Breach Demo", key="sb_breach_demo"):
+        with st.spinner("Simulating breach scenario..."):
+            scenario = data_loader.load_judge_demo_scenario()
+            st.session_state["breach_scenario"] = scenario
+            st.session_state["breach_scenario_generated"] = True
+            st.rerun()
+
+    # Show breach demo results if generated
+    if st.session_state.get("breach_scenario_generated"):
+        scenario = st.session_state.get("breach_scenario")
+        if scenario:
+            st.sidebar.divider()
+            st.sidebar.markdown("### 🔴 Breach Demo Result")
+            st.sidebar.metric("Portfolio CR-I", f"{scenario['before']['overall_cr_i']}/100")
+            st.sidebar.metric("Annual Exposure", f"₹{scenario['before']['total_exposure_inr']:,.0f}")
+            st.sidebar.metric("Single Breach Loss", f"₹{scenario['breach']['realized_single_loss_inr']:,.0f}")
+            st.sidebar.metric("Control ROI", f"{scenario['delta']['loss_multiple_of_controls']}×")
+            if st.sidebar.button("Clear Demo", key="sb_clear_breach_demo"):
+                st.session_state.pop("breach_scenario", None)
+                st.session_state.pop("breach_scenario_generated", None)
+                st.rerun()
 
     # === VIEW ROUTER ===
     if session["current_view"] == "Executive View":

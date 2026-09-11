@@ -1,43 +1,77 @@
-"""CyberLens 2.0 - SIH-specific features: demo scenario loader and summary generator."""
+"""CyberLens 2.0 - SIH-specific features: demo scenario loader and summary generator.
+
+Dataset-agnostic: the demo scenario is built dynamically from whichever
+dataset is loaded (original UPI/CBS dataset or the SWIFT/IMPS/FOREX testing
+dataset), so counts and asset picks are always correct.
+"""
 
 import datetime
+import time
 import streamlit as st
 
-from risk_engine import total_exposure, compute_overall_cr_i
+from risk_engine import total_exposure, compute_overall_cr_i, expected_annual_loss
 
-DEMO_SCENARIO = {
-    "UPI_SWITCH_001": ["V_UPI_001", "V_UPI_002"],
-    "CBS_SERVER_001": ["V_CBS_001", "V_CBS_002"],
-    "MOBILE_BANKING_001": ["V_MOBILE_001"],
-    "API_GATEWAY_001": ["V_API_001", "V_API_002"],
-    "AUTH_SERVER_001": ["V_AUTH_001"],
-}
+
+def _top_risk_assets(assets, vulns_by_asset, n=5):
+    """Return the assets with the highest Expected Annual Loss, desc order."""
+    scored = sorted(
+        (
+            {
+                **a,
+                "_eal": sum(
+                    expected_annual_loss(v, a) for v in vulns_by_asset.get(a["asset_id"], [])
+                ),
+            }
+            for a in assets
+        ),
+        key=lambda a: a["_eal"],
+        reverse=True,
+    )
+    return scored[:n]
 
 
 def load_demo_scenario(session):
-    """Filter the session's vulns_by_asset to the high-risk UPI Switch scenario."""
+    """Filter the session to a high-risk subset of dynamic assets + their top vulns.
+
+    Picks the `n` highest-EAL assets in the loaded dataset and, for each,
+    keeps its highest-severity vulnerability (falling back to all if fewer).
+    Uses the server-side copy of the full dataset so the demo always targets
+    real asset IDs in the current CSV.
+    """
     # Audit: log scenario load action
     audit = session.get("audit_log", [])
-    audit.append({"action": "load_demo_scenario", "timestamp": __import__("time").time()})
+    audit.append({"action": "load_demo_scenario", "timestamp": time.time()})
     session["audit_log"] = audit[:1000]
 
     import data_loader
     all_assets = data_loader.get_assets()
     all_vulns = {a["asset_id"]: data_loader.get_vulnerabilities(a["asset_id"]) for a in all_assets}
 
-    selected = {
-        asset_id: [v for v in vulns if v["vuln_id"] in DEMO_SCENARIO.get(asset_id, [])]
-        for asset_id, vulns in all_vulns.items()
-        if asset_id in DEMO_SCENARIO
-    }
-    session["vulns_by_asset"] = {k: v for k, v in selected.items() if v}
-    session["assets"] = [a for a in all_assets if a["asset_id"] in selected]
+    top = _top_risk_assets(all_assets, all_vulns, n=5)
+    selected_vulns = {}
+    for a in top:
+        candidate_vulns = all_vulns.get(a["asset_id"], [])
+        # Highest-severity mapped vulnerabilities (top 2 by CVSS)
+        kept = sorted(candidate_vulns, key=lambda v: v["cvss_base_score"], reverse=True)[:2]
+        if kept:
+            selected_vulns[a["asset_id"]] = kept
+
+    session["vulns_by_asset"] = selected_vulns
+    session["assets"] = [a for a in all_assets if a["asset_id"] in selected_vulns]
+
     # Trigger risk matrix recompute
     from risk_engine import compute_risk_matrix
     session["risk_matrix"] = compute_risk_matrix(
         session["assets"], session["vulns_by_asset"]
     )
-    st.success("Loaded UPI Switch Demo Scenario (high-risk subset: 5 assets, 8 vulnerabilities).")
+
+    n_assets = len(session["assets"])
+    n_vulns = sum(len(v) for v in session["vulns_by_asset"].values())
+    st.success(
+        f"Loaded Demo Scenario — high-risk subset: {n_assets} assets, "
+        f"{n_vulns} vulnerabilities. "
+        f"Target: {', '.join(a['name'] for a in session['assets'])}."
+    )
 
 
 def reset_full_portfolio(session):
@@ -52,7 +86,8 @@ def reset_full_portfolio(session):
     session["vulns_by_asset"] = vulns_by_asset
     session["risk_matrix"] = risk_matrix
     session["controls"] = list(CONTROLS.values())
-    st.success("Reset to full portfolio (10 assets, 17 vulnerabilities).")
+    n_vulns = sum(len(v) for v in vulns_by_asset.values())
+    st.success(f"Reset to full portfolio ({len(assets)} assets, {n_vulns} vulnerabilities).")
 
 
 def generate_sih_summary(session):
@@ -97,9 +132,9 @@ that maximizes risk reduction per rupee spent.
 - **AI:** Few-shot remediation templates (Hindi/English), LLM-ready fallback
 
 ## 5. Compliance Alignment
-Every vulnerability is auto-mapped to its exact regulatory clause (e.g.,
-RBI/2023-24/105.A.3 for MFA requirements), enabling governance teams to
-audit and prioritize by mandate.
+Every vulnerability is auto-mapped to its exact regulatory clause under
+RBI / NPCI / SEBI (e.g., RBI/SWIFT-CSP, NPCI/IMPS, SEBI/CSCRF), enabling
+governance teams to audit and prioritize by mandate.
 
 ## 6. Future Scope
 - Real-time CERT-In/NVD vulnerability feeds
@@ -116,7 +151,7 @@ public-sector banks and payment systems.
 """
     # Audit: log summary generation
     audit = session.get("audit_log", [])
-    audit.append({"action": "generate_sih_summary", "timestamp": __import__("time").time(), "file": "SIH_Submission.md"})
+    audit.append({"action": "generate_sih_summary", "timestamp": time.time(), "file": "SIH_Submission.md"})
     session["audit_log"] = audit[:1000]
     with open("SIH_Submission.md", "w", encoding="utf-8") as f:
         f.write(content)

@@ -12,6 +12,7 @@ from risk_engine import (
     enrich_controls_with_reduction,
     total_exposure,
 )
+import data_loader
 from components.widgets import (
     section_header,
     metric_card,
