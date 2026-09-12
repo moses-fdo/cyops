@@ -10,7 +10,10 @@ import sys
 import time
 from itertools import combinations
 import numpy as np
-import pulp
+try:
+    import pulp
+except ImportError:
+    pulp = None
 
 if hasattr(sys.stdout, "reconfigure"):
     try:
