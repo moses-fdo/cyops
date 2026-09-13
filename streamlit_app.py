@@ -37,23 +37,23 @@ def _load_data():
 
 
 def main():
-    # Inject dark banking dashboard CSS
-    inject_swiss_css()
+    # Inject themed banking dashboard CSS (light/dark driven by session_state)
+    inject_swiss_css(st.session_state.get("theme", "dark"))
 
     # Authentication
     session_auth = st.session_state.get("authenticated")
     if not session_auth:
         render_html(
             """
-            <div class="cl-card" style="max-width:460px;margin:80px auto 20px auto;padding:28px 26px;border:1px solid #1E2333;border-top:3px solid #38BDF8;">
-                <div style="font-size:0.68rem;font-weight:700;color:#38BDF8;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.35rem;font-family:'JetBrains Mono',monospace;">
+            <div class="cl-card" style="max-width:460px;margin:80px auto 20px auto;padding:28px 26px;border:1px solid var(--cl-border);border-top:3px solid var(--cl-accent-strong);">
+                <div style="font-size:0.68rem;font-weight:700;color:var(--cl-accent-strong);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.35rem;font-family:'JetBrains Mono',monospace;">
                     RESERVE BANK OF INDIA · FINANCIAL SUPERVISION PORTAL
                 </div>
-                <h1 style="font-size:1.35rem;margin-bottom:0.35rem;color:#F8FAFC;letter-spacing:-0.02em;">CyberLens Platform 2.0</h1>
-                <p style="color:#94A3B8;font-size:0.8rem;margin-bottom:1.15rem;line-height:1.45;">
+                <h1 style="font-size:1.35rem;margin-bottom:0.35rem;color:var(--cl-text);letter-spacing:-0.02em;">CyberLens Platform 2.0</h1>
+                <p style="color:var(--cl-muted);font-size:0.8rem;margin-bottom:1.15rem;line-height:1.45;">
                     Cyber Risk Quantification (CRQ) & Capital Allocation System for Critical Payment Infrastructure (UPI, CBS, ATM).
                 </p>
-                <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(56,189,248,0.10);border:1px solid rgba(56,189,248,0.30);padding:3px 10px;border-radius:4px;font-size:0.725rem;color:#38BDF8;margin-bottom:1rem;font-family:'JetBrains Mono',monospace;">
+                <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(56,189,248,0.10);border:1px solid rgba(56,189,248,0.30);padding:3px 10px;border-radius:4px;font-size:0.725rem;color:var(--cl-accent-strong);margin-bottom:1rem;font-family:'JetBrains Mono',monospace;">
                     Audit Compliance: RBI/2023-24/105
                 </div>
             </div>
@@ -103,22 +103,22 @@ def main():
         session["current_view"] = "Executive View"
 
     # === TOP NAVIGATION HEADER ===
-    header_col1, header_col2, header_col3, header_col4 = st.columns([2.8, 3.1, 3.6, 2.5], vertical_alignment="center")
+    header_col1, header_col2, header_col3 = st.columns([3.2, 3.2, 3.6], vertical_alignment="center")
 
     with header_col1:
         render_html(
             """
             <div style="display:flex;align-items:center;gap:12px;">
-                <div style="background:rgba(56,189,248,0.12);border:1px solid rgba(56,189,248,0.35);color:#38BDF8;font-weight:700;font-size:0.8rem;padding:5px 9px;border-radius:4px;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;">
+                <div style="background:rgba(56,189,248,0.12);border:1px solid rgba(56,189,248,0.35);color:var(--cl-accent-strong);font-weight:700;font-size:0.825rem;padding:6px 11px;border-radius:6px;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;">
                     CRQ//2.0
                 </div>
                 <div style="display:flex;flex-direction:column;justify-content:center;">
-                    <div style="font-size:1.05rem;font-weight:700;color:#F8FAFC;letter-spacing:-0.02em;line-height:1.2;">
+                    <div style="font-size:1.1rem;font-weight:700;color:var(--cl-text);letter-spacing:-0.02em;line-height:1.2;">
                         CyberLens Platform
                     </div>
-                    <div style="font-size:0.675rem;color:#64748B;font-weight:500;display:flex;align-items:center;gap:6px;margin-top:1px;">
-                        <span style="width:6px;height:6px;border-radius:50%;background:#10B981;box-shadow:0 0 6px #10B981;display:inline-block;"></span>
-                        <span style="color:#94A3B8;">RBI Master Direction Framework</span> · Active
+                    <div style="font-size:0.7rem;color:var(--cl-faint);font-weight:500;display:flex;align-items:center;gap:6px;margin-top:2px;">
+                        <span style="width:6px;height:6px;border-radius:50%;background:#10B981;box-shadow:0 0 8px #10B981;display:inline-block;"></span>
+                        <span style="color:var(--cl-muted);">RBI Master Direction (RBI/2023-24/105)</span> · Active
                     </div>
                 </div>
             </div>
@@ -130,7 +130,7 @@ def main():
         v_col1, v_col2 = st.columns(2)
         with v_col1:
             if st.button(
-                "Executive View",
+                "📊 Executive View",
                 key="nav_top_exec",
                 type="primary" if curr_view == "Executive View" else "secondary",
                 width="stretch",
@@ -148,38 +148,113 @@ def main():
                 st.rerun()
 
     with header_col3:
-        a_col1, a_col2, a_col3 = st.columns([1.2, 1.3, 1.3])
+        a_col1, a_col2, a_col3, a_col4 = st.columns([1.3, 1.3, 1.3, 1.1], vertical_alignment="center")
         with a_col1:
-            if st.button("UPI Switch Demo", key="top_upi_demo", help="Load UPI Switch Demo Scenario", width="stretch"):
+            if st.button("UPI Demo", key="top_upi_demo", type="secondary", help="Load high-risk payment switch demo subset", width="stretch"):
                 from components.sih_features import load_demo_scenario
                 load_demo_scenario(session)
                 st.rerun()
         with a_col2:
-            if st.button("Reset Portfolio", key="top_reset_portfolio", help="Reset Full Portfolio", width="stretch"):
+            if st.button("Reset", key="top_reset_portfolio", type="secondary", help="Reset full 10-asset portfolio", width="stretch"):
                 from components.sih_features import reset_full_portfolio
                 reset_full_portfolio(session)
                 st.rerun()
         with a_col3:
-            if st.button("Generate SIH", key="top_sih_summary", help="Generate SIH Summary", width="stretch"):
+            if st.button("SIH Export", key="top_sih_summary", type="secondary", help="Generate and download SIH Dossier", width="stretch"):
                 from components.sih_features import generate_sih_summary
                 generate_sih_summary(session)
+        with a_col4:
+            current_theme = st.session_state.get("theme", "dark")
+            light_on = st.toggle(
+                "Light",
+                key="theme_switch",
+                value=(current_theme == "light"),
+                help="Toggle between light and dark visual themes",
+            )
+            new_theme = "light" if light_on else "dark"
+            if new_theme != current_theme:
+                st.session_state["theme"] = new_theme
+                st.rerun()
 
-    with header_col4:
-        st.text_input(
-            "Search",
-            placeholder="Filter assets or CVEs...",
-            label_visibility="collapsed",
-            key="global_search_input",
-        )
+    render_html('<div style="border-bottom:1px solid var(--cl-border);margin-top:0.35rem;margin-bottom:0.95rem;"></div>')
 
-    render_html('<div style="border-bottom:1px solid #1E2333;margin-top:0.4rem;margin-bottom:1.1rem;"></div>')
+    # === SUPERVISORY TOOLS DRAWER ===
+    with st.expander("🛡️ Supervisory Audit & Breach Simulation Console (RBI Compliance · Stress Testing)", expanded=False):
+        st_col1, st_col2 = st.columns(2)
+        with st_col1:
+            st.markdown("#### 📋 Regulatory Compliance Audit")
+            st.caption("Generate formal audit package cross-referencing all vulnerabilities against RBI, SEBI, and NPCI circulars.")
+            if st.button("Generate Compliance Audit Package", key="main_compliance_report", type="secondary", width="stretch"):
+                with st.spinner("Building regulatory compliance package..."):
+                    result = data_loader.export_compliance_report()
+                    st.session_state["compliance_report_result"] = result
+                    st.session_state["compliance_report_generated"] = True
+                    st.rerun()
+
+            if st.session_state.get("compliance_report_generated"):
+                result = st.session_state.get("compliance_report_result", {})
+                summary = result.get("summary", {})
+                cov = summary.get("compliance_coverage", {}).get("coverage_percentage", 0)
+                render_html(
+                    f"""
+                    <div class="cl-card" style="margin-top:0.75rem;padding:0.85rem 1rem;border-left:3px solid #10B981;">
+                        <div style="display:flex;justify-content:space-between;align-items:center;">
+                            <span style="font-size:0.8rem;color:var(--cl-text);font-weight:600;">Framework Coverage: <span class="cl-mono" style="color:#34D399;font-weight:700;">{cov}%</span></span>
+                            <span style="font-size:0.7rem;color:var(--cl-faint);font-family:'JetBrains Mono',monospace;">Status: VERIFIED</span>
+                        </div>
+                    </div>
+                    """
+                )
+                dl_col1, dl_col2 = st.columns(2)
+                for fpath in result.get("files_generated", []):
+                    fname = os.path.basename(fpath)
+                    target_col = dl_col1 if fname.endswith(".csv") else dl_col2
+                    with target_col:
+                        with open(fpath, "rb") as f:
+                            st.download_button(
+                                label=f"⬇️ {fname}",
+                                data=f.read(),
+                                file_name=fname,
+                                mime="text/csv" if fname.endswith(".csv") else "application/json",
+                                key=f"main_dl_{fname}",
+                                width="stretch",
+                            )
+
+        with st_col2:
+            st.markdown("#### 🔴 Judge Breach Simulation")
+            st.caption("Simulate full node collapse on the highest-EAL payment switch and quantify Single Loss Expectancy (SLE).")
+            if st.button("Run Before/After Breach Simulation", key="main_breach_demo", type="secondary", width="stretch"):
+                with st.spinner("Simulating systemic breach on critical infrastructure..."):
+                    scenario = data_loader.load_judge_demo_scenario()
+                    st.session_state["breach_scenario"] = scenario
+                    st.session_state["breach_scenario_generated"] = True
+                    st.rerun()
+
+            if st.session_state.get("breach_scenario_generated"):
+                scenario = st.session_state.get("breach_scenario")
+                if scenario:
+                    render_html(
+                        f"""
+                        <div class="cl-card" style="margin-top:0.75rem;padding:0.85rem 1.15rem;border-left:3px solid #F43F5E;">
+                            <div style="font-size:0.7rem;font-weight:700;color:#FB7185;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;">
+                                Target: {scenario.get('scenario', {}).get('breach_asset_name', 'Payment Switch')}
+                            </div>
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:0.78rem;">
+                                <div>Pre-Breach CR-I: <strong class="cl-mono" style="color:var(--cl-text);">{scenario['before']['overall_cr_i']}/100</strong></div>
+                                <div>Single Incident Loss: <strong class="cl-mono" style="color:#FB7185;">₹{scenario['breach']['realized_single_loss_inr']:,.0f}</strong></div>
+                                <div>Annual Exposure: <strong class="cl-mono" style="color:var(--cl-text);">{scenario['before']['total_exposure_inr']:,.0f}</strong></div>
+                                <div>Knapsack Control ROI: <strong class="cl-mono" style="color:#34D399;">{scenario['delta']['loss_multiple_of_controls']}×</strong></div>
+                            </div>
+                        </div>
+                        """
+                    )
 
     # === HIDDEN SIDEBAR FOR BACKWARD TEST COMPATIBILITY ===
     st.sidebar.markdown(
         """
-        <div style="margin-bottom:1rem;padding-bottom:0.75rem;border-bottom:1px solid #263241;">
-            <div style="font-size:1.05rem;font-weight:700;color:#F5F7FA;letter-spacing:-0.02em;">🛡️ CyberLens 2.0</div>
-            <div style="font-size:0.7rem;color:#718096;font-weight:500;margin-top:2px;">RBI-Aligned Cyber Risk Dashboard</div>
+        <div style="margin-bottom:1rem;padding-bottom:0.75rem;border-bottom:1px solid var(--cl-border-4);">
+            <div style="font-size:1.05rem;font-weight:700;color:var(--cl-text);letter-spacing:-0.02em;">🛡️ CyberLens 2.0</div>
+            <div style="font-size:0.7rem;color:var(--cl-muted);font-weight:500;margin-top:2px;">RBI-Aligned Cyber Risk Dashboard</div>
         </div>
         """,
         unsafe_allow_html=True,
@@ -209,7 +284,7 @@ def main():
         from components.sih_features import generate_sih_summary
         generate_sih_summary(session)
 
-    # Phase 2.1: Compliance Report Export
+    # Phase 2.1: Compliance Report Export (Sidebar hook for tests/automation)
     if st.sidebar.button("Generate Compliance Report", key="sb_compliance_report"):
         with st.spinner("Building compliance audit report..."):
             result = data_loader.export_compliance_report()
@@ -217,7 +292,6 @@ def main():
             st.session_state["compliance_report_generated"] = True
             st.rerun()
 
-    # Show compliance report download links if generated
     if st.session_state.get("compliance_report_generated"):
         result = st.session_state.get("compliance_report_result")
         if result:
@@ -233,7 +307,6 @@ def main():
                         mime="text/csv" if fname.endswith(".csv") else "application/json",
                         key=f"dl_{fname}",
                     )
-            # Show summary
             summary = result.get("summary", {})
             st.sidebar.metric("Coverage", f"{summary.get('compliance_coverage', {}).get('coverage_percentage', 0)}%")
             if st.sidebar.button("Clear Report", key="sb_clear_report"):
@@ -241,7 +314,7 @@ def main():
                 st.session_state.pop("compliance_report_generated", None)
                 st.rerun()
 
-    # Phase 2.2: Before/After Breach Demo
+    # Phase 2.2: Before/After Breach Demo (Sidebar hook for tests/automation)
     if st.sidebar.button("Run Breach Demo", key="sb_breach_demo"):
         with st.spinner("Simulating breach scenario..."):
             scenario = data_loader.load_judge_demo_scenario()
@@ -249,7 +322,6 @@ def main():
             st.session_state["breach_scenario_generated"] = True
             st.rerun()
 
-    # Show breach demo results if generated
     if st.session_state.get("breach_scenario_generated"):
         scenario = st.session_state.get("breach_scenario")
         if scenario:
@@ -263,6 +335,7 @@ def main():
                 st.session_state.pop("breach_scenario", None)
                 st.session_state.pop("breach_scenario_generated", None)
                 st.rerun()
+
 
     # === VIEW ROUTER ===
     if session["current_view"] == "Executive View":

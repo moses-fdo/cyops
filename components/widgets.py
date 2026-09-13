@@ -12,32 +12,113 @@ def render_html(html_str):
     st.markdown(cleaned, unsafe_allow_html=True)
 
 
-def inject_swiss_css():
-    """Inject colorized dark banking command-center CSS theme (Obsidian & Ice Cyan with semantic risk accents)."""
+THEMES = {
+    "dark": {
+        "canvas": "#07090E",
+        "panel": "#0E131F",
+        "panel-2": "#141A2B",
+        "panel-3": "#1B2338",
+        "hover": "#161E31",
+        "button": "#121826",
+        "button-hover": "#1C2438",
+        "button-active": "#222D46",
+        "border": "#1E293D",
+        "border-2": "#283752",
+        "border-3": "#334566",
+        "border-4": "#3F567F",
+        "border-hover": "#38BDF8",
+        "track": "#121826",
+        "text": "#F8FAFC",
+        "text-2": "#F1F5F9",
+        "text-3": "#E2E8F0",
+        "text-4": "#CBD5E1",
+        "muted": "#94A3B8",
+        "faint": "#64748B",
+        "accent-strong": "#38BDF8",
+        "accent-glow": "rgba(56, 189, 248, 0.25)",
+        "on-accent": "#03111C",
+        "on-green": "#041F16",
+        "shadow": "0 4px 24px -2px rgba(0, 0, 0, 0.55)",
+        "shadow-hover": "0 8px 32px -2px rgba(0, 0, 0, 0.70)",
+        "inset": "inset 0 1px 0 0 rgba(255, 255, 255, 0.05)",
+        "inset-hover": "inset 0 1px 0 0 rgba(255, 255, 255, 0.08)",
+        "buttonshadow": "0 1px 3px rgba(0, 0, 0, 0.4)",
+        "glow": "0 0 16px -2px rgba(56, 189, 248, 0.35)",
+        "input-shadow": "inset 0 1px 2px rgba(0, 0, 0, 0.4)",
+    },
+    "light": {
+        "canvas": "#F6F8FC",
+        "panel": "#FFFFFF",
+        "panel-2": "#F1F5F9",
+        "panel-3": "#E2E8F0",
+        "hover": "#F8FAFC",
+        "button": "#FFFFFF",
+        "button-hover": "#F0F9FF",
+        "button-active": "#E0F2FE",
+        "border": "#E2E8F0",
+        "border-2": "#CBD5E1",
+        "border-3": "#94A3B8",
+        "border-4": "#64748B",
+        "border-hover": "#0284C7",
+        "track": "#E2E8F0",
+        "text": "#0F172A",
+        "text-2": "#1E293B",
+        "text-3": "#334155",
+        "text-4": "#475569",
+        "muted": "#64748B",
+        "faint": "#94A3B8",
+        "accent-strong": "#0284C7",
+        "accent-glow": "rgba(2, 132, 199, 0.20)",
+        "on-accent": "#FFFFFF",
+        "on-green": "#041F16",
+        "shadow": "0 4px 20px -4px rgba(15, 23, 42, 0.08)",
+        "shadow-hover": "0 8px 28px -4px rgba(15, 23, 42, 0.14)",
+        "inset": "inset 0 1px 0 0 rgba(255, 255, 255, 0.8)",
+        "inset-hover": "inset 0 1px 0 0 rgba(255, 255, 255, 1)",
+        "buttonshadow": "0 1px 2px rgba(15, 23, 42, 0.08)",
+        "glow": "0 0 0 1px rgba(2, 132, 199, 0.30)",
+        "input-shadow": "inset 0 1px 2px rgba(15, 23, 42, 0.05)",
+    },
+}
+
+
+def _theme_root_css(theme):
+    """Render the active theme's --cl-* custom properties for :root."""
+    tokens = THEMES.get(theme, THEMES["dark"])
+    lines = [f"        --cl-{k}: {v} !important;" for k, v in tokens.items()]
+    return "\n".join(lines)
+
+
+def inject_swiss_css(theme="dark"):
+    """Inject the institutional command-center CSS using CSS variables.
+    The active theme's tokens are emitted directly at :root (no JS required),
+    so the light/dark switch re-paints on the next Streamlit rerun."""
     render_html(
         """
         <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
-        /* === HIGH-END COLORIZED INSTITUTIONAL CANVAS === */
+        /* === INSTITUTIONAL COMMAND CANVAS === */
         html, body, [class*="css"] {
             font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-            color: #F8FAFC !important;
+            color: var(--cl-text) !important;
             letter-spacing: -0.01em;
             -webkit-font-smoothing: antialiased;
         }
 
         .cl-mono {
-            font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace !important;
+            font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
             font-feature-settings: 'tnum' 1, 'zero' 1;
         }
 
         .stApp {
-            background-color: #08090D !important;
-            background: radial-gradient(circle at 50% -20%, rgba(56, 189, 248, 0.05) 0%, transparent 60%), #08090D !important;
+            background-color: var(--cl-canvas) !important;
+            background: radial-gradient(circle at 50% -15%, rgba(56, 189, 248, 0.07) 0%, transparent 65%),
+                        radial-gradient(circle at 10% 20%, rgba(16, 185, 129, 0.03) 0%, transparent 50%),
+                        var(--cl-canvas) !important;
         }
 
-        /* === CLEAN CANVAS MARGINS === */
+        /* === CLEAN CANVAS MARGINS & TOP BAR === */
         [data-testid="stSidebar"],
         [data-testid="stSidebarContent"],
         [data-testid="stSidebarNav"],
@@ -57,8 +138,19 @@ def inject_swiss_css():
             padding: 0 !important;
         }
 
-        .stApp > header {
+        /* Completely remove Streamlit's native header black banner */
+        [data-testid="stHeader"],
+        header[data-testid="stHeader"],
+        .stApp > header,
+        header {
+            background-color: transparent !important;
+            background: transparent !important;
             display: none !important;
+            height: 0px !important;
+            min-height: 0px !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            visibility: hidden !important;
         }
 
         [data-testid="stAppViewContainer"],
@@ -70,13 +162,14 @@ def inject_swiss_css():
             margin-left: 0 !important;
             padding-left: 1.5rem !important;
             padding-right: 1.5rem !important;
-            padding-top: 0.75rem !important;
+            padding-top: 1rem !important;
             width: 100% !important;
             max-width: 100% !important;
+            background-color: var(--cl-canvas) !important;
         }
 
         .main .block-container {
-            padding-top: 0.75rem !important;
+            padding-top: 0.85rem !important;
             padding-bottom: 2.5rem !important;
             padding-left: 1.5rem !important;
             padding-right: 1.5rem !important;
@@ -98,23 +191,12 @@ def inject_swiss_css():
         }
         .stMarkdown { min-height: 0 !important; }
 
-        /* === FLOATING COMMAND DOCK === */
-        .cl-topbar {
-            background-color: #10131B !important;
-            border: 1px solid #1E2333 !important;
-            border-radius: 8px !important;
-            padding: 0.6rem 1.25rem !important;
-            margin-bottom: 1.25rem !important;
-            min-height: 60px !important;
-            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.05) !important;
-        }
-
         /* === TYPOGRAPHY === */
         h1 {
             font-family: 'Plus Jakarta Sans', sans-serif !important;
             font-weight: 700 !important;
             letter-spacing: -0.025em !important;
-            color: #F8FAFC !important;
+            color: var(--cl-text) !important;
             font-size: 1.45rem !important;
             margin-bottom: 0.2rem !important;
             margin-top: 0 !important;
@@ -124,7 +206,7 @@ def inject_swiss_css():
             font-family: 'Plus Jakarta Sans', sans-serif !important;
             font-weight: 600 !important;
             letter-spacing: -0.02em !important;
-            color: #F1F5F9 !important;
+            color: var(--cl-text-2) !important;
             font-size: 1.1rem !important;
             margin-top: 0.5rem !important;
             margin-bottom: 0.25rem !important;
@@ -132,7 +214,7 @@ def inject_swiss_css():
         h3 {
             font-family: 'Plus Jakarta Sans', sans-serif !important;
             font-weight: 600 !important;
-            color: #E2E8F0 !important;
+            color: var(--cl-text-3) !important;
             font-size: 0.95rem !important;
             margin-top: 0.45rem !important;
             margin-bottom: 0.2rem !important;
@@ -140,77 +222,156 @@ def inject_swiss_css():
         h4 {
             font-family: 'Plus Jakarta Sans', sans-serif !important;
             font-weight: 600 !important;
-            color: #CBD5E1 !important;
+            color: var(--cl-text-4) !important;
             font-size: 0.85rem !important;
             margin-top: 0.35rem !important;
             margin-bottom: 0.2rem !important;
         }
         p, div, span, label {
-            color: #94A3B8;
+            color: var(--cl-muted);
         }
         .stCaption, caption {
-            color: #64748B !important;
+            color: var(--cl-faint) !important;
             font-size: 0.775rem !important;
         }
         strong, b {
-            color: #F8FAFC;
+            color: var(--cl-text);
         }
 
-        /* === BUTTONS === */
-        .stButton > button {
-            background-color: #141822 !important;
-            color: #E2E8F0 !important;
-            border: 1px solid #222736 !important;
-            border-radius: 5px !important;
+        /* === BUTTONS & NAVBAR CONTROLS === */
+        .stButton button,
+        button[data-testid*="BaseButton"],
+        button[data-testid*="baseButton"],
+        button[data-testid*="stBaseButton"],
+        button[kind="secondary"],
+        div[data-testid="stButton"] button {
+            background-color: var(--cl-button) !important;
+            color: var(--cl-text) !important;
+            border: 1px solid var(--cl-border-2) !important;
+            border-radius: 6px !important;
             padding: 0.45rem 0.85rem !important;
             font-weight: 600 !important;
             font-size: 0.8rem !important;
             letter-spacing: -0.01em !important;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+            box-shadow: var(--cl-buttonshadow) !important;
             transition: all 0.15s ease !important;
             width: 100% !important;
+            outline: none !important;
         }
-        .stButton > button:hover {
-            border-color: #38BDF8 !important;
-            background-color: #1B2130 !important;
-            color: #FFFFFF !important;
-            box-shadow: 0 0 10px -2px rgba(56, 189, 248, 0.25) !important;
+
+        .stButton button *,
+        button[data-testid*="BaseButton"] *,
+        button[data-testid*="baseButton"] *,
+        button[data-testid*="stBaseButton"] *,
+        button[kind="secondary"] *,
+        div[data-testid="stButton"] button * {
+            color: var(--cl-text) !important;
+            font-weight: 600 !important;
+            transition: color 0.15s ease !important;
+        }
+
+        /* Secondary Button Hover & Focus States */
+        .stButton button:not([kind="primary"]):hover,
+        .stButton button:not([kind="primary"]):focus,
+        .stButton button:not([kind="primary"]):focus-visible,
+        button[data-testid*="secondary"]:hover,
+        button[data-testid*="secondary"]:focus,
+        button[kind="secondary"]:hover,
+        button[kind="secondary"]:focus {
+            border-color: var(--cl-accent-strong) !important;
+            background-color: var(--cl-button-hover) !important;
+            color: var(--cl-accent-strong) !important;
+            box-shadow: var(--cl-glow) !important;
             transform: translateY(-1px) !important;
+            outline: none !important;
         }
-        .stButton > button:active, .stButton > button:focus {
-            background-color: #1E2536 !important;
+
+        .stButton button:not([kind="primary"]):hover *,
+        .stButton button:not([kind="primary"]):focus *,
+        .stButton button:not([kind="primary"]):focus-visible *,
+        button[data-testid*="secondary"]:hover *,
+        button[data-testid*="secondary"]:focus *,
+        button[kind="secondary"]:hover *,
+        button[kind="secondary"]:focus * {
+            color: var(--cl-accent-strong) !important;
+        }
+
+        .stButton button:not([kind="primary"]):active,
+        button[data-testid*="secondary"]:active,
+        button[kind="secondary"]:active {
+            background-color: var(--cl-button-active) !important;
+            border-color: var(--cl-accent-strong) !important;
+            color: var(--cl-accent-strong) !important;
+            transform: translateY(0px) !important;
+        }
+
+        .stButton button:not([kind="primary"]):active *,
+        button[data-testid*="secondary"]:active *,
+        button[kind="secondary"]:active * {
+            color: var(--cl-accent-strong) !important;
+        }
+
+        /* Primary Button (Active View & Primary Actions) */
+        button[kind="primary"],
+        button[data-testid*="BaseButton-primary"],
+        button[data-testid*="baseButton-primary"],
+        button[data-testid*="stBaseButton-primary"],
+        .stButton button[kind="primary"],
+        .stButton button[data-testid*="primary"] {
+            background: linear-gradient(180deg, #0284C7 0%, #0369A1 100%) !important;
             color: #FFFFFF !important;
-            border-color: #38BDF8 !important;
-        }
-        /* Primary button - Ice Cyan */
-        button[kind="primary"], .stButton > button[data-testid="baseButton-primary"] {
-            background: linear-gradient(180deg, #38BDF8 0%, #0284C7 100%) !important;
-            color: #03111C !important;
-            border: 1px solid #38BDF8 !important;
+            border: 1px solid #0284C7 !important;
             font-weight: 700 !important;
-            box-shadow: 0 0 14px -2px rgba(56, 189, 248, 0.4) !important;
+            box-shadow: 0 2px 10px rgba(2, 132, 199, 0.35) !important;
+            outline: none !important;
         }
-        button[kind="primary"]:hover, .stButton > button[data-testid="baseButton-primary"]:hover {
-            background: linear-gradient(180deg, #7DD3FC 0%, #0369A1 100%) !important;
-            border-color: #7DD3FC !important;
-            color: #03111C !important;
-            box-shadow: 0 0 18px -1px rgba(56, 189, 248, 0.55) !important;
+
+        button[kind="primary"] *,
+        button[data-testid*="BaseButton-primary"] *,
+        button[data-testid*="baseButton-primary"] *,
+        button[data-testid*="stBaseButton-primary"] *,
+        .stButton button[kind="primary"] *,
+        .stButton button[data-testid*="primary"] * {
+            color: #FFFFFF !important;
+            font-weight: 700 !important;
+        }
+
+        button[kind="primary"]:hover,
+        button[kind="primary"]:focus,
+        button[data-testid*="primary"]:hover,
+        button[data-testid*="primary"]:focus,
+        .stButton button[kind="primary"]:hover,
+        .stButton button[kind="primary"]:focus {
+            background: linear-gradient(180deg, #0369A1 0%, #075985 100%) !important;
+            border-color: #38BDF8 !important;
+            color: #FFFFFF !important;
+            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.5) !important;
             transform: translateY(-1px) !important;
+            outline: none !important;
+        }
+
+        button[kind="primary"]:hover *,
+        button[kind="primary"]:focus *,
+        button[data-testid*="primary"]:hover *,
+        button[data-testid*="primary"]:focus *,
+        .stButton button[kind="primary"]:hover *,
+        .stButton button[kind="primary"]:focus * {
+            color: #FFFFFF !important;
         }
 
         /* === REFINED DOUBLE-BEZEL CARDS === */
         .cl-card {
-            background-color: #10131B !important;
-            border: 1px solid #1E2333 !important;
+            background-color: var(--cl-panel) !important;
+            border: 1px solid var(--cl-border) !important;
             border-radius: 6px !important;
             padding: 1.1rem 1.25rem !important;
-            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.04) !important;
+            box-shadow: var(--cl-shadow), var(--cl-inset) !important;
             position: relative !important;
             transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease !important;
         }
         .cl-card:hover {
-            border-color: #2E364D !important;
-            box-shadow: 0 6px 24px -2px rgba(0, 0, 0, 0.6), inset 0 1px 0 0 rgba(255, 255, 255, 0.06) !important;
+            border-color: var(--cl-border-hover) !important;
+            box-shadow: var(--cl-shadow-hover), var(--cl-inset-hover) !important;
         }
 
         /* === CUSTOM MINIMALIST SCROLLBAR === */
@@ -219,33 +380,33 @@ def inject_swiss_css():
             height: 6px;
         }
         ::-webkit-scrollbar-track {
-            background: #08090D;
+            background: var(--cl-canvas);
         }
         ::-webkit-scrollbar-thumb {
-            background: #1E2333;
+            background: var(--cl-border);
             border-radius: 3px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #38BDF8;
+            background: var(--cl-accent-strong);
         }
 
         /* === INPUTS & SELECTBOXES === */
         .stSelectbox > div > div,
         .stTextInput > div > div > input {
-            background-color: #10131B !important;
-            color: #F8FAFC !important;
-            border: 1px solid #1E2333 !important;
+            background-color: var(--cl-panel) !important;
+            color: var(--cl-text) !important;
+            border: 1px solid var(--cl-border) !important;
             border-radius: 5px !important;
-            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+            box-shadow: var(--cl-input-shadow) !important;
             font-size: 0.825rem !important;
         }
         .stTextInput > div > div > input:focus,
         .stSelectbox > div > div:focus-within {
-            border-color: #38BDF8 !important;
-            box-shadow: 0 0 0 1px #38BDF8, 0 0 10px -2px rgba(56, 189, 248, 0.3) !important;
+            border-color: var(--cl-accent-strong) !important;
+            box-shadow: 0 0 0 1px var(--cl-accent-strong), 0 0 10px -2px rgba(56, 189, 248, 0.3) !important;
         }
         .stSelectbox label, .stTextInput label, .stSlider label {
-            color: #94A3B8 !important;
+            color: var(--cl-muted) !important;
             font-size: 0.8rem !important;
             font-weight: 500 !important;
         }
@@ -255,21 +416,21 @@ def inject_swiss_css():
             padding-top: 0.5rem !important;
         }
         .stSlider div[data-baseweb="slider"] div {
-            color: #CBD5E1 !important;
+            color: var(--cl-text-4) !important;
         }
 
         /* === TOGGLE === */
-        .stToggle label span { color: #CBD5E1 !important; font-size: 0.825rem !important; }
+        .stToggle label span { color: var(--cl-text-4) !important; font-size: 0.825rem !important; }
 
         /* === TABS WITH ELECTRIC CYAN INDICATOR === */
         .stTabs [data-baseweb="tab-list"] {
             background-color: transparent !important;
-            border-bottom: 1px solid #1E2333 !important;
+            border-bottom: 1px solid var(--cl-border) !important;
             gap: 4px !important;
             padding-bottom: 0 !important;
         }
         .stTabs [data-baseweb="tab"] {
-            color: #64748B !important;
+            color: var(--cl-faint) !important;
             font-size: 0.825rem !important;
             padding: 8px 18px !important;
             font-weight: 600 !important;
@@ -278,12 +439,12 @@ def inject_swiss_css():
             transition: all 0.15s ease !important;
         }
         .stTabs [data-baseweb="tab"]:hover {
-            color: #E2E8F0 !important;
-            background: #141822 !important;
+            color: var(--cl-text-3) !important;
+            background: var(--cl-button) !important;
         }
         .stTabs [aria-selected="true"] {
-            color: #38BDF8 !important;
-            border-bottom-color: #38BDF8 !important;
+            color: var(--cl-accent-strong) !important;
+            border-bottom-color: var(--cl-accent-strong) !important;
             background: transparent !important;
         }
         .stTabs [data-baseweb="tab-panel"] {
@@ -292,30 +453,30 @@ def inject_swiss_css():
 
         /* === TABLES & DATAFRAMES === */
         .stDataFrame, [data-testid="stTable"] {
-            border: 1px solid #1E2333 !important;
+            border: 1px solid var(--cl-border) !important;
             border-radius: 6px !important;
         }
         table tbody tr {
             transition: background-color 0.12s ease !important;
         }
         table tbody tr:hover td {
-            background-color: #161A24 !important;
+            background-color: var(--cl-hover) !important;
         }
 
         /* === EXPANDER === */
         .stExpander {
-            border: 1px solid #1E2333 !important;
+            border: 1px solid var(--cl-border) !important;
             border-radius: 6px !important;
-            background-color: #10131B !important;
+            background-color: var(--cl-panel) !important;
         }
-        .stExpander summary { color: #CBD5E1 !important; font-weight: 500 !important; }
+        .stExpander summary { color: var(--cl-text-4) !important; font-weight: 500 !important; }
 
         /* === ALERTS === */
         .stAlert {
             border-radius: 6px !important;
             font-size: 0.825rem !important;
-            border: 1px solid #1E2333 !important;
-            background-color: #10131B !important;
+            border: 1px solid var(--cl-border) !important;
+            background-color: var(--cl-panel) !important;
         }
 
         /* === HIDE DEFAULTS === */
@@ -324,8 +485,114 @@ def inject_swiss_css():
         .stDeployButton {display:none;}
 
         /* === RADIO === */
-        .stRadio div[role="radiogroup"] label { color: #94A3B8 !important; }
-        .stRadio div[role="radiogroup"] label[data-checked="true"] span { color: #38BDF8 !important; }
+        .stRadio div[role="radiogroup"] label { color: var(--cl-muted) !important; }
+        .stRadio div[role="radiogroup"] label[data-checked="true"] span { color: var(--cl-accent-strong) !important; }
+
+        /* === UNIFIED TOOLTIP DESIGN (SINGLE-BOX, ZERO NESTED BORDERS) === */
+        #vg-tooltip-element,
+        .vg-tooltip,
+        div#vg-tooltip-element,
+        #vg-tooltip-element.vg-tooltip,
+        #vg-tooltip-element.dark-theme,
+        #vg-tooltip-element.light-theme,
+        div[data-baseweb="tooltip"],
+        div[role="tooltip"],
+        div[data-testid="stTooltipContent"],
+        div[data-baseweb="popover"] {
+            background-color: var(--cl-panel) !important;
+            background: var(--cl-panel) !important;
+            color: var(--cl-text) !important;
+            border: 1px solid var(--cl-border-2) !important;
+            box-shadow: var(--cl-shadow) !important;
+            font-family: 'Plus Jakarta Sans', -apple-system, sans-serif !important;
+            font-size: 0.775rem !important;
+            border-radius: 6px !important;
+            padding: 7px 11px !important;
+            z-index: 999999 !important;
+            backdrop-filter: blur(8px) !important;
+            overflow: hidden !important;
+        }
+
+        /* Reset all inner nested elements so they never render a second box or inner border */
+        #vg-tooltip-element *,
+        .vg-tooltip *,
+        div[data-baseweb="tooltip"] *,
+        div[role="tooltip"] *,
+        div[data-testid="stTooltipContent"] *,
+        div[data-baseweb="popover"] * {
+            background-color: transparent !important;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            outline: none !important;
+            color: var(--cl-text) !important;
+            font-family: 'Plus Jakarta Sans', -apple-system, sans-serif !important;
+            font-size: 0.775rem !important;
+            line-height: 1.35 !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        #vg-tooltip-element table,
+        .vg-tooltip table {
+            border-collapse: collapse !important;
+            margin: 0 !important;
+        }
+
+        #vg-tooltip-element table tr,
+        .vg-tooltip table tr {
+            background: transparent !important;
+        }
+
+        #vg-tooltip-element table tr td,
+        .vg-tooltip table tr td {
+            padding: 3px 6px !important;
+            border: none !important;
+            font-size: 0.775rem !important;
+            line-height: 1.3 !important;
+        }
+
+        #vg-tooltip-element table tr td.key,
+        .vg-tooltip table tr td.key {
+            color: var(--cl-muted) !important;
+            font-weight: 500 !important;
+        }
+
+        #vg-tooltip-element table tr td.value,
+        .vg-tooltip table tr td.value {
+            color: var(--cl-text) !important;
+            font-weight: 700 !important;
+            font-family: 'JetBrains Mono', monospace !important;
+        }
+
+        /* === REMOVE CHART HOVER / SELECTION TOOLBAR & ACTIONS === */
+        [data-testid="stElementToolbar"],
+        div[data-testid="stElementToolbar"],
+        [data-testid="stElementToolbarButton"],
+        .vega-actions,
+        details.vega-actions,
+        summary.vega-actions-button,
+        .vega-embed summary,
+        div.vega-actions,
+        button[title="View fullscreen"],
+        .action-link {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            height: 0 !important;
+            width: 0 !important;
+            pointer-events: none !important;
+        }
+        </style>
+        """
+    )
+    # Emit the active theme's tokens at :root so light/dark re-paints on rerun.
+    render_html(
+        f"""
+        <style>
+        :root {{
+{_theme_root_css(theme)}
+        }}
         </style>
         """
     )
@@ -365,10 +632,10 @@ def section_header(title, subtitle=None, right_html=None):
     right = f'<div style="display:flex;align-items:center;gap:10px;">{right_html}</div>' if right_html else ""
     render_html(
         f"""
-        <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:1.1rem;border-bottom:1px solid #1E2333;padding-bottom:0.75rem;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:1.1rem;border-bottom:1px solid var(--cl-border);padding-bottom:0.75rem;">
             <div>
-                <h1 style="margin:0;padding:0;line-height:1.2;font-size:1.45rem;font-weight:700;letter-spacing:-0.025em;color:#F8FAFC;">{title}</h1>
-                {f'<div style="color:#94A3B8;font-size:0.8rem;margin-top:0.25rem;font-weight:400;">{subtitle}</div>' if subtitle else ''}
+                <h1 style="margin:0;padding:0;line-height:1.2;font-size:1.45rem;font-weight:700;letter-spacing:-0.025em;color:var(--cl-text);">{title}</h1>
+                {f'<div style="color:var(--cl-muted);font-size:0.8rem;margin-top:0.25rem;font-weight:400;">{subtitle}</div>' if subtitle else ''}
             </div>
             {right}
         </div>
@@ -382,14 +649,14 @@ def metric_card(label, value, delta=None, help_text=None):
     if delta:
         delta_html = f'<div style="display:inline-flex;align-items:center;background:rgba(244, 63, 94, 0.10);border:1px solid rgba(244, 63, 94, 0.30);color:#FB7185;font-size:0.725rem;font-weight:600;padding:2px 8px;border-radius:4px;margin-top:0.5rem;font-family:\'JetBrains Mono\',monospace;">{delta}</div>'
 
-    help_html = f'<div style="color:#64748B;font-size:0.725rem;margin-top:0.5rem;border-top:1px solid #1E2333;padding-top:0.45rem;">{help_text}</div>' if help_text else ""
+    help_html = f'<div style="color:var(--cl-faint);font-size:0.725rem;margin-top:0.5rem;border-top:1px solid var(--cl-border);padding-top:0.45rem;">{help_text}</div>' if help_text else ""
 
     render_html(
         f"""
         <div class="cl-card" style="height:190px;display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;padding:1.1rem 1.25rem;border-top:2px solid #F43F5E;">
             <div>
-                <div style="color:#64748B;font-size:0.675rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.4rem;">{label}</div>
-                <div class="cl-mono" style="color:#F8FAFC;font-size:1.75rem;font-weight:700;letter-spacing:-0.03em;line-height:1.1;">{value}</div>
+                <div style="color:var(--cl-faint);font-size:0.675rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.4rem;">{label}</div>
+                <div class="cl-mono" style="color:var(--cl-text);font-size:1.75rem;font-weight:700;letter-spacing:-0.03em;line-height:1.1;">{value}</div>
                 {delta_html}
             </div>
             {help_html}
@@ -428,33 +695,33 @@ def render_cri_gauge(score, target=70):
         <div class="cl-card" style="height:190px;display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;padding:1.1rem 1.25rem;border-top:2px solid {accent_color};">
             <div>
                 <div style="display:flex;justify-content:space-between;align-items:center;">
-                    <div style="color:#64748B;font-size:0.675rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;">Cyber Resilience Index (CR-I)</div>
+                    <div style="color:var(--cl-faint);font-size:0.675rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;">Cyber Resilience Index (CR-I)</div>
                     <span style="background:{status_bg};border:1px solid {status_border};color:{status_color};font-size:0.65rem;font-weight:700;padding:2px 8px;border-radius:4px;font-family:\'JetBrains Mono\',monospace;">
                         {status_label}
                     </span>
                 </div>
                 <div style="display:flex;align-items:baseline;gap:6px;margin-top:0.4rem;">
-                    <span class="cl-mono" style="font-size:2rem;font-weight:700;color:#F8FAFC;line-height:1;">{score_val:.1f}</span>
-                    <span style="font-size:0.875rem;color:#64748B;font-weight:500;">/ 100</span>
+                    <span class="cl-mono" style="font-size:2rem;font-weight:700;color:var(--cl-text);line-height:1;">{score_val:.1f}</span>
+                    <span style="font-size:0.875rem;color:var(--cl-faint);font-weight:500;">/ 100</span>
                 </div>
             </div>
             <div style="margin:0.5rem 0;">
-                <div style="display:flex;justify-content:space-between;font-size:0.65rem;color:#64748B;margin-bottom:4px;font-family:\'JetBrains Mono\',monospace;">
+                <div style="display:flex;justify-content:space-between;font-size:0.65rem;color:var(--cl-faint);margin-bottom:4px;font-family:\'JetBrains Mono\',monospace;">
                     <span style="color:#FB7185;">0 Critical</span>
                     <span style="color:#FBBF24;">40 Threshold</span>
                     <span style="color:#34D399;">70 Benchmark</span>
                     <span>100</span>
                 </div>
-                <div style="position:relative;height:8px;background:#151923;border-radius:4px;overflow:hidden;border:1px solid #232838;">
+                <div style="position:relative;height:8px;background:var(--cl-track);border-radius:4px;overflow:hidden;border:1px solid var(--cl-border-3);">
                     <div style="position:absolute;left:0;width:40%;height:100%;background:linear-gradient(90deg, #F43F5E, #FB7185);opacity:0.35;"></div>
                     <div style="position:absolute;left:40%;width:30%;height:100%;background:linear-gradient(90deg, #F59E0B, #FBBF24);opacity:0.35;"></div>
                     <div style="position:absolute;left:70%;width:30%;height:100%;background:linear-gradient(90deg, #10B981, #34D399);opacity:0.45;"></div>
-                    <div style="position:absolute;left:{pct_pos}%;top:0;bottom:0;width:4px;background:#38BDF8;box-shadow:0 0 8px #38BDF8;border-radius:2px;"></div>
+                    <div style="position:absolute;left:{pct_pos}%;top:0;bottom:0;width:4px;background:var(--cl-accent-strong);box-shadow:0 0 8px var(--cl-accent-strong);border-radius:2px;"></div>
                 </div>
             </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid #1E2333;padding-top:0.45rem;font-size:0.725rem;color:#64748B;">
-                <span>Audit Benchmark: <strong style="color:#94A3B8;">RBI/2023-24/105</strong></span>
-                <span>Target: <strong style="color:#38BDF8;">≥{target}</strong></span>
+            <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--cl-border);padding-top:0.45rem;font-size:0.725rem;color:var(--cl-faint);">
+                <span>Audit Benchmark: <strong style="color:var(--cl-muted);">RBI/2023-24/105</strong></span>
+                <span>Target: <strong style="color:var(--cl-accent-strong);">≥{target}</strong></span>
             </div>
         </div>
         """
@@ -476,27 +743,27 @@ def render_compliance_gauge(percentage, target=90):
         <div class="cl-card" style="height:190px;display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;padding:1.1rem 1.25rem;border-top:2px solid {accent_color};">
             <div>
                 <div style="display:flex;justify-content:space-between;align-items:center;">
-                    <div style="color:#64748B;font-size:0.675rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;">RBI Master Direction Audit</div>
+                    <div style="color:var(--cl-faint);font-size:0.675rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;">RBI Master Direction Audit</div>
                     <span style="background:{status_bg};border:1px solid {status_border};color:{status_color};font-size:0.65rem;font-weight:700;padding:2px 8px;border-radius:4px;font-family:\'JetBrains Mono\',monospace;">
                         {status_label}
                     </span>
                 </div>
                 <div style="display:flex;align-items:baseline;gap:6px;margin-top:0.4rem;">
-                    <span class="cl-mono" style="font-size:2rem;font-weight:700;color:#F8FAFC;line-height:1;">{pct:.0f}%</span>
-                    <span style="font-size:0.875rem;color:#64748B;font-weight:500;">Clause Coverage</span>
+                    <span class="cl-mono" style="font-size:2rem;font-weight:700;color:var(--cl-text);line-height:1;">{pct:.0f}%</span>
+                    <span style="font-size:0.875rem;color:var(--cl-faint);font-weight:500;">Clause Coverage</span>
                 </div>
             </div>
             <div style="margin:0.5rem 0;">
-                <div style="display:flex;justify-content:space-between;font-size:0.65rem;color:#64748B;margin-bottom:4px;font-family:\'JetBrains Mono\',monospace;">
+                <div style="display:flex;justify-content:space-between;font-size:0.65rem;color:var(--cl-faint);margin-bottom:4px;font-family:\'JetBrains Mono\',monospace;">
                     <span>17 of 17 Vulnerabilities Mapped</span>
-                    <span style="color:#38BDF8;">Target: ≥{target}%</span>
+                    <span style="color:var(--cl-accent-strong);">Target: ≥{target}%</span>
                 </div>
-                <div style="height:8px;background:#151923;border-radius:4px;overflow:hidden;border:1px solid #232838;">
+                <div style="height:8px;background:var(--cl-track);border-radius:4px;overflow:hidden;border:1px solid var(--cl-border-3);">
                     <div style="width:{pct}%;height:100%;background:linear-gradient(90deg, #059669, #10B981);box-shadow:0 0 6px rgba(16, 185, 129, 0.4);transition:width 0.3s ease;"></div>
                 </div>
             </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid #1E2333;padding-top:0.45rem;font-size:0.725rem;color:#64748B;">
-                <span>Framework: <strong style="color:#94A3B8;">RBI · SEBI · NPCI</strong></span>
+            <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--cl-border);padding-top:0.45rem;font-size:0.725rem;color:var(--cl-faint);">
+                <span>Framework: <strong style="color:var(--cl-muted);">RBI · SEBI · NPCI</strong></span>
                 <span>Mandate Status: <strong style="color:#34D399;">Verified</strong></span>
             </div>
         </div>
@@ -524,8 +791,27 @@ def risk_badge(val):
         "CRITICAL": ("rgba(244, 63, 94, 0.12)", "#FB7185", "rgba(244, 63, 94, 0.40)", "CRITICAL"),
         "HIGH": ("rgba(249, 115, 22, 0.12)", "#FB923C", "rgba(249, 115, 22, 0.38)", "HIGH"),
         "MEDIUM": ("rgba(234, 179, 8, 0.10)", "#FACC15", "rgba(234, 179, 8, 0.35)", "MEDIUM"),
-        "LOW": ("rgba(148, 163, 184, 0.08)", "#94A3B8", "rgba(148, 163, 184, 0.25)", "LOW"),
-        "MINIMAL": ("rgba(100, 116, 139, 0.06)", "#64748B", "rgba(100, 116, 139, 0.20)", "MINIMAL"),
+        "LOW": ("rgba(148, 163, 184, 0.08)", "var(--cl-muted)", "rgba(148, 163, 184, 0.25)", "LOW"),
+        "MINIMAL": ("rgba(100, 116, 139, 0.06)", "var(--cl-faint)", "rgba(100, 116, 139, 0.20)", "MINIMAL"),
     }
     bg, fg, border, txt = styles.get(lvl, styles["MINIMAL"])
     return f'<span style="background-color:{bg};color:{fg};border:1px solid {border};padding:2px 8px;border-radius:4px;font-size:0.675rem;font-weight:700;letter-spacing:0.04em;font-family:\'JetBrains Mono\',monospace;white-space:nowrap;display:inline-flex;align-items:center;">{txt}</span>'
+
+
+def render_quick_stat(label, value, icon="🛡️", badge=None, border_color="var(--cl-border)"):
+    """Render a compact glassmorphic quick-stat telemetry block."""
+    badge_html = f'<span style="background:rgba(56,189,248,0.12);border:1px solid rgba(56,189,248,0.30);color:var(--cl-accent-strong);font-size:0.65rem;font-weight:700;padding:2px 6px;border-radius:4px;font-family:\'JetBrains Mono\',monospace;">{badge}</span>' if badge else ""
+    render_html(
+        f"""
+        <div class="cl-card" style="padding:0.75rem 1rem;display:flex;align-items:center;justify-content:space-between;border-left:3px solid {border_color};min-height:68px;">
+            <div style="display:flex;align-items:center;gap:10px;">
+                <div style="font-size:1.2rem;line-height:1;">{icon}</div>
+                <div>
+                    <div style="color:var(--cl-faint);font-size:0.675rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">{label}</div>
+                    <div class="cl-mono" style="font-size:1.05rem;font-weight:700;color:var(--cl-text);margin-top:2px;">{value}</div>
+                </div>
+            </div>
+            {badge_html}
+        </div>
+        """
+    )

@@ -162,3 +162,69 @@ public-sector banks and payment systems.
         file_name="SIH_Submission.md",
         mime="text/markdown",
     )
+
+
+SUPPORTED_LANGUAGES = {
+    "en": "en",
+    "hi": "hi",
+    "English": "en",
+    "Hindi": "hi",
+}
+
+CYBER_LEXICON = {
+    "Cyber Resilience Index": "साइबर लचीलापन सूचकांक (CR-I)",
+    "Expected Annual Loss": "अपेक्षित वार्षिक वित्तीय हानि (EAL)",
+    "Annual Risk Exposure": "वार्षिक जोखिम प्रभाव",
+    "Authentication Bypass": "प्रमाणीकरण बाईपास",
+    "Vulnerability": "सुरक्षा संवेदनशीलता / भेद्यता",
+    "Remediation": "निवारण / सुधार उपाय",
+    "Compliance Audit": "नियामक अनुपालन लेखापरीक्षा",
+}
+
+
+def translate_text(text: str, target_lang: str) -> str:
+    """Translate cybersecurity terms into target language."""
+    code = SUPPORTED_LANGUAGES.get(target_lang, target_lang)
+    if code == "en":
+        return text
+    if code == "hi":
+        for en_term, hi_term in CYBER_LEXICON.items():
+            if en_term.lower() in text.lower():
+                text = text.replace(en_term, hi_term)
+        return text
+    return text
+
+
+def generate_ai_summary_report(session: dict, lang_code: str = "en"):
+    """Generate executive summary in markdown and structured JSON format."""
+    assets = session.get("assets", [])
+    vulns_by_asset = session.get("vulns_by_asset", {})
+    exposure = total_exposure(assets, vulns_by_asset)
+    cr_i = compute_overall_cr_i(assets, vulns_by_asset)
+    total_vulns = sum(len(v) for v in vulns_by_asset.values())
+
+    md = f"""# Executive Cyber Risk Quantification Assessment
+**Date:** {datetime.date.today().isoformat()}
+**Regulatory Reference:** RBI Master Direction (RBI/2023-24/105)
+
+### Summary Metrics
+- **Overall Cyber Resilience Index (CR-I):** {cr_i:.1f}/100
+- **Total Expected Annual Loss (EAL):** ₹{exposure:,.0f}
+- **Assessed Assets:** {len(assets)}
+- **Identified Vulnerabilities:** {total_vulns}
+
+### Supervisory Recommendation
+Prioritize immediate remediation and capital allocation towards critical payment infrastructure nodes (UPI Switch, CBS, ATM Switch) to avert catastrophic systemic operational loss.
+"""
+    if lang_code == "hi":
+        md = translate_text(md, "hi")
+
+    data = {
+        "cr_i": cr_i,
+        "total_exposure_inr": exposure,
+        "asset_count": len(assets),
+        "vulnerability_count": total_vulns,
+        "compliance_framework": "RBI Master Direction / SEBI / NPCI",
+        "generated_at": datetime.datetime.now().isoformat(),
+    }
+    return md, data
