@@ -14,37 +14,37 @@ def render_html(html_str):
 
 THEMES = {
     "dark": {
-        "canvas": "#1A1A1A",
-        "panel": "#232426",
-        "panel-2": "#2A2C2F",
-        "panel-3": "#353A3E",
-        "hover": "#353A3E",
-        "button": "#232426",
-        "button-hover": "#2A2C2F",
-        "button-active": "#353A3E",
-        "border": "#2E3034",
-        "border-2": "#353A3E",
-        "border-3": "#434850",
-        "border-4": "#555B62",
-        "border-hover": "#E0E0E0",
-        "track": "#232426",
-        "text": "#E0E0E0",
-        "text-2": "#D0D0D0",
-        "text-3": "#BFBFBF",
-        "text-4": "#A0A0A0",
+        "canvas": "#191919",
+        "panel": "#202020",
+        "panel-2": "#262626",
+        "panel-3": "#2F2F2F",
+        "hover": "#2F2F2F",
+        "button": "#202020",
+        "button-hover": "#262626",
+        "button-active": "#2F2F2F",
+        "border": "#2E2E2E",
+        "border-2": "#373737",
+        "border-3": "#444444",
+        "border-4": "#555555",
+        "border-hover": "#38BDF8",
+        "track": "#202020",
+        "text": "#E3E3E3",
+        "text-2": "#D4D4D4",
+        "text-3": "#A3A3A3",
+        "text-4": "#737373",
         "muted": "#8E8E8E",
-        "faint": "#6B6B6B",
-        "accent-strong": "#E0E0E0",
-        "accent-glow": "rgba(224, 224, 224, 0.12)",
-        "on-accent": "#1A1A1A",
+        "faint": "#666666",
+        "accent-strong": "#38BDF8",
+        "accent-glow": "rgba(56, 189, 248, 0.15)",
+        "on-accent": "#0F172A",
         "on-green": "#0D2818",
-        "shadow": "0 1px 3px rgba(0, 0, 0, 0.45)",
-        "shadow-hover": "0 3px 12px rgba(0, 0, 0, 0.6)",
+        "shadow": "0 1px 3px rgba(0, 0, 0, 0.5)",
+        "shadow-hover": "0 4px 16px rgba(0, 0, 0, 0.7)",
         "inset": "inset 0 1px 0 0 rgba(255, 255, 255, 0.03)",
         "inset-hover": "inset 0 1px 0 0 rgba(255, 255, 255, 0.06)",
         "buttonshadow": "0 1px 2px rgba(0, 0, 0, 0.35)",
-        "glow": "0 0 0 2px rgba(224, 224, 224, 0.18)",
-        "input-shadow": "inset 0 1px 2px rgba(0, 0, 0, 0.35)",
+        "glow": "0 0 0 2px rgba(56, 189, 248, 0.25)",
+        "input-shadow": "inset 0 1px 2px rgba(0, 0, 0, 0.4)",
     },
     "light": {
         "canvas": "#FFFFFF",
@@ -436,19 +436,20 @@ def inject_swiss_css(theme="dark"):
             font-size: 0.725rem;
             font-weight: 600;
             font-family: 'JetBrains Mono', monospace;
-            background: rgba(224, 224, 224, 0.08);
-            border: 1px solid rgba(224, 224, 224, 0.20);
-            color: #E0E0E0;
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            color: #34D399;
             transition: all 0.2s ease !important;
         }
         .cl-status-badge:hover {
-            background: rgba(224, 224, 224, 0.14);
+            background: rgba(16, 185, 129, 0.20);
         }
         .cl-status-dot {
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: #E0E0E0;
+            background: #10B981;
+            box-shadow: 0 0 8px #10B981;
             display: inline-block;
             animation: clPulseDot 2s infinite;
         }
@@ -829,22 +830,22 @@ def render_cri_gauge(score, target=70):
 
     if score_val < 40:
         status_label = "Low Resilience"
-        status_bg = "rgba(142, 142, 142, 0.12)"
-        status_color = "#A0A0A0"
-        status_border = "rgba(142, 142, 142, 0.30)"
-        accent_color = "#8E8E8E"
+        status_bg = "rgba(244, 63, 94, 0.12)"
+        status_color = "#FB7185"
+        status_border = "rgba(244, 63, 94, 0.35)"
+        accent_color = "#F43F5E"
     elif score_val < 70:
         status_label = "Moderate Resilience"
-        status_bg = "rgba(107, 107, 107, 0.12)"
-        status_color = "#8E8E8E"
-        status_border = "rgba(107, 107, 107, 0.30)"
-        accent_color = "#6B6B6B"
+        status_bg = "rgba(245, 158, 11, 0.12)"
+        status_color = "#FBBF24"
+        status_border = "rgba(245, 158, 11, 0.35)"
+        accent_color = "#F59E0B"
     else:
         status_label = "High Resilience"
-        status_bg = "rgba(224, 224, 224, 0.10)"
-        status_color = "#BFBFBF"
-        status_border = "rgba(224, 224, 224, 0.25)"
-        accent_color = "#E0E0E0"
+        status_bg = "rgba(16, 185, 129, 0.12)"
+        status_color = "#34D399"
+        status_border = "rgba(16, 185, 129, 0.35)"
+        accent_color = "#10B981"
 
     pct_pos = min(max(score_val, 4), 96)
 
@@ -865,15 +866,15 @@ def render_cri_gauge(score, target=70):
             </div>
             <div style="margin:0.5rem 0;">
                 <div style="display:flex;justify-content:space-between;font-size:0.65rem;color:var(--cl-faint);margin-bottom:4px;font-family:\'JetBrains Mono\',monospace;">
-                    <span style="color:#A0A0A0;">0 Critical</span>
-                    <span style="color:#8E8E8E;">40 Threshold</span>
-                    <span style="color:#BFBFBF;">70 Benchmark</span>
+                    <span style="color:#FB7185;">0 Critical</span>
+                    <span style="color:#FBBF24;">40 Threshold</span>
+                    <span style="color:#34D399;">70 Benchmark</span>
                     <span>100</span>
                 </div>
                 <div style="position:relative;height:8px;background:var(--cl-track);border-radius:4px;overflow:hidden;border:1px solid var(--cl-border-3);">
-                    <div style="position:absolute;left:0;width:40%;height:100%;background:linear-gradient(90deg, #8E8E8E, #A0A0A0);opacity:0.35;"></div>
-                    <div style="position:absolute;left:40%;width:30%;height:100%;background:linear-gradient(90deg, #6B6B6B, #8E8E8E);opacity:0.35;"></div>
-                    <div style="position:absolute;left:70%;width:30%;height:100%;background:linear-gradient(90deg, #E0E0E0, #BFBFBF);opacity:0.45;"></div>
+                    <div style="position:absolute;left:0;width:40%;height:100%;background:linear-gradient(90deg, #F43F5E, #FB7185);opacity:0.35;"></div>
+                    <div style="position:absolute;left:40%;width:30%;height:100%;background:linear-gradient(90deg, #F59E0B, #FBBF24);opacity:0.35;"></div>
+                    <div style="position:absolute;left:70%;width:30%;height:100%;background:linear-gradient(90deg, #10B981, #34D399);opacity:0.45;"></div>
                     <div style="position:absolute;left:{pct_pos}%;top:0;bottom:0;width:4px;background:var(--cl-accent-strong);box-shadow:0 0 8px var(--cl-accent-strong);border-radius:2px;"></div>
                 </div>
             </div>
@@ -891,10 +892,10 @@ def render_compliance_gauge(percentage, target=90):
     pct = max(0.0, min(float(percentage), 100.0))
     is_compliant = pct >= 90
     status_label = "Compliant" if is_compliant else "Review Required"
-    status_bg = "rgba(224, 224, 224, 0.10)" if is_compliant else "rgba(107, 107, 107, 0.12)"
-    status_color = "#BFBFBF" if is_compliant else "#8E8E8E"
-    status_border = "rgba(224, 224, 224, 0.25)" if is_compliant else "rgba(107, 107, 107, 0.30)"
-    accent_color = "#E0E0E0" if is_compliant else "#6B6B6B"
+    status_bg = "rgba(16, 185, 129, 0.12)" if is_compliant else "rgba(245, 158, 11, 0.12)"
+    status_color = "#34D399" if is_compliant else "#FBBF24"
+    status_border = "rgba(16, 185, 129, 0.35)" if is_compliant else "rgba(245, 158, 11, 0.35)"
+    accent_color = "#10B981" if is_compliant else "#F59E0B"
 
     render_html(
         f"""
@@ -917,12 +918,12 @@ def render_compliance_gauge(percentage, target=90):
                     <span style="color:var(--cl-accent-strong);">Target: ≥{target}%</span>
                 </div>
                 <div style="height:8px;background:var(--cl-track);border-radius:4px;overflow:hidden;border:1px solid var(--cl-border-3);">
-                    <div style="width:{pct}%;height:100%;background:linear-gradient(90deg, #6B6B6B, #E0E0E0);box-shadow:0 0 6px rgba(16, 185, 129, 0.4);transition:width 0.3s ease;"></div>
+                    <div style="width:{pct}%;height:100%;background:linear-gradient(90deg, #059669, #34D399);box-shadow:0 0 6px rgba(16, 185, 129, 0.4);transition:width 0.3s ease;"></div>
                 </div>
             </div>
             <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--cl-border);padding-top:0.45rem;font-size:0.725rem;color:var(--cl-faint);">
                 <span>Framework: <strong style="color:var(--cl-muted);">RBI · SEBI · NPCI</strong></span>
-                <span>Mandate Status: <strong style="color:#BFBFBF;">Verified</strong></span>
+                <span>Mandate Status: <strong style="color:#34D399;">Verified</strong></span>
             </div>
         </div>
         """
@@ -946,11 +947,11 @@ def risk_badge(val):
         lvl = str(val).upper()
 
     styles = {
-        "CRITICAL": ("rgba(142, 142, 142, 0.12)", "#A0A0A0", "rgba(142, 142, 142, 0.35)", "CRITICAL"),
-        "HIGH": ("rgba(160, 160, 160, 0.12)", "#A0A0A0", "rgba(160, 160, 160, 0.30)", "HIGH"),
-        "MEDIUM": ("rgba(142, 142, 142, 0.10)", "#8E8E8E", "rgba(142, 142, 142, 0.30)", "MEDIUM"),
-        "LOW": ("rgba(107, 107, 107, 0.08)", "var(--cl-muted)", "rgba(107, 107, 107, 0.20)", "LOW"),
-        "MINIMAL": ("rgba(53, 58, 62, 0.15)", "var(--cl-faint)", "rgba(53, 58, 62, 0.30)", "MINIMAL"),
+        "CRITICAL": ("rgba(244, 63, 94, 0.15)", "#FB7185", "rgba(244, 63, 94, 0.35)", "CRITICAL"),
+        "HIGH": ("rgba(249, 115, 22, 0.15)", "#FB923C", "rgba(249, 115, 22, 0.35)", "HIGH"),
+        "MEDIUM": ("rgba(245, 158, 11, 0.15)", "#FBBF24", "rgba(245, 158, 11, 0.35)", "MEDIUM"),
+        "LOW": ("rgba(16, 185, 129, 0.12)", "#34D399", "rgba(16, 185, 129, 0.30)", "LOW"),
+        "MINIMAL": ("rgba(56, 189, 248, 0.12)", "#38BDF8", "rgba(56, 189, 248, 0.30)", "MINIMAL"),
     }
     bg, fg, border, txt = styles.get(lvl, styles["MINIMAL"])
     return f'<span style="background-color:{bg};color:{fg};border:1px solid {border};padding:2px 8px;border-radius:4px;font-size:0.675rem;font-weight:700;letter-spacing:0.04em;font-family:\'JetBrains Mono\',monospace;white-space:nowrap;display:inline-flex;align-items:center;">{txt}</span>'

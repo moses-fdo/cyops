@@ -81,7 +81,7 @@ def main():
                         CyberLens Platform <span style="color:var(--cl-accent-strong);font-weight:800;">2.0</span>
                     </h1>
                     <p style="max-width:680px;margin:0 auto;color:var(--cl-muted);font-size:0.925rem;line-height:1.6;">
-                        Quantifying cyber vulnerabilities into monetary risk metrics (₹ Expected Annual Loss & VaR) and delivering AI-optimized ROSI budget allocation for critical national financial nodes (UPI, CBS, ATM).
+                        Quantifying cyber vulnerabilities into monetary risk metrics (₹ Expected Annual Loss & VaR) and delivering ROSI Knapsack capital allocation for critical national financial nodes (UPI, CBS, ATM).
                     </p>
                 </div>
 
@@ -108,7 +108,7 @@ def main():
                             ROSI Capital Allocator
                         </div>
                         <div style="font-size:0.775rem;color:var(--cl-muted);line-height:1.5;">
-                            AI knapsack optimization recommending security controls that maximize financial risk reduction per rupee invested.
+                            Knapsack 0-1 optimization algorithm recommending security controls that maximize financial risk reduction per rupee invested.
                         </div>
                     </div>
                 </div>
@@ -116,29 +116,21 @@ def main():
                 <!-- LOGIN PORTAL CONTAINER (COMPACT & CENTERED) -->
                 <div style="max-width:440px;margin:0 auto 20px auto;text-align:center;">
                     <div style="font-size:0.68rem;font-weight:700;color:var(--cl-accent-strong);text-transform:uppercase;letter-spacing:0.09em;font-family:'JetBrains Mono',monospace;margin-bottom:4px;">
-                        RESTRICTED OFFICER ACCESS
+                        RBI FINANCIAL SUPERVISION PORTAL
                     </div>
-                    <div style="font-size:1.2rem;font-weight:800;color:var(--cl-text);margin-bottom:12px;letter-spacing:-0.01em;">
-                        Security Credentials Required
-                    </div>
-                    <div style="background:rgba(224,224,224,0.06);border:1px dashed rgba(224,224,224,0.3);padding:8px 14px;border-radius:6px;margin-bottom:12px;display:inline-flex;align-items:center;gap:8px;font-size:0.75rem;color:var(--cl-text-3);">
-                        <span>Demo Key: <code style="background:var(--cl-panel-3);padding:2px 7px;border-radius:4px;color:var(--cl-accent-strong);font-family:'JetBrains Mono',monospace;font-weight:600;">cyberlens-demo-2024</code></span>
+                    <div style="font-size:1.2rem;font-weight:800;color:var(--cl-text);margin-bottom:16px;letter-spacing:-0.01em;">
+                        Cyber Risk Oversight Console
                     </div>
                 </div>
             </div>
             """
         )
 
-        with st.form("login_form"):
-            auth_key = st.text_input("Supervisor Access Key", type="password", help="Default demo access key: cyberlens-demo-2024")
-            submitted = st.form_submit_button("Authenticate Session →", use_container_width=True)
-            if submitted:
-                if auth_key == "cyberlens-demo-2024":
-                    st.session_state.authenticated = True
-                    st.success("Authenticated successfully. Loading dashboard...")
-                    st.rerun()
-                else:
-                    st.error("Invalid access key. Authentication failed.")
+        c1, c2, c3 = st.columns([1, 1.8, 1])
+        with c2:
+            if st.button("Access CyberLens Platform 2.0 →", key="direct_login_btn", type="primary", use_container_width=True):
+                st.session_state.authenticated = True
+                st.rerun()
 
         st.stop()
 
@@ -179,7 +171,7 @@ def main():
         render_html(
             """
             <div style="display:flex;align-items:center;gap:12px;">
-                <div style="background:rgba(224,224,224,0.12);border:1px solid rgba(224,224,224,0.35);color:var(--cl-accent-strong);font-weight:700;font-size:0.825rem;padding:6px 11px;border-radius:6px;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;">
+                <div style="background:rgba(56,189,248,0.12);border:1px solid rgba(56,189,248,0.35);color:var(--cl-accent-strong);font-weight:700;font-size:0.825rem;padding:6px 11px;border-radius:6px;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;">
                     CRQ//2.0
                 </div>
                 <div style="display:flex;flex-direction:column;justify-content:center;">
@@ -187,7 +179,7 @@ def main():
                         CyberLens Platform
                     </div>
                     <div style="font-size:0.7rem;color:var(--cl-faint);font-weight:500;display:flex;align-items:center;gap:6px;margin-top:2px;">
-                        <span style="width:6px;height:6px;border-radius:50%;background:#E0E0E0;box-shadow:0 0 8px #E0E0E0;display:inline-block;"></span>
+                        <span style="width:6px;height:6px;border-radius:50%;background:#10B981;box-shadow:0 0 8px #10B981;display:inline-block;"></span>
                         <span style="color:var(--cl-muted);">RBI Master Direction (RBI/2023-24/105)</span> · Active
                     </div>
                 </div>
@@ -267,9 +259,9 @@ def main():
                 cov = summary.get("compliance_coverage", {}).get("coverage_percentage", 0)
                 render_html(
                     f"""
-                    <div class="cl-card" style="margin-top:0.75rem;padding:0.85rem 1rem;border-left:3px solid #E0E0E0;">
+                    <div class="cl-card" style="margin-top:0.75rem;padding:0.85rem 1rem;border-left:3px solid #10B981;">
                         <div style="display:flex;justify-content:space-between;align-items:center;">
-                            <span style="font-size:0.8rem;color:var(--cl-text);font-weight:600;">Framework Coverage: <span class="cl-mono" style="color:#BFBFBF;font-weight:700;">{cov}%</span></span>
+                            <span style="font-size:0.8rem;color:var(--cl-text);font-weight:600;">Framework Coverage: <span class="cl-mono" style="color:#34D399;font-weight:700;">{cov}%</span></span>
                             <span style="font-size:0.7rem;color:var(--cl-faint);font-family:'JetBrains Mono',monospace;">Status: VERIFIED</span>
                         </div>
                     </div>
@@ -305,15 +297,15 @@ def main():
                 if scenario:
                     render_html(
                         f"""
-                        <div class="cl-card" style="margin-top:0.75rem;padding:0.85rem 1.15rem;border-left:3px solid #8E8E8E;">
-                            <div style="font-size:0.7rem;font-weight:700;color:#A0A0A0;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;">
-                                Target: {scenario.get('scenario', {}).get('breach_asset_name', 'Payment Switch')}
+                        <div class="cl-card" style="margin-top:0.75rem;padding:0.85rem 1.15rem;border-left:3px solid #F43F5E;">
+                            <div style="font-size:0.7rem;font-weight:700;color:#FB7185;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;">
+                                Target: {scenario.get('breach', {}).get('asset_name', 'Payment Switch') if isinstance(scenario.get('breach'), dict) else 'Payment Switch'}
                             </div>
                             <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:0.78rem;">
                                 <div>Pre-Breach CR-I: <strong class="cl-mono" style="color:var(--cl-text);">{scenario['before']['overall_cr_i']}/100</strong></div>
-                                <div>Single Incident Loss: <strong class="cl-mono" style="color:#A0A0A0;">₹{scenario['breach']['realized_single_loss_inr']:,.0f}</strong></div>
+                                <div>Single Incident Loss: <strong class="cl-mono" style="color:#FB7185;">₹{scenario['breach']['realized_single_loss_inr']:,.0f}</strong></div>
                                 <div>Annual Exposure: <strong class="cl-mono" style="color:var(--cl-text);">{scenario['before']['total_exposure_inr']:,.0f}</strong></div>
-                                <div>Knapsack Control ROI: <strong class="cl-mono" style="color:#BFBFBF;">{scenario['delta']['loss_multiple_of_controls']}×</strong></div>
+                                <div>Knapsack Control ROI: <strong class="cl-mono" style="color:#34D399;">{scenario['delta']['loss_multiple_of_controls']}×</strong></div>
                             </div>
                         </div>
                         """

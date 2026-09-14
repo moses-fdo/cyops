@@ -112,9 +112,9 @@ quantifiable risk exposure in monetary terms for effective governance and
 budget allocation.
 
 ## 2. Solution Overview
-CyberLens 2.0 is an AI-enhanced Cyber Risk Quantification Platform that
-transforms raw vulnerability, asset, and transaction data into RBI-aligned
-financial risk metrics (in ₹) and produces an AI-optimized investment plan
+CyberLens 2.0 is an RBI-Aligned Cyber Risk Quantification Platform that
+transforms raw vulnerability, asset, and transaction data into regulatory-compliant
+financial risk metrics (in ₹) and produces a ROSI Knapsack optimized investment plan
 that maximizes risk reduction per rupee spent.
 
 ## 3. Impact Metrics
@@ -129,7 +129,7 @@ that maximizes risk reduction per rupee spent.
 - **Frontend:** Streamlit (Executive + Technical dashboards)
 - **Engine:** Python 3.11 — RBI-weighted CVSS, CR-I, EAL, ROSI knapsack optimizer
 - **Data:** SQLite + sample CSV (zero-setup demo)
-- **AI:** Few-shot remediation templates (Hindi/English), LLM-ready fallback
+- **Remediation Engine:** Multilingual remediation guidance (Hindi/English), LLM fallback integration
 
 ## 5. Compliance Alignment
 Every vulnerability is auto-mapped to its exact regulatory clause under

@@ -204,7 +204,7 @@ def _render_vulnerability_detail_tabs(session, vuln, asset, controls, asset_vuln
     mapping = get_rbi_mapping(asset["asset_type"], vuln["category"])
 
     severity = "CRITICAL" if base_eal >= 100_00_000 else ("HIGH" if base_eal >= 50_00_000 else "MEDIUM")
-    top_color = "#8E8E8E" if severity == "CRITICAL" else ("#6B6B6B" if severity == "HIGH" else "var(--cl-accent-strong)")
+    top_color = "#F43F5E" if severity == "CRITICAL" else ("#F59E0B" if severity == "HIGH" else "#38BDF8")
     render_html(
         f"""
         <div class="cl-card" style="padding:0.85rem 1.25rem;margin-bottom:0.75rem;border-left:3px solid {top_color};">
@@ -229,7 +229,7 @@ def _render_vulnerability_detail_tabs(session, vuln, asset, controls, asset_vuln
     with tab_ov:
         c1, c2 = st.columns(2)
         with c1:
-            exploit_text = '<span style="color:#A0A0A0;font-weight:700;">Active In Wild</span>' if vuln['exploit_available'] else '<span style="color:var(--cl-faint);">None Reported</span>'
+            exploit_text = '<span style="color:#FB7185;font-weight:700;">Active In Wild</span>' if vuln['exploit_available'] else '<span style="color:var(--cl-faint);">None Reported</span>'
             render_html(
                 f"""
                 <div class="cl-card" style="font-size:0.825rem;padding:0.9rem 1.15rem;">
@@ -391,11 +391,11 @@ def _render_compliance_heatmap(assets, vulns_by_asset):
             score = max(45, min(98, 100 - int(unpatched_avg * 1.5) - (g_idx * 5)))
 
             if score >= 90:
-                bg, fg, border = "rgba(224,224,224,0.10)", "#BFBFBF", "rgba(224,224,224,0.25)"
+                bg, fg, border = "rgba(16,185,129,0.15)", "#34D399", "rgba(16,185,129,0.35)"
             elif score >= 60:
-                bg, fg, border = "rgba(107,107,107,0.12)", "#8E8E8E", "rgba(107,107,107,0.30)"
+                bg, fg, border = "rgba(245,158,11,0.15)", "#FBBF24", "rgba(245,158,11,0.35)"
             else:
-                bg, fg, border = "rgba(142,142,142,0.12)", "#A0A0A0", "rgba(142,142,142,0.30)"
+                bg, fg, border = "rgba(244,63,94,0.15)", "#FB7185", "rgba(244,63,94,0.35)"
 
             tbl += f'<td style="padding:8px 12px;text-align:center;"><span class="cl-mono" style="background:{bg};border:1px solid {border};color:{fg};padding:3px 8px;border-radius:4px;font-weight:700;font-size:0.725rem;">{score}%</span></td>'
         tbl += '</tr>'

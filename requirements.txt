@@ -7,3 +7,5 @@ deep-translator
 groq
 pulp
 httpx
+playwright
+imageio-ffmpeg

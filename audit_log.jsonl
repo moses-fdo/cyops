@@ -840,3 +840,14 @@
 {"timestamp": 1789369214.7104023, "function": "compute_risk_matrix", "vuln_rows": 17, "assets": 10}
 {"timestamp": 1789369364.5626597, "function": "compute_risk_matrix", "vuln_rows": 17, "assets": 10}
 {"timestamp": 1789370564.1143386, "function": "compute_risk_matrix", "vuln_rows": 17, "assets": 10}
+{"timestamp": 1789370937.1236367, "function": "compute_risk_matrix", "vuln_rows": 10, "assets": 5}
+{"timestamp": 1789370939.349299, "function": "compute_risk_matrix", "vuln_rows": 10, "assets": 5}
+{"timestamp": 1789371571.9995277, "function": "compute_risk_matrix", "vuln_rows": 17, "assets": 10}
+{"timestamp": 1789371581.5009742, "function": "compute_risk_matrix", "vuln_rows": 10, "assets": 5}
+{"timestamp": 1789371948.4765253, "function": "compute_risk_matrix", "vuln_rows": 10, "assets": 5}
+{"timestamp": 1789371950.0515807, "function": "compute_risk_matrix", "vuln_rows": 10, "assets": 5}
+{"timestamp": 1789371952.239527, "function": "compute_risk_matrix", "vuln_rows": 10, "assets": 5}
+{"timestamp": 1789372232.051814, "function": "compute_risk_matrix", "vuln_rows": 17, "assets": 10}
+{"timestamp": 1789372257.1483195, "function": "compute_risk_matrix", "vuln_rows": 10, "assets": 5}
+{"timestamp": 1789374575.5321884, "function": "compute_risk_matrix", "vuln_rows": 17, "assets": 10}
+{"timestamp": 1789374632.5869925, "function": "compute_risk_matrix", "vuln_rows": 10, "assets": 5}

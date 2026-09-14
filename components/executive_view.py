@@ -53,13 +53,14 @@ def render(session):
 
     # Scenario indicator - Colorized
     is_demo = len(assets) <= 5
+    dot_color = "#F59E0B" if is_demo else "#10B981"
     scenario_html = (
         f'<div style="display:inline-flex;align-items:center;gap:7px;'
-        f'background:rgba(224,224,224,0.08);'
-        f'border:1px solid rgba(224,224,224,0.25);'
+        f'background:rgba(56,189,248,0.08);'
+        f'border:1px solid rgba(56,189,248,0.25);'
         f'padding:4px 11px;border-radius:4px;font-size:0.75rem;font-weight:600;'
         f'color:var(--cl-accent-strong);font-family:\'JetBrains Mono\',monospace;">'
-        f'<span style="width:7px;height:7px;border-radius:50%;background:#E0E0E0;box-shadow:0 0 6px #E0E0E0;"></span>'
+        f'<span style="width:7px;height:7px;border-radius:50%;background:{dot_color};box-shadow:0 0 6px {dot_color};"></span>'
         f'{"Demo Scenario Active" if is_demo else "Baseline Portfolio"}</div>'
     )
     section_header(
@@ -88,7 +89,7 @@ def render(session):
     with r_col2:
         render_html(
             f"""
-            <div class="cl-card" style="padding:0.65rem 0.95rem;display:flex;align-items:center;gap:10px;border-left:3px solid #E0E0E0;">
+            <div class="cl-card" style="padding:0.65rem 0.95rem;display:flex;align-items:center;gap:10px;border-left:3px solid #10B981;">
                 <div>
                     <div style="color:var(--cl-faint);font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;">Daily Txns Covered</div>
                     <div class="cl-mono" style="font-size:1.05rem;font-weight:700;color:var(--cl-text);margin-top:1px;">{total_txns/1_000_000:.1f}M <span style="font-size:0.7rem;font-weight:400;color:var(--cl-faint);">txns/day</span></div>
@@ -99,7 +100,7 @@ def render(session):
     with r_col3:
         render_html(
             f"""
-            <div class="cl-card" style="padding:0.65rem 0.95rem;display:flex;align-items:center;gap:10px;border-left:3px solid #8E8E8E;">
+            <div class="cl-card" style="padding:0.65rem 0.95rem;display:flex;align-items:center;gap:10px;border-left:3px solid #F43F5E;">
                 <div>
                     <div style="color:var(--cl-faint);font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;">Max Outage Liability</div>
                     <div class="cl-mono" style="font-size:1.05rem;font-weight:700;color:var(--cl-text);margin-top:1px;">{inr(max_downtime)} <span style="font-size:0.7rem;font-weight:400;color:var(--cl-faint);">/hr</span></div>
@@ -110,7 +111,7 @@ def render(session):
     with r_col4:
         render_html(
             f"""
-            <div class="cl-card" style="padding:0.65rem 0.95rem;display:flex;align-items:center;gap:10px;border-left:3px solid #6B6B6B;">
+            <div class="cl-card" style="padding:0.65rem 0.95rem;display:flex;align-items:center;gap:10px;border-left:3px solid #F59E0B;">
                 <div>
                     <div style="color:var(--cl-faint);font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;">Quantified CVEs</div>
                     <div class="cl-mono" style="font-size:1.05rem;font-weight:700;color:var(--cl-text);margin-top:1px;">{total_vulns} <span style="font-size:0.7rem;font-weight:400;color:var(--cl-faint);">Active</span></div>
@@ -151,7 +152,7 @@ def render(session):
     for idx, (col, r) in enumerate(zip(risk_cols, top_risks), 1):
         with col:
             severity = "CRITICAL" if r["eal_inr"] >= 100_00_000 else ("HIGH" if r["eal_inr"] >= 50_00_000 else "MEDIUM")
-            top_border = "#8E8E8E" if severity == "CRITICAL" else ("#6B6B6B" if severity == "HIGH" else "var(--cl-accent-strong)")
+            top_border = "#F43F5E" if severity == "CRITICAL" else ("#F59E0B" if severity == "HIGH" else "#38BDF8")
             render_html(
                 f"""
                 <div class="cl-card" style="min-height:195px;display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;padding:1.1rem 1.25rem;margin-bottom:0.45rem;border-top:2px solid {top_border};">
@@ -346,7 +347,7 @@ def render(session):
                             "State:N",
                             scale=alt.Scale(
                                 domain=["Current Exposure", "Mitigated Exposure"],
-                                range=["#E0E0E0", "#6B6B6B"],
+                                range=["#F43F5E", "#10B981"],
                             ),
                             legend=None,
                         ),
@@ -362,7 +363,7 @@ def render(session):
                 render_html('<div class="cl-card" style="padding:1.1rem 1.25rem;">')
                 st.altair_chart(bar_chart, width="stretch")
                 render_html(
-                    f'<div style="text-align:center;background:rgba(224,224,224,0.10);border:1px solid rgba(224,224,224,0.25);color:#BFBFBF;padding:9px 16px;border-radius:6px;font-weight:700;font-size:0.875rem;font-family:\'JetBrains Mono\',monospace;margin-top:10px;">'
+                    f'<div style="text-align:center;background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.35);color:#34D399;padding:9px 16px;border-radius:6px;font-weight:700;font-size:0.875rem;font-family:\'JetBrains Mono\',monospace;margin-top:10px;">'
                     f'↓ {pct_reduction:.1f}% Liability Reduction · <span class="cl-mono">{inr(total_red)}</span>/yr Averted</div>'
                     f'</div>'
                 )
@@ -389,14 +390,14 @@ def render(session):
                             "Category:N",
                             scale=alt.Scale(
                                 range=[
-                                    "#E0E0E0",
-                                    "#BFBFBF",
-                                    "#8E8E8E",
-                                    "#6B6B6B",
-                                    "#555B62",
-                                    "#434850",
-                                    "#353A3E",
-                                    "#2A2C2F",
+                                    "#38BDF8",
+                                    "#10B981",
+                                    "#F59E0B",
+                                    "#F43F5E",
+                                    "#8B5CF6",
+                                    "#06B6D4",
+                                    "#F97316",
+                                    "#14B8A6",
                                 ]
                             ),
                             legend=alt.Legend(
@@ -424,7 +425,7 @@ def render(session):
                 render_html('<div class="cl-card" style="padding:1.1rem 1.25rem;">')
                 st.altair_chart(donut, width="stretch")
                 render_html(
-                    f'<div style="text-align:center;background:rgba(224,224,224,0.10);border:1px solid rgba(224,224,224,0.30);color:var(--cl-accent-strong);padding:9px 16px;border-radius:6px;font-weight:700;font-size:0.875rem;font-family:\'JetBrains Mono\',monospace;margin-top:10px;">'
+                    f'<div style="text-align:center;background:rgba(56,189,248,0.10);border:1px solid rgba(56,189,248,0.30);color:var(--cl-accent-strong);padding:9px 16px;border-radius:6px;font-weight:700;font-size:0.875rem;font-family:\'JetBrains Mono\',monospace;margin-top:10px;">'
                     f'ROSI Risk Mitigation Category Distribution</div>'
                     f'</div>'
                 )

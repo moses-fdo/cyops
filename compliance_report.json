@@ -1,0 +1,553 @@
+{
+  "report_metadata": {
+    "generated_at": "2026-09-14T13:59:15.464139",
+    "report_version": "2.0",
+    "generator": "CyberLens Compliance Engine"
+  },
+  "executive_summary": {
+    "total_assets": 10,
+    "total_vulnerabilities": 17,
+    "total_incidents": 8,
+    "compliance_coverage": {
+      "mapped_vulnerabilities": 17,
+      "gap_vulnerabilities": 0,
+      "coverage_percentage": 100.0
+    },
+    "regulatory_framework_coverage": {
+      "rbi": {
+        "covered": 17,
+        "percentage": 100.0
+      },
+      "npci": {
+        "covered": 3,
+        "percentage": 17.6
+      },
+      "sebi": {
+        "covered": 1,
+        "percentage": 5.9
+      }
+    }
+  },
+  "asset_compliance_summary": {
+    "UPI_SWITCH_001": {
+      "asset_name": "NPCI UPI Switch",
+      "asset_type": "UPI_SWITCH",
+      "criticality": 9,
+      "total_vulnerabilities": 2,
+      "mapped": 2,
+      "gaps": 0,
+      "coverage_percentage": 100.0
+    },
+    "CBS_SERVER_001": {
+      "asset_name": "Core Banking Server",
+      "asset_type": "CBS_SERVER",
+      "criticality": 10,
+      "total_vulnerabilities": 2,
+      "mapped": 2,
+      "gaps": 0,
+      "coverage_percentage": 100.0
+    },
+    "MOBILE_BANKING_001": {
+      "asset_name": "Mobile Banking App",
+      "asset_type": "MOBILE_BANKING_APP",
+      "criticality": 7,
+      "total_vulnerabilities": 2,
+      "mapped": 2,
+      "gaps": 0,
+      "coverage_percentage": 100.0
+    },
+    "ATM_NETWORK_001": {
+      "asset_name": "ATM Switch Network",
+      "asset_type": "ATM_SWITCH",
+      "criticality": 8,
+      "total_vulnerabilities": 1,
+      "mapped": 1,
+      "gaps": 0,
+      "coverage_percentage": 100.0
+    },
+    "WEB_PORTAL_001": {
+      "asset_name": "Internet Banking Portal",
+      "asset_type": "WEB_BANKING_PORTAL",
+      "criticality": 8,
+      "total_vulnerabilities": 2,
+      "mapped": 2,
+      "gaps": 0,
+      "coverage_percentage": 100.0
+    },
+    "USSD_GATEWAY_001": {
+      "asset_name": "USSD Payment Gateway",
+      "asset_type": "USSD_GATEWAY",
+      "criticality": 6,
+      "total_vulnerabilities": 1,
+      "mapped": 1,
+      "gaps": 0,
+      "coverage_percentage": 100.0
+    },
+    "API_GATEWAY_001": {
+      "asset_name": "Payment API Gateway",
+      "asset_type": "API_GATEWAY",
+      "criticality": 9,
+      "total_vulnerabilities": 2,
+      "mapped": 2,
+      "gaps": 0,
+      "coverage_percentage": 100.0
+    },
+    "DATABASE_PRIMARY_001": {
+      "asset_name": "Customer Database Primary",
+      "asset_type": "DATABASE",
+      "criticality": 10,
+      "total_vulnerabilities": 2,
+      "mapped": 2,
+      "gaps": 0,
+      "coverage_percentage": 100.0
+    },
+    "AUTH_SERVER_001": {
+      "asset_name": "Authentication Server",
+      "asset_type": "AUTH_SERVER",
+      "criticality": 9,
+      "total_vulnerabilities": 2,
+      "mapped": 2,
+      "gaps": 0,
+      "coverage_percentage": 100.0
+    },
+    "LOG_SERVER_001": {
+      "asset_name": "Security Log Server",
+      "asset_type": "LOG_SERVER",
+      "criticality": 5,
+      "total_vulnerabilities": 1,
+      "mapped": 1,
+      "gaps": 0,
+      "coverage_percentage": 100.0
+    }
+  },
+  "vulnerability_compliance_details": [
+    {
+      "vuln_id": "V_UPI_001",
+      "asset_id": "UPI_SWITCH_001",
+      "asset_name": "NPCI UPI Switch",
+      "asset_type": "UPI_SWITCH",
+      "asset_criticality": 9,
+      "cve_id": "CVE-2024-1234",
+      "cvss_score": 8.5,
+      "category": "Authentication Bypass",
+      "exploit_available": 1,
+      "days_unpatched": 12,
+      "rbi_clause": "RBI/2023-24/105.A.3",
+      "nci_clause": "",
+      "sebi_clause": "",
+      "compliance_status": "MAPPED"
+    },
+    {
+      "vuln_id": "V_UPI_002",
+      "asset_id": "UPI_SWITCH_001",
+      "asset_name": "NPCI UPI Switch",
+      "asset_type": "UPI_SWITCH",
+      "asset_criticality": 9,
+      "cve_id": "CVE-2024-2345",
+      "cvss_score": 7.2,
+      "category": "Data Exposure",
+      "exploit_available": 0,
+      "days_unpatched": 25,
+      "rbi_clause": "RBI/2022-23/098.B.2",
+      "nci_clause": "",
+      "sebi_clause": "SEBI/HO/ISD/ISD/CIR/P/2020/168",
+      "compliance_status": "MAPPED"
+    },
+    {
+      "vuln_id": "V_CBS_001",
+      "asset_id": "CBS_SERVER_001",
+      "asset_name": "Core Banking Server",
+      "asset_type": "CBS_SERVER",
+      "asset_criticality": 10,
+      "cve_id": "CVE-2024-3456",
+      "cvss_score": 9.1,
+      "category": "SQL Injection",
+      "exploit_available": 1,
+      "days_unpatched": 8,
+      "rbi_clause": "RBI/2023-24/105.C.1",
+      "nci_clause": "",
+      "sebi_clause": "",
+      "compliance_status": "MAPPED"
+    },
+    {
+      "vuln_id": "V_CBS_002",
+      "asset_id": "CBS_SERVER_001",
+      "asset_name": "Core Banking Server",
+      "asset_type": "CBS_SERVER",
+      "asset_criticality": 10,
+      "cve_id": "CVE-2024-4567",
+      "cvss_score": 6.5,
+      "category": "Privilege Escalation",
+      "exploit_available": 0,
+      "days_unpatched": 40,
+      "rbi_clause": "RBI/2022-23/098.A.1",
+      "nci_clause": "RBI/2023-24/105.A.1",
+      "sebi_clause": "",
+      "compliance_status": "MAPPED"
+    },
+    {
+      "vuln_id": "V_MOBILE_001",
+      "asset_id": "MOBILE_BANKING_001",
+      "asset_name": "Mobile Banking App",
+      "asset_type": "MOBILE_BANKING_APP",
+      "asset_criticality": 7,
+      "cve_id": "CVE-2024-5678",
+      "cvss_score": 7.8,
+      "category": "Insecure Storage",
+      "exploit_available": 1,
+      "days_unpatched": 15,
+      "rbi_clause": "RBI/2023-24/105.B.2",
+      "nci_clause": "",
+      "sebi_clause": "",
+      "compliance_status": "MAPPED"
+    },
+    {
+      "vuln_id": "V_MOBILE_002",
+      "asset_id": "MOBILE_BANKING_001",
+      "asset_name": "Mobile Banking App",
+      "asset_type": "MOBILE_BANKING_APP",
+      "asset_criticality": 7,
+      "cve_id": "CVE-2024-6789",
+      "cvss_score": 6.2,
+      "category": "Input Validation",
+      "exploit_available": 0,
+      "days_unpatched": 35,
+      "rbi_clause": "RBI/2022-23/098.C.3",
+      "nci_clause": "",
+      "sebi_clause": "",
+      "compliance_status": "MAPPED"
+    },
+    {
+      "vuln_id": "V_ATM_001",
+      "asset_id": "ATM_NETWORK_001",
+      "asset_name": "ATM Switch Network",
+      "asset_type": "ATM_SWITCH",
+      "asset_criticality": 8,
+      "cve_id": "CVE-2024-7890",
+      "cvss_score": 8.0,
+      "category": "Network Sniffing",
+      "exploit_available": 1,
+      "days_unpatched": 20,
+      "rbi_clause": "RBI/2023-24/105.D.1",
+      "nci_clause": "",
+      "sebi_clause": "",
+      "compliance_status": "MAPPED"
+    },
+    {
+      "vuln_id": "V_WEB_001",
+      "asset_id": "WEB_PORTAL_001",
+      "asset_name": "Internet Banking Portal",
+      "asset_type": "WEB_BANKING_PORTAL",
+      "asset_criticality": 8,
+      "cve_id": "CVE-2024-8901",
+      "cvss_score": 8.8,
+      "category": "Session Fixation",
+      "exploit_available": 1,
+      "days_unpatched": 5,
+      "rbi_clause": "RBI/2023-24/105.A.2",
+      "nci_clause": "RBI/2022-23/098.A.2",
+      "sebi_clause": "",
+      "compliance_status": "MAPPED"
+    },
+    {
+      "vuln_id": "V_WEB_002",
+      "asset_id": "WEB_PORTAL_001",
+      "asset_name": "Internet Banking Portal",
+      "asset_type": "WEB_BANKING_PORTAL",
+      "asset_criticality": 8,
+      "cve_id": "CVE-2024-9012",
+      "cvss_score": 5.5,
+      "category": "Cross-Site Scripting",
+      "exploit_available": 0,
+      "days_unpatched": 55,
+      "rbi_clause": "RBI/2022-23/098.C.1",
+      "nci_clause": "",
+      "sebi_clause": "",
+      "compliance_status": "MAPPED"
+    },
+    {
+      "vuln_id": "V_USSD_001",
+      "asset_id": "USSD_GATEWAY_001",
+      "asset_name": "USSD Payment Gateway",
+      "asset_type": "USSD_GATEWAY",
+      "asset_criticality": 6,
+      "cve_id": "CVE-2024-0123",
+      "cvss_score": 7.0,
+      "category": "Authentication Bypass",
+      "exploit_available": 1,
+      "days_unpatched": 30,
+      "rbi_clause": "RBI/2023-24/105.A.3",
+      "nci_clause": "",
+      "sebi_clause": "",
+      "compliance_status": "MAPPED"
+    },
+    {
+      "vuln_id": "V_API_001",
+      "asset_id": "API_GATEWAY_001",
+      "asset_name": "Payment API Gateway",
+      "asset_type": "API_GATEWAY",
+      "asset_criticality": 9,
+      "cve_id": "CVE-2024-1111",
+      "cvss_score": 9.5,
+      "category": "Injection",
+      "exploit_available": 1,
+      "days_unpatched": 3,
+      "rbi_clause": "RBI/2023-24/105.C.1",
+      "nci_clause": "",
+      "sebi_clause": "",
+      "compliance_status": "MAPPED"
+    },
+    {
+      "vuln_id": "V_API_002",
+      "asset_id": "API_GATEWAY_001",
+      "asset_name": "Payment API Gateway",
+      "asset_type": "API_GATEWAY",
+      "asset_criticality": 9,
+      "cve_id": "CVE-2024-2222",
+      "cvss_score": 6.8,
+      "category": "Rate Limiting",
+      "exploit_available": 0,
+      "days_unpatched": 18,
+      "rbi_clause": "RBI/2022-23/098.D.1",
+      "nci_clause": "",
+      "sebi_clause": "",
+      "compliance_status": "MAPPED"
+    },
+    {
+      "vuln_id": "V_DB_001",
+      "asset_id": "DATABASE_PRIMARY_001",
+      "asset_name": "Customer Database Primary",
+      "asset_type": "DATABASE",
+      "asset_criticality": 10,
+      "cve_id": "CVE-2024-3333",
+      "cvss_score": 8.2,
+      "category": "Privilege Escalation",
+      "exploit_available": 1,
+      "days_unpatched": 10,
+      "rbi_clause": "RBI/2023-24/105.A.1",
+      "nci_clause": "RBI/2022-23/098.A.1",
+      "sebi_clause": "",
+      "compliance_status": "MAPPED"
+    },
+    {
+      "vuln_id": "V_DB_002",
+      "asset_id": "DATABASE_PRIMARY_001",
+      "asset_name": "Customer Database Primary",
+      "asset_type": "DATABASE",
+      "asset_criticality": 10,
+      "cve_id": "CVE-2024-4444",
+      "cvss_score": 5.8,
+      "category": "Data Exposure",
+      "exploit_available": 0,
+      "days_unpatched": 45,
+      "rbi_clause": "RBI/2022-23/098.B.1",
+      "nci_clause": "",
+      "sebi_clause": "",
+      "compliance_status": "MAPPED"
+    },
+    {
+      "vuln_id": "V_AUTH_001",
+      "asset_id": "AUTH_SERVER_001",
+      "asset_name": "Authentication Server",
+      "asset_type": "AUTH_SERVER",
+      "asset_criticality": 9,
+      "cve_id": "CVE-2024-5555",
+      "cvss_score": 9.0,
+      "category": "Authentication Bypass",
+      "exploit_available": 1,
+      "days_unpatched": 7,
+      "rbi_clause": "RBI/2023-24/105.A.2",
+      "nci_clause": "",
+      "sebi_clause": "",
+      "compliance_status": "MAPPED"
+    },
+    {
+      "vuln_id": "V_AUTH_002",
+      "asset_id": "AUTH_SERVER_001",
+      "asset_name": "Authentication Server",
+      "asset_type": "AUTH_SERVER",
+      "asset_criticality": 9,
+      "cve_id": "CVE-2024-6666",
+      "cvss_score": 7.5,
+      "category": "Weak Cryptography",
+      "exploit_available": 0,
+      "days_unpatched": 22,
+      "rbi_clause": "RBI/2023-24/105.D.2",
+      "nci_clause": "",
+      "sebi_clause": "",
+      "compliance_status": "MAPPED"
+    },
+    {
+      "vuln_id": "V_LOG_001",
+      "asset_id": "LOG_SERVER_001",
+      "asset_name": "Security Log Server",
+      "asset_type": "LOG_SERVER",
+      "asset_criticality": 5,
+      "cve_id": "CVE-2024-7777",
+      "cvss_score": 4.5,
+      "category": "Data Exposure",
+      "exploit_available": 0,
+      "days_unpatched": 60,
+      "rbi_clause": "RBI/2022-23/098.B.3",
+      "nci_clause": "",
+      "sebi_clause": "",
+      "compliance_status": "MAPPED"
+    }
+  ],
+  "unmapped_vulnerability_gaps": [],
+  "regulatory_mappings_reference": [
+    {
+      "mapping_id": "RMAP_001",
+      "asset_type": "UPI_SWITCH",
+      "category": "Authentication Bypass",
+      "rbi_clause": "RBI/2023-24/105.A.3",
+      "nci_clause": "",
+      "sebi_clause": "",
+      "description": "Mandatory multi-factor authentication for all payment transactions above ₹50,000"
+    },
+    {
+      "mapping_id": "RMAP_002",
+      "asset_type": "UPI_SWITCH",
+      "category": "Data Exposure",
+      "rbi_clause": "RBI/2022-23/098.B.2",
+      "nci_clause": "",
+      "sebi_clause": "SEBI/HO/ISD/ISD/CIR/P/2020/168",
+      "description": "Encryption of all transaction data in transit and at rest; real-time transaction monitoring and anomaly detection"
+    },
+    {
+      "mapping_id": "RMAP_003",
+      "asset_type": "CBS_SERVER",
+      "category": "SQL Injection",
+      "rbi_clause": "RBI/2023-24/105.C.1",
+      "nci_clause": "",
+      "sebi_clause": "",
+      "description": "Input validation and parameterized queries for all database operations"
+    },
+    {
+      "mapping_id": "RMAP_004",
+      "asset_type": "CBS_SERVER",
+      "category": "Privilege Escalation",
+      "rbi_clause": "RBI/2022-23/098.A.1",
+      "nci_clause": "RBI/2023-24/105.A.1",
+      "sebi_clause": "",
+      "description": "Role-based access control with principle of least privilege"
+    },
+    {
+      "mapping_id": "RMAP_005",
+      "asset_type": "MOBILE_BANKING_APP",
+      "category": "Insecure Storage",
+      "rbi_clause": "RBI/2023-24/105.B.2",
+      "nci_clause": "",
+      "sebi_clause": "",
+      "description": "Secure storage of credentials using hardware-backed keystore"
+    },
+    {
+      "mapping_id": "RMAP_006",
+      "asset_type": "MOBILE_BANKING_APP",
+      "category": "Input Validation",
+      "rbi_clause": "RBI/2022-23/098.C.3",
+      "nci_clause": "",
+      "sebi_clause": "",
+      "description": "Server-side validation of all client inputs"
+    },
+    {
+      "mapping_id": "RMAP_007",
+      "asset_type": "ATM_SWITCH",
+      "category": "Network Sniffing",
+      "rbi_clause": "RBI/2023-24/105.D.1",
+      "nci_clause": "",
+      "sebi_clause": "",
+      "description": "Encryption of all ATM communication channels (TLS 1.2+)"
+    },
+    {
+      "mapping_id": "RMAP_008",
+      "asset_type": "WEB_BANKING_PORTAL",
+      "category": "Session Fixation",
+      "rbi_clause": "RBI/2023-24/105.A.2",
+      "nci_clause": "RBI/2022-23/098.A.2",
+      "sebi_clause": "",
+      "description": "Session timeout and regeneration on privilege escalation"
+    },
+    {
+      "mapping_id": "RMAP_009",
+      "asset_type": "WEB_BANKING_PORTAL",
+      "category": "Cross-Site Scripting",
+      "rbi_clause": "RBI/2022-23/098.C.1",
+      "nci_clause": "",
+      "sebi_clause": "",
+      "description": "Output encoding and Content Security Policy headers"
+    },
+    {
+      "mapping_id": "RMAP_010",
+      "asset_type": "USSD_GATEWAY",
+      "category": "Authentication Bypass",
+      "rbi_clause": "RBI/2023-24/105.A.3",
+      "nci_clause": "",
+      "sebi_clause": "",
+      "description": "OTP validation with rate limiting and expiry"
+    },
+    {
+      "mapping_id": "RMAP_011",
+      "asset_type": "API_GATEWAY",
+      "category": "Injection",
+      "rbi_clause": "RBI/2023-24/105.C.1",
+      "nci_clause": "",
+      "sebi_clause": "",
+      "description": "API input validation and parameterized queries"
+    },
+    {
+      "mapping_id": "RMAP_012",
+      "asset_type": "API_GATEWAY",
+      "category": "Rate Limiting",
+      "rbi_clause": "RBI/2022-23/098.D.1",
+      "nci_clause": "",
+      "sebi_clause": "",
+      "description": "Transaction velocity checks and anomaly detection"
+    },
+    {
+      "mapping_id": "RMAP_013",
+      "asset_type": "DATABASE",
+      "category": "Privilege Escalation",
+      "rbi_clause": "RBI/2023-24/105.A.1",
+      "nci_clause": "RBI/2022-23/098.A.1",
+      "sebi_clause": "",
+      "description": "Database access control with separate service accounts"
+    },
+    {
+      "mapping_id": "RMAP_014",
+      "asset_type": "DATABASE",
+      "category": "Data Exposure",
+      "rbi_clause": "RBI/2022-23/098.B.1",
+      "nci_clause": "",
+      "sebi_clause": "",
+      "description": "Encryption of backups and sensitive fields"
+    },
+    {
+      "mapping_id": "RMAP_015",
+      "asset_type": "AUTH_SERVER",
+      "category": "Authentication Bypass",
+      "rbi_clause": "RBI/2023-24/105.A.2",
+      "nci_clause": "",
+      "sebi_clause": "",
+      "description": "Cryptographic token validation with key rotation"
+    },
+    {
+      "mapping_id": "RMAP_016",
+      "asset_type": "AUTH_SERVER",
+      "category": "Weak Cryptography",
+      "rbi_clause": "RBI/2023-24/105.D.2",
+      "nci_clause": "",
+      "sebi_clause": "",
+      "description": "Use of bcrypt/scrypt with minimum cost factor 12"
+    },
+    {
+      "mapping_id": "RMAP_017",
+      "asset_type": "LOG_SERVER",
+      "category": "Data Exposure",
+      "rbi_clause": "RBI/2022-23/098.B.3",
+      "nci_clause": "",
+      "sebi_clause": "",
+      "description": "Data masking for PII in logs"
+    }
+  ]
+}
