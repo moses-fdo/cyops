@@ -15,7 +15,7 @@ from components.widgets import inject_swiss_css, render_html
 
 st.set_page_config(
     page_title="CyberLens 2.0 — RBI-Aligned Cyber Risk Dashboard",
-    page_icon="🛡️",
+    page_icon=None,
     layout="wide",
     initial_sidebar_state="collapsed",
 )
@@ -49,8 +49,8 @@ def main():
                 <!-- TOP INSTITUTIONAL TELEMETRY BAR -->
                 <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px;padding:10px 18px;background:var(--cl-panel);border:1px solid var(--cl-border);border-radius:8px;box-shadow:var(--cl-shadow);">
                     <div style="display:flex;align-items:center;gap:12px;">
-                        <div style="width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg, #0284C7 0%, #0369A1 100%);display:flex;align-items:center;justify-content:center;font-weight:800;color:#FFFFFF;font-size:1.1rem;box-shadow:0 0 14px rgba(56,189,248,0.35);">
-                            🛡️
+                        <div style="width:34px;height:34px;border-radius:6px;background:var(--cl-panel-3);border:1px solid var(--cl-border-2);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--cl-accent-strong);font-size:0.8rem;">
+                            RBI
                         </div>
                         <div>
                             <div style="font-size:0.68rem;font-weight:700;color:var(--cl-accent-strong);text-transform:uppercase;letter-spacing:0.09em;font-family:'JetBrains Mono',monospace;">
@@ -74,11 +74,11 @@ def main():
 
                 <!-- MAIN HERO HEADER -->
                 <div style="text-align:center;margin-bottom:32px;padding:10px 15px;">
-                    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.25);padding:4px 14px;border-radius:20px;font-size:0.75rem;font-weight:600;color:var(--cl-accent-strong);font-family:'JetBrains Mono',monospace;margin-bottom:14px;">
-                        ⚡ CYBER RISK QUANTIFICATION & CAPITAL ALLOCATION ENGINE
+                    <div style="display:inline-flex;align-items:center;gap:8px;background:var(--cl-panel-2);border:1px solid var(--cl-border);padding:4px 14px;border-radius:6px;font-size:0.75rem;font-weight:600;color:var(--cl-accent-strong);font-family:'JetBrains Mono',monospace;margin-bottom:14px;">
+                        CYBER RISK QUANTIFICATION & CAPITAL ALLOCATION ENGINE
                     </div>
                     <h1 style="font-size:2.3rem;font-weight:800;letter-spacing:-0.03em;color:var(--cl-text);margin-bottom:12px;line-height:1.2;">
-                        CyberLens Platform <span style="color:var(--cl-accent-strong);background:linear-gradient(90deg, #38BDF8, #0284C7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">2.0</span>
+                        CyberLens Platform <span style="color:var(--cl-accent-strong);font-weight:800;">2.0</span>
                     </h1>
                     <p style="max-width:680px;margin:0 auto;color:var(--cl-muted);font-size:0.925rem;line-height:1.6;">
                         Quantifying cyber vulnerabilities into monetary risk metrics (₹ Expected Annual Loss & VaR) and delivering AI-optimized ROSI budget allocation for critical national financial nodes (UPI, CBS, ATM).
@@ -88,7 +88,6 @@ def main():
                 <!-- 3 FEATURE PILLARS GRID -->
                 <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:16px;margin-bottom:32px;">
                     <div class="cl-feature-box">
-                        <div style="font-size:1.3rem;margin-bottom:8px;">📊</div>
                         <div style="font-size:0.875rem;font-weight:700;color:var(--cl-text);margin-bottom:4px;">
                             RBI Cyber Resilience Index (CR-I)
                         </div>
@@ -97,7 +96,6 @@ def main():
                         </div>
                     </div>
                     <div class="cl-feature-box">
-                        <div style="font-size:1.3rem;margin-bottom:8px;">💸</div>
                         <div style="font-size:0.875rem;font-weight:700;color:var(--cl-text);margin-bottom:4px;">
                             Financial Loss Exposure (₹ EAL)
                         </div>
@@ -106,7 +104,6 @@ def main():
                         </div>
                     </div>
                     <div class="cl-feature-box">
-                        <div style="font-size:1.3rem;margin-bottom:8px;">🎯</div>
                         <div style="font-size:0.875rem;font-weight:700;color:var(--cl-text);margin-bottom:4px;">
                             ROSI Capital Allocator
                         </div>
@@ -124,8 +121,7 @@ def main():
                     <div style="font-size:1.2rem;font-weight:800;color:var(--cl-text);margin-bottom:12px;letter-spacing:-0.01em;">
                         Security Credentials Required
                     </div>
-                    <div style="background:rgba(56,189,248,0.06);border:1px dashed rgba(56,189,248,0.3);padding:8px 14px;border-radius:6px;margin-bottom:12px;display:inline-flex;align-items:center;gap:8px;font-size:0.75rem;color:var(--cl-text-3);">
-                        <span>🔑</span>
+                    <div style="background:rgba(224,224,224,0.06);border:1px dashed rgba(224,224,224,0.3);padding:8px 14px;border-radius:6px;margin-bottom:12px;display:inline-flex;align-items:center;gap:8px;font-size:0.75rem;color:var(--cl-text-3);">
                         <span>Demo Key: <code style="background:var(--cl-panel-3);padding:2px 7px;border-radius:4px;color:var(--cl-accent-strong);font-family:'JetBrains Mono',monospace;font-weight:600;">cyberlens-demo-2024</code></span>
                     </div>
                 </div>
@@ -183,7 +179,7 @@ def main():
         render_html(
             """
             <div style="display:flex;align-items:center;gap:12px;">
-                <div style="background:rgba(56,189,248,0.12);border:1px solid rgba(56,189,248,0.35);color:var(--cl-accent-strong);font-weight:700;font-size:0.825rem;padding:6px 11px;border-radius:6px;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;">
+                <div style="background:rgba(224,224,224,0.12);border:1px solid rgba(224,224,224,0.35);color:var(--cl-accent-strong);font-weight:700;font-size:0.825rem;padding:6px 11px;border-radius:6px;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;">
                     CRQ//2.0
                 </div>
                 <div style="display:flex;flex-direction:column;justify-content:center;">
@@ -191,7 +187,7 @@ def main():
                         CyberLens Platform
                     </div>
                     <div style="font-size:0.7rem;color:var(--cl-faint);font-weight:500;display:flex;align-items:center;gap:6px;margin-top:2px;">
-                        <span style="width:6px;height:6px;border-radius:50%;background:#10B981;box-shadow:0 0 8px #10B981;display:inline-block;"></span>
+                        <span style="width:6px;height:6px;border-radius:50%;background:#E0E0E0;box-shadow:0 0 8px #E0E0E0;display:inline-block;"></span>
                         <span style="color:var(--cl-muted);">RBI Master Direction (RBI/2023-24/105)</span> · Active
                     </div>
                 </div>
@@ -204,7 +200,7 @@ def main():
         v_col1, v_col2 = st.columns(2)
         with v_col1:
             if st.button(
-                "📊 Executive View",
+                "Executive View",
                 key="nav_top_exec",
                 type="primary" if curr_view == "Executive View" else "secondary",
                 width="stretch",
@@ -253,10 +249,10 @@ def main():
     render_html('<div style="border-bottom:1px solid var(--cl-border);margin-top:0.35rem;margin-bottom:0.95rem;"></div>')
 
     # === SUPERVISORY TOOLS DRAWER ===
-    with st.expander("🛡️ Supervisory Audit & Breach Simulation Console (RBI Compliance · Stress Testing)", expanded=False):
+    with st.expander("Supervisory Audit & Breach Simulation Console (RBI Compliance · Stress Testing)", expanded=False):
         st_col1, st_col2 = st.columns(2)
         with st_col1:
-            st.markdown("#### 📋 Regulatory Compliance Audit")
+            st.markdown("#### Regulatory Compliance Audit")
             st.caption("Generate formal audit package cross-referencing all vulnerabilities against RBI, SEBI, and NPCI circulars.")
             if st.button("Generate Compliance Audit Package", key="main_compliance_report", type="secondary", width="stretch"):
                 with st.spinner("Building regulatory compliance package..."):
@@ -271,9 +267,9 @@ def main():
                 cov = summary.get("compliance_coverage", {}).get("coverage_percentage", 0)
                 render_html(
                     f"""
-                    <div class="cl-card" style="margin-top:0.75rem;padding:0.85rem 1rem;border-left:3px solid #10B981;">
+                    <div class="cl-card" style="margin-top:0.75rem;padding:0.85rem 1rem;border-left:3px solid #E0E0E0;">
                         <div style="display:flex;justify-content:space-between;align-items:center;">
-                            <span style="font-size:0.8rem;color:var(--cl-text);font-weight:600;">Framework Coverage: <span class="cl-mono" style="color:#34D399;font-weight:700;">{cov}%</span></span>
+                            <span style="font-size:0.8rem;color:var(--cl-text);font-weight:600;">Framework Coverage: <span class="cl-mono" style="color:#BFBFBF;font-weight:700;">{cov}%</span></span>
                             <span style="font-size:0.7rem;color:var(--cl-faint);font-family:'JetBrains Mono',monospace;">Status: VERIFIED</span>
                         </div>
                     </div>
@@ -286,7 +282,7 @@ def main():
                     with target_col:
                         with open(fpath, "rb") as f:
                             st.download_button(
-                                label=f"⬇️ {fname}",
+                                label=f"{fname}",
                                 data=f.read(),
                                 file_name=fname,
                                 mime="text/csv" if fname.endswith(".csv") else "application/json",
@@ -295,7 +291,7 @@ def main():
                             )
 
         with st_col2:
-            st.markdown("#### 🔴 Judge Breach Simulation")
+            st.markdown("#### Judge Breach Simulation")
             st.caption("Simulate full node collapse on the highest-EAL payment switch and quantify Single Loss Expectancy (SLE).")
             if st.button("Run Before/After Breach Simulation", key="main_breach_demo", type="secondary", width="stretch"):
                 with st.spinner("Simulating systemic breach on critical infrastructure..."):
@@ -309,15 +305,15 @@ def main():
                 if scenario:
                     render_html(
                         f"""
-                        <div class="cl-card" style="margin-top:0.75rem;padding:0.85rem 1.15rem;border-left:3px solid #F43F5E;">
-                            <div style="font-size:0.7rem;font-weight:700;color:#FB7185;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;">
+                        <div class="cl-card" style="margin-top:0.75rem;padding:0.85rem 1.15rem;border-left:3px solid #8E8E8E;">
+                            <div style="font-size:0.7rem;font-weight:700;color:#A0A0A0;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;">
                                 Target: {scenario.get('scenario', {}).get('breach_asset_name', 'Payment Switch')}
                             </div>
                             <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:0.78rem;">
                                 <div>Pre-Breach CR-I: <strong class="cl-mono" style="color:var(--cl-text);">{scenario['before']['overall_cr_i']}/100</strong></div>
-                                <div>Single Incident Loss: <strong class="cl-mono" style="color:#FB7185;">₹{scenario['breach']['realized_single_loss_inr']:,.0f}</strong></div>
+                                <div>Single Incident Loss: <strong class="cl-mono" style="color:#A0A0A0;">₹{scenario['breach']['realized_single_loss_inr']:,.0f}</strong></div>
                                 <div>Annual Exposure: <strong class="cl-mono" style="color:var(--cl-text);">{scenario['before']['total_exposure_inr']:,.0f}</strong></div>
-                                <div>Knapsack Control ROI: <strong class="cl-mono" style="color:#34D399;">{scenario['delta']['loss_multiple_of_controls']}×</strong></div>
+                                <div>Knapsack Control ROI: <strong class="cl-mono" style="color:#BFBFBF;">{scenario['delta']['loss_multiple_of_controls']}×</strong></div>
                             </div>
                         </div>
                         """
@@ -327,7 +323,7 @@ def main():
     st.sidebar.markdown(
         """
         <div style="margin-bottom:1rem;padding-bottom:0.75rem;border-bottom:1px solid var(--cl-border-4);">
-            <div style="font-size:1.05rem;font-weight:700;color:var(--cl-text);letter-spacing:-0.02em;">🛡️ CyberLens 2.0</div>
+            <div style="font-size:1.05rem;font-weight:700;color:var(--cl-text);letter-spacing:-0.02em;">CyberLens 2.0</div>
             <div style="font-size:0.7rem;color:var(--cl-muted);font-weight:500;margin-top:2px;">RBI-Aligned Cyber Risk Dashboard</div>
         </div>
         """,
@@ -344,17 +340,17 @@ def main():
     )
     session["current_view"] = nav_selection
 
-    if st.sidebar.button("▶ Load UPI Switch Demo", key="sb_upi_demo"):
+    if st.sidebar.button("Load UPI Switch Demo", key="sb_upi_demo"):
         from components.sih_features import load_demo_scenario
         load_demo_scenario(session)
         st.rerun()
 
-    if st.sidebar.button("↻ Reset Full Portfolio", key="sb_reset"):
+    if st.sidebar.button("Reset Full Portfolio", key="sb_reset"):
         from components.sih_features import reset_full_portfolio
         reset_full_portfolio(session)
         st.rerun()
 
-    if st.sidebar.button("📄 Generate SIH Summary", key="sb_sih"):
+    if st.sidebar.button("Generate SIH Summary", key="sb_sih"):
         from components.sih_features import generate_sih_summary
         generate_sih_summary(session)
 
@@ -370,12 +366,12 @@ def main():
         result = st.session_state.get("compliance_report_result")
         if result:
             st.sidebar.divider()
-            st.sidebar.markdown("### 📋 Compliance Report")
+            st.sidebar.markdown("### Compliance Report")
             for fpath in result.get("files_generated", []):
                 fname = os.path.basename(fpath)
                 with open(fpath, "rb") as f:
                     st.sidebar.download_button(
-                        label=f"⬇️ Download {fname}",
+                        label=f"Download {fname}",
                         data=f.read(),
                         file_name=fname,
                         mime="text/csv" if fname.endswith(".csv") else "application/json",
@@ -400,7 +396,7 @@ def main():
         scenario = st.session_state.get("breach_scenario")
         if scenario:
             st.sidebar.divider()
-            st.sidebar.markdown("### 🔴 Breach Demo Result")
+            st.sidebar.markdown("### Breach Demo Result")
             st.sidebar.metric("Portfolio CR-I", f"{scenario['before']['overall_cr_i']}/100")
             st.sidebar.metric("Annual Exposure", f"₹{scenario['before']['total_exposure_inr']:,.0f}")
             st.sidebar.metric("Single Breach Loss", f"₹{scenario['breach']['realized_single_loss_inr']:,.0f}")

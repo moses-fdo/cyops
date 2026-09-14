@@ -14,70 +14,70 @@ def render_html(html_str):
 
 THEMES = {
     "dark": {
-        "canvas": "#07090E",
-        "panel": "#0E131F",
-        "panel-2": "#141A2B",
-        "panel-3": "#1B2338",
-        "hover": "#161E31",
-        "button": "#121826",
-        "button-hover": "#1C2438",
-        "button-active": "#222D46",
-        "border": "#1E293D",
-        "border-2": "#283752",
-        "border-3": "#334566",
-        "border-4": "#3F567F",
-        "border-hover": "#38BDF8",
-        "track": "#121826",
-        "text": "#F8FAFC",
-        "text-2": "#F1F5F9",
-        "text-3": "#E2E8F0",
-        "text-4": "#CBD5E1",
-        "muted": "#94A3B8",
-        "faint": "#64748B",
-        "accent-strong": "#38BDF8",
-        "accent-glow": "rgba(56, 189, 248, 0.25)",
-        "on-accent": "#03111C",
-        "on-green": "#041F16",
-        "shadow": "0 4px 24px -2px rgba(0, 0, 0, 0.55)",
-        "shadow-hover": "0 8px 32px -2px rgba(0, 0, 0, 0.70)",
-        "inset": "inset 0 1px 0 0 rgba(255, 255, 255, 0.05)",
-        "inset-hover": "inset 0 1px 0 0 rgba(255, 255, 255, 0.08)",
-        "buttonshadow": "0 1px 3px rgba(0, 0, 0, 0.4)",
-        "glow": "0 0 16px -2px rgba(56, 189, 248, 0.35)",
-        "input-shadow": "inset 0 1px 2px rgba(0, 0, 0, 0.4)",
+        "canvas": "#1A1A1A",
+        "panel": "#232426",
+        "panel-2": "#2A2C2F",
+        "panel-3": "#353A3E",
+        "hover": "#353A3E",
+        "button": "#232426",
+        "button-hover": "#2A2C2F",
+        "button-active": "#353A3E",
+        "border": "#2E3034",
+        "border-2": "#353A3E",
+        "border-3": "#434850",
+        "border-4": "#555B62",
+        "border-hover": "#E0E0E0",
+        "track": "#232426",
+        "text": "#E0E0E0",
+        "text-2": "#D0D0D0",
+        "text-3": "#BFBFBF",
+        "text-4": "#A0A0A0",
+        "muted": "#8E8E8E",
+        "faint": "#6B6B6B",
+        "accent-strong": "#E0E0E0",
+        "accent-glow": "rgba(224, 224, 224, 0.12)",
+        "on-accent": "#1A1A1A",
+        "on-green": "#0D2818",
+        "shadow": "0 1px 3px rgba(0, 0, 0, 0.45)",
+        "shadow-hover": "0 3px 12px rgba(0, 0, 0, 0.6)",
+        "inset": "inset 0 1px 0 0 rgba(255, 255, 255, 0.03)",
+        "inset-hover": "inset 0 1px 0 0 rgba(255, 255, 255, 0.06)",
+        "buttonshadow": "0 1px 2px rgba(0, 0, 0, 0.35)",
+        "glow": "0 0 0 2px rgba(224, 224, 224, 0.18)",
+        "input-shadow": "inset 0 1px 2px rgba(0, 0, 0, 0.35)",
     },
     "light": {
-        "canvas": "#F6F8FC",
-        "panel": "#FFFFFF",
-        "panel-2": "#F1F5F9",
-        "panel-3": "#E2E8F0",
-        "hover": "#F8FAFC",
+        "canvas": "#FFFFFF",
+        "panel": "#F7F7F5",
+        "panel-2": "#F1F1EF",
+        "panel-3": "#EBEBEA",
+        "hover": "#EFEFED",
         "button": "#FFFFFF",
-        "button-hover": "#F0F9FF",
-        "button-active": "#E0F2FE",
-        "border": "#E2E8F0",
-        "border-2": "#CBD5E1",
-        "border-3": "#94A3B8",
-        "border-4": "#64748B",
-        "border-hover": "#0284C7",
-        "track": "#E2E8F0",
-        "text": "#0F172A",
-        "text-2": "#1E293B",
-        "text-3": "#334155",
-        "text-4": "#475569",
-        "muted": "#64748B",
-        "faint": "#94A3B8",
-        "accent-strong": "#0284C7",
-        "accent-glow": "rgba(2, 132, 199, 0.20)",
+        "button-hover": "#EFEFED",
+        "button-active": "#E5E5E3",
+        "border": "#E9E9E7",
+        "border-2": "#E1E1DE",
+        "border-3": "#D3D3D0",
+        "border-4": "#C3C3C0",
+        "border-hover": "#1A1A1A",
+        "track": "#E9E9E7",
+        "text": "#37352F",
+        "text-2": "#45433D",
+        "text-3": "#5A5A55",
+        "text-4": "#6F6E69",
+        "muted": "#787774",
+        "faint": "#9B9A97",
+        "accent-strong": "#1A1A1A",
+        "accent-glow": "rgba(26, 26, 26, 0.12)",
         "on-accent": "#FFFFFF",
-        "on-green": "#041F16",
-        "shadow": "0 4px 20px -4px rgba(15, 23, 42, 0.08)",
-        "shadow-hover": "0 8px 28px -4px rgba(15, 23, 42, 0.14)",
-        "inset": "inset 0 1px 0 0 rgba(255, 255, 255, 0.8)",
-        "inset-hover": "inset 0 1px 0 0 rgba(255, 255, 255, 1)",
-        "buttonshadow": "0 1px 2px rgba(15, 23, 42, 0.08)",
-        "glow": "0 0 0 1px rgba(2, 132, 199, 0.30)",
-        "input-shadow": "inset 0 1px 2px rgba(15, 23, 42, 0.05)",
+        "on-green": "#1C3829",
+        "shadow": "0 1px 3px rgba(15, 15, 15, 0.06), 0 2px 8px rgba(15, 15, 15, 0.03)",
+        "shadow-hover": "0 2px 6px rgba(15, 15, 15, 0.10), 0 4px 16px rgba(15, 15, 15, 0.06)",
+        "inset": "inset 0 0 0 1px rgba(15, 15, 15, 0.05)",
+        "inset-hover": "inset 0 0 0 1px rgba(15, 15, 15, 0.1)",
+        "buttonshadow": "0 1px 2px rgba(15, 15, 15, 0.06)",
+        "glow": "0 0 0 2px rgba(26, 26, 26, 0.18)",
+        "input-shadow": "inset 0 1px 2px rgba(15, 15, 15, 0.04)",
     },
 }
 
@@ -90,19 +90,19 @@ def _theme_root_css(theme):
 
 
 def inject_swiss_css(theme="dark"):
-    """Inject the institutional command-center CSS using CSS variables.
+    """Inject Notion-inspired clean UI design system using CSS variables.
     The active theme's tokens are emitted directly at :root (no JS required),
     so the light/dark switch re-paints on the next Streamlit rerun."""
     render_html(
         """
         <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
 
-        /* === INSTITUTIONAL COMMAND CANVAS === */
+        /* === NOTION CANVAS & TYPOGRAPHY === */
         html, body, [class*="css"] {
-            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+            font-family: 'Inter', ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
             color: var(--cl-text) !important;
-            letter-spacing: -0.01em;
+            letter-spacing: -0.011em;
             -webkit-font-smoothing: antialiased;
         }
 
@@ -113,9 +113,7 @@ def inject_swiss_css(theme="dark"):
 
         .stApp {
             background-color: var(--cl-canvas) !important;
-            background: radial-gradient(circle at 50% -15%, rgba(56, 189, 248, 0.07) 0%, transparent 65%),
-                        radial-gradient(circle at 10% 20%, rgba(16, 185, 129, 0.03) 0%, transparent 50%),
-                        var(--cl-canvas) !important;
+            background: var(--cl-canvas) !important;
         }
 
         /* === CLEAN CANVAS MARGINS & TOP BAR === */
@@ -138,7 +136,7 @@ def inject_swiss_css(theme="dark"):
             padding: 0 !important;
         }
 
-        /* Completely remove Streamlit's native header black banner */
+        /* Completely remove Streamlit's native header banner */
         [data-testid="stHeader"],
         header[data-testid="stHeader"],
         .stApp > header,
@@ -191,28 +189,28 @@ def inject_swiss_css(theme="dark"):
         }
         .stMarkdown { min-height: 0 !important; }
 
-        /* === TYPOGRAPHY === */
+        /* === NOTION HEADINGS === */
         h1 {
-            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            font-family: 'Inter', sans-serif !important;
             font-weight: 700 !important;
-            letter-spacing: -0.025em !important;
+            letter-spacing: -0.022em !important;
             color: var(--cl-text) !important;
             font-size: 1.45rem !important;
             margin-bottom: 0.2rem !important;
             margin-top: 0 !important;
-            line-height: 1.2 !important;
+            line-height: 1.25 !important;
         }
         h2 {
-            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            font-family: 'Inter', sans-serif !important;
             font-weight: 600 !important;
-            letter-spacing: -0.02em !important;
+            letter-spacing: -0.015em !important;
             color: var(--cl-text-2) !important;
             font-size: 1.1rem !important;
             margin-top: 0.5rem !important;
             margin-bottom: 0.25rem !important;
         }
         h3 {
-            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            font-family: 'Inter', sans-serif !important;
             font-weight: 600 !important;
             color: var(--cl-text-3) !important;
             font-size: 0.95rem !important;
@@ -220,7 +218,7 @@ def inject_swiss_css(theme="dark"):
             margin-bottom: 0.2rem !important;
         }
         h4 {
-            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            font-family: 'Inter', sans-serif !important;
             font-weight: 600 !important;
             color: var(--cl-text-4) !important;
             font-size: 0.85rem !important;
@@ -238,7 +236,52 @@ def inject_swiss_css(theme="dark"):
             color: var(--cl-text);
         }
 
-        /* === BUTTONS & NAVBAR CONTROLS === */
+        /* === SMOOTH ANIMATIONS & KEYFRAMES === */
+        @keyframes clFadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes clFadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes clScaleUp {
+            0% {
+                opacity: 0;
+                transform: scale(0.97);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes clPulseDot {
+            0% { transform: scale(0.95); opacity: 0.8; box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 7px rgba(16, 185, 129, 0); }
+            100% { transform: scale(0.95); opacity: 0.8; box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        /* Enforce smooth animations on entrance for containers & card blocks */
+        .cl-card,
+        .cl-feature-box,
+        .cl-login-card,
+        div[data-testid="stForm"],
+        div[data-testid="stMetric"],
+        div[data-testid="stDataFrame"],
+        div[data-testid="stTable"] {
+            animation: clFadeInUp 0.38s cubic-bezier(0.16, 1, 0.3, 1) ease-out both !important;
+        }
+
+        /* === NOTION BUTTONS WITH MICRO-INTERACTIONS === */
         .stButton button,
         button[data-testid*="BaseButton"],
         button[data-testid*="baseButton"],
@@ -248,13 +291,13 @@ def inject_swiss_css(theme="dark"):
             background-color: var(--cl-button) !important;
             color: var(--cl-text) !important;
             border: 1px solid var(--cl-border-2) !important;
-            border-radius: 6px !important;
-            padding: 0.45rem 0.85rem !important;
-            font-weight: 600 !important;
+            border-radius: 5px !important;
+            padding: 0.42rem 0.85rem !important;
+            font-weight: 500 !important;
             font-size: 0.8rem !important;
             letter-spacing: -0.01em !important;
             box-shadow: var(--cl-buttonshadow) !important;
-            transition: all 0.15s ease !important;
+            transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease !important;
             width: 100% !important;
             outline: none !important;
         }
@@ -266,8 +309,8 @@ def inject_swiss_css(theme="dark"):
         button[kind="secondary"] *,
         div[data-testid="stButton"] button * {
             color: var(--cl-text) !important;
-            font-weight: 600 !important;
-            transition: color 0.15s ease !important;
+            font-weight: 500 !important;
+            transition: color 0.18s ease !important;
         }
 
         /* Secondary Button Hover & Focus States */
@@ -278,11 +321,11 @@ def inject_swiss_css(theme="dark"):
         button[data-testid*="secondary"]:focus,
         button[kind="secondary"]:hover,
         button[kind="secondary"]:focus {
-            border-color: var(--cl-accent-strong) !important;
+            border-color: var(--cl-border-3) !important;
             background-color: var(--cl-button-hover) !important;
-            color: var(--cl-accent-strong) !important;
-            box-shadow: var(--cl-glow) !important;
-            transform: translateY(-1px) !important;
+            color: var(--cl-text) !important;
+            box-shadow: var(--cl-shadow) !important;
+            transform: translateY(-1.5px) !important;
             outline: none !important;
         }
 
@@ -293,22 +336,16 @@ def inject_swiss_css(theme="dark"):
         button[data-testid*="secondary"]:focus *,
         button[kind="secondary"]:hover *,
         button[kind="secondary"]:focus * {
-            color: var(--cl-accent-strong) !important;
+            color: var(--cl-text) !important;
         }
 
         .stButton button:not([kind="primary"]):active,
         button[data-testid*="secondary"]:active,
         button[kind="secondary"]:active {
             background-color: var(--cl-button-active) !important;
-            border-color: var(--cl-accent-strong) !important;
-            color: var(--cl-accent-strong) !important;
-            transform: translateY(0px) !important;
-        }
-
-        .stButton button:not([kind="primary"]):active *,
-        button[data-testid*="secondary"]:active *,
-        button[kind="secondary"]:active * {
-            color: var(--cl-accent-strong) !important;
+            border-color: var(--cl-border-3) !important;
+            color: var(--cl-text) !important;
+            transform: translateY(0px) scale(0.985) !important;
         }
 
         /* Primary Button (Active View & Primary Actions) */
@@ -318,11 +355,14 @@ def inject_swiss_css(theme="dark"):
         button[data-testid*="stBaseButton-primary"],
         .stButton button[kind="primary"],
         .stButton button[data-testid*="primary"] {
-            background: linear-gradient(180deg, #0284C7 0%, #0369A1 100%) !important;
-            color: #FFFFFF !important;
-            border: 1px solid #0284C7 !important;
-            font-weight: 700 !important;
-            box-shadow: 0 2px 10px rgba(2, 132, 199, 0.35) !important;
+            background-color: var(--cl-accent-strong) !important;
+            background: var(--cl-accent-strong) !important;
+            color: var(--cl-on-accent) !important;
+            border: 1px solid var(--cl-accent-strong) !important;
+            font-weight: 600 !important;
+            border-radius: 5px !important;
+            box-shadow: var(--cl-buttonshadow) !important;
+            transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), filter 0.18s ease, opacity 0.18s ease, box-shadow 0.18s ease !important;
             outline: none !important;
         }
 
@@ -332,8 +372,8 @@ def inject_swiss_css(theme="dark"):
         button[data-testid*="stBaseButton-primary"] *,
         .stButton button[kind="primary"] *,
         .stButton button[data-testid*="primary"] * {
-            color: #FFFFFF !important;
-            font-weight: 700 !important;
+            color: var(--cl-on-accent) !important;
+            font-weight: 600 !important;
         }
 
         button[kind="primary"]:hover,
@@ -342,57 +382,50 @@ def inject_swiss_css(theme="dark"):
         button[data-testid*="primary"]:focus,
         .stButton button[kind="primary"]:hover,
         .stButton button[kind="primary"]:focus {
-            background: linear-gradient(180deg, #0369A1 0%, #075985 100%) !important;
-            border-color: #38BDF8 !important;
-            color: #FFFFFF !important;
-            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.5) !important;
-            transform: translateY(-1px) !important;
+            filter: brightness(1.08) !important;
+            opacity: 0.95 !important;
+            transform: translateY(-1.5px) !important;
             outline: none !important;
         }
 
-        button[kind="primary"]:hover *,
-        button[kind="primary"]:focus *,
-        button[data-testid*="primary"]:hover *,
-        button[data-testid*="primary"]:focus *,
-        .stButton button[kind="primary"]:hover *,
-        .stButton button[kind="primary"]:focus * {
-            color: #FFFFFF !important;
+        button[kind="primary"]:active,
+        button[data-testid*="primary"]:active,
+        .stButton button[kind="primary"]:active {
+            transform: translateY(0px) scale(0.985) !important;
         }
 
-        /* === REFINED DOUBLE-BEZEL CARDS === */
+        /* === NOTION CARD / CALLOUT BLOCKS WITH SMOOTH HOVER LIFT === */
         .cl-card {
             background-color: var(--cl-panel) !important;
             border: 1px solid var(--cl-border) !important;
             border-radius: 6px !important;
             padding: 1.1rem 1.25rem !important;
-            box-shadow: var(--cl-shadow), var(--cl-inset) !important;
+            box-shadow: var(--cl-shadow) !important;
             position: relative !important;
-            transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease !important;
+            transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.22s ease, background-color 0.22s ease, box-shadow 0.22s ease !important;
         }
         .cl-card:hover {
-            border-color: var(--cl-border-hover) !important;
-            box-shadow: var(--cl-shadow-hover), var(--cl-inset-hover) !important;
+            border-color: var(--cl-border-2) !important;
+            background-color: var(--cl-panel-2) !important;
+            transform: translateY(-2.5px) !important;
+            box-shadow: var(--cl-shadow-hover) !important;
         }
 
-        /* === LANDING & LOGIN PAGE ANIMATIONS & ELEVATED STYLES === */
-        @keyframes clPulseDot {
-            0% { transform: scale(0.95); opacity: 0.8; box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-            70% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 7px rgba(16, 185, 129, 0); }
-            100% { transform: scale(0.95); opacity: 0.8; box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-        }
         .cl-login-card {
             background: var(--cl-panel) !important;
             border: 1px solid var(--cl-border-2) !important;
             border-top: 3px solid var(--cl-accent-strong) !important;
             border-radius: 12px !important;
             padding: 28px 32px !important;
-            box-shadow: 0 16px 48px -12px rgba(0, 0, 0, 0.5), 0 0 32px -4px rgba(56, 189, 248, 0.15) !important;
+            box-shadow: var(--cl-shadow) !important;
             backdrop-filter: blur(12px) !important;
-            transition: all 0.25s ease !important;
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease !important;
+            animation: clScaleUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) ease-out both !important;
         }
         .cl-login-card:hover {
             border-color: var(--cl-accent-strong) !important;
-            box-shadow: 0 20px 56px -12px rgba(0, 0, 0, 0.65), 0 0 40px -2px rgba(56, 189, 248, 0.25) !important;
+            transform: translateY(-2.5px) !important;
+            box-shadow: var(--cl-shadow-hover) !important;
         }
         .cl-status-badge {
             display: inline-flex;
@@ -403,15 +436,19 @@ def inject_swiss_css(theme="dark"):
             font-size: 0.725rem;
             font-weight: 600;
             font-family: 'JetBrains Mono', monospace;
-            background: rgba(16, 185, 129, 0.10);
-            border: 1px solid rgba(16, 185, 129, 0.30);
-            color: #10B981;
+            background: rgba(224, 224, 224, 0.08);
+            border: 1px solid rgba(224, 224, 224, 0.20);
+            color: #E0E0E0;
+            transition: all 0.2s ease !important;
+        }
+        .cl-status-badge:hover {
+            background: rgba(224, 224, 224, 0.14);
         }
         .cl-status-dot {
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: #10B981;
+            background: #E0E0E0;
             display: inline-block;
             animation: clPulseDot 2s infinite;
         }
@@ -420,13 +457,13 @@ def inject_swiss_css(theme="dark"):
             border: 1px solid var(--cl-border) !important;
             border-radius: 8px !important;
             padding: 18px 20px !important;
-            transition: all 0.2s ease !important;
-            box-shadow: var(--cl-shadow), var(--cl-inset) !important;
+            transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.22s ease, box-shadow 0.22s ease !important;
+            box-shadow: var(--cl-shadow) !important;
         }
         .cl-feature-box:hover {
-            border-color: var(--cl-border-hover) !important;
-            transform: translateY(-2px) !important;
-            box-shadow: var(--cl-shadow-hover), var(--cl-inset-hover) !important;
+            border-color: var(--cl-border-2) !important;
+            transform: translateY(-2.5px) !important;
+            box-shadow: var(--cl-shadow-hover) !important;
         }
 
         /* === COMPACT HIGH-SECURITY PASSWORD INPUT FIELD === */
@@ -437,8 +474,12 @@ def inject_swiss_css(theme="dark"):
             padding: 24px 28px !important;
             max-width: 440px !important;
             margin: 0 auto !important;
-            box-shadow: 0 12px 36px -8px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+            box-shadow: var(--cl-shadow) !important;
             border-top: 3px solid var(--cl-accent-strong) !important;
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease !important;
+        }
+        div[data-testid="stForm"]:hover {
+            box-shadow: var(--cl-shadow-hover) !important;
         }
         div[data-testid="stForm"] .stTextInput {
             max-width: 320px !important;
@@ -454,12 +495,12 @@ def inject_swiss_css(theme="dark"):
             background-color: var(--cl-canvas) !important;
             border: 1px solid var(--cl-border-3) !important;
             border-radius: 8px !important;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4) !important;
-            transition: all 0.2s ease !important;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+            transition: border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
         }
         div[data-testid="stForm"] .stTextInput input:focus {
             border-color: var(--cl-accent-strong) !important;
-            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2), inset 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+            box-shadow: 0 0 0 3px var(--cl-accent-glow) !important;
         }
         div[data-testid="stForm"] .stButton {
             max-width: 320px !important;
@@ -764,13 +805,13 @@ def metric_card(label, value, delta=None, help_text=None):
     """Colorized institutional financial metric card — standardized 190px height with crimson risk accent."""
     delta_html = ""
     if delta:
-        delta_html = f'<div style="display:inline-flex;align-items:center;background:rgba(244, 63, 94, 0.10);border:1px solid rgba(244, 63, 94, 0.30);color:#FB7185;font-size:0.725rem;font-weight:600;padding:2px 8px;border-radius:4px;margin-top:0.5rem;font-family:\'JetBrains Mono\',monospace;">{delta}</div>'
+        delta_html = f'<div style="display:inline-flex;align-items:center;background:rgba(142, 142, 142, 0.12);border:1px solid rgba(142, 142, 142, 0.30);color:#A0A0A0;font-size:0.725rem;font-weight:600;padding:2px 8px;border-radius:4px;margin-top:0.5rem;font-family:\'JetBrains Mono\',monospace;">{delta}</div>'
 
     help_html = f'<div style="color:var(--cl-faint);font-size:0.725rem;margin-top:0.5rem;border-top:1px solid var(--cl-border);padding-top:0.45rem;">{help_text}</div>' if help_text else ""
 
     render_html(
         f"""
-        <div class="cl-card" style="height:190px;display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;padding:1.1rem 1.25rem;border-top:2px solid #F43F5E;">
+        <div class="cl-card" style="height:190px;display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;padding:1.1rem 1.25rem;border-top:2px solid #8E8E8E;">
             <div>
                 <div style="color:var(--cl-faint);font-size:0.675rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.4rem;">{label}</div>
                 <div class="cl-mono" style="color:var(--cl-text);font-size:1.75rem;font-weight:700;letter-spacing:-0.03em;line-height:1.1;">{value}</div>
@@ -788,22 +829,22 @@ def render_cri_gauge(score, target=70):
 
     if score_val < 40:
         status_label = "Low Resilience"
-        status_bg = "rgba(244, 63, 94, 0.12)"
-        status_color = "#FB7185"
-        status_border = "rgba(244, 63, 94, 0.35)"
-        accent_color = "#F43F5E"
+        status_bg = "rgba(142, 142, 142, 0.12)"
+        status_color = "#A0A0A0"
+        status_border = "rgba(142, 142, 142, 0.30)"
+        accent_color = "#8E8E8E"
     elif score_val < 70:
         status_label = "Moderate Resilience"
-        status_bg = "rgba(245, 158, 11, 0.12)"
-        status_color = "#FBBF24"
-        status_border = "rgba(245, 158, 11, 0.35)"
-        accent_color = "#F59E0B"
+        status_bg = "rgba(107, 107, 107, 0.12)"
+        status_color = "#8E8E8E"
+        status_border = "rgba(107, 107, 107, 0.30)"
+        accent_color = "#6B6B6B"
     else:
         status_label = "High Resilience"
-        status_bg = "rgba(16, 185, 129, 0.12)"
-        status_color = "#34D399"
-        status_border = "rgba(16, 185, 129, 0.35)"
-        accent_color = "#10B981"
+        status_bg = "rgba(224, 224, 224, 0.10)"
+        status_color = "#BFBFBF"
+        status_border = "rgba(224, 224, 224, 0.25)"
+        accent_color = "#E0E0E0"
 
     pct_pos = min(max(score_val, 4), 96)
 
@@ -824,15 +865,15 @@ def render_cri_gauge(score, target=70):
             </div>
             <div style="margin:0.5rem 0;">
                 <div style="display:flex;justify-content:space-between;font-size:0.65rem;color:var(--cl-faint);margin-bottom:4px;font-family:\'JetBrains Mono\',monospace;">
-                    <span style="color:#FB7185;">0 Critical</span>
-                    <span style="color:#FBBF24;">40 Threshold</span>
-                    <span style="color:#34D399;">70 Benchmark</span>
+                    <span style="color:#A0A0A0;">0 Critical</span>
+                    <span style="color:#8E8E8E;">40 Threshold</span>
+                    <span style="color:#BFBFBF;">70 Benchmark</span>
                     <span>100</span>
                 </div>
                 <div style="position:relative;height:8px;background:var(--cl-track);border-radius:4px;overflow:hidden;border:1px solid var(--cl-border-3);">
-                    <div style="position:absolute;left:0;width:40%;height:100%;background:linear-gradient(90deg, #F43F5E, #FB7185);opacity:0.35;"></div>
-                    <div style="position:absolute;left:40%;width:30%;height:100%;background:linear-gradient(90deg, #F59E0B, #FBBF24);opacity:0.35;"></div>
-                    <div style="position:absolute;left:70%;width:30%;height:100%;background:linear-gradient(90deg, #10B981, #34D399);opacity:0.45;"></div>
+                    <div style="position:absolute;left:0;width:40%;height:100%;background:linear-gradient(90deg, #8E8E8E, #A0A0A0);opacity:0.35;"></div>
+                    <div style="position:absolute;left:40%;width:30%;height:100%;background:linear-gradient(90deg, #6B6B6B, #8E8E8E);opacity:0.35;"></div>
+                    <div style="position:absolute;left:70%;width:30%;height:100%;background:linear-gradient(90deg, #E0E0E0, #BFBFBF);opacity:0.45;"></div>
                     <div style="position:absolute;left:{pct_pos}%;top:0;bottom:0;width:4px;background:var(--cl-accent-strong);box-shadow:0 0 8px var(--cl-accent-strong);border-radius:2px;"></div>
                 </div>
             </div>
@@ -850,10 +891,10 @@ def render_compliance_gauge(percentage, target=90):
     pct = max(0.0, min(float(percentage), 100.0))
     is_compliant = pct >= 90
     status_label = "Compliant" if is_compliant else "Review Required"
-    status_bg = "rgba(16, 185, 129, 0.12)" if is_compliant else "rgba(245, 158, 11, 0.12)"
-    status_color = "#34D399" if is_compliant else "#FBBF24"
-    status_border = "rgba(16, 185, 129, 0.35)" if is_compliant else "rgba(245, 158, 11, 0.35)"
-    accent_color = "#10B981" if is_compliant else "#F59E0B"
+    status_bg = "rgba(224, 224, 224, 0.10)" if is_compliant else "rgba(107, 107, 107, 0.12)"
+    status_color = "#BFBFBF" if is_compliant else "#8E8E8E"
+    status_border = "rgba(224, 224, 224, 0.25)" if is_compliant else "rgba(107, 107, 107, 0.30)"
+    accent_color = "#E0E0E0" if is_compliant else "#6B6B6B"
 
     render_html(
         f"""
@@ -876,12 +917,12 @@ def render_compliance_gauge(percentage, target=90):
                     <span style="color:var(--cl-accent-strong);">Target: ≥{target}%</span>
                 </div>
                 <div style="height:8px;background:var(--cl-track);border-radius:4px;overflow:hidden;border:1px solid var(--cl-border-3);">
-                    <div style="width:{pct}%;height:100%;background:linear-gradient(90deg, #059669, #10B981);box-shadow:0 0 6px rgba(16, 185, 129, 0.4);transition:width 0.3s ease;"></div>
+                    <div style="width:{pct}%;height:100%;background:linear-gradient(90deg, #6B6B6B, #E0E0E0);box-shadow:0 0 6px rgba(16, 185, 129, 0.4);transition:width 0.3s ease;"></div>
                 </div>
             </div>
             <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--cl-border);padding-top:0.45rem;font-size:0.725rem;color:var(--cl-faint);">
                 <span>Framework: <strong style="color:var(--cl-muted);">RBI · SEBI · NPCI</strong></span>
-                <span>Mandate Status: <strong style="color:#34D399;">Verified</strong></span>
+                <span>Mandate Status: <strong style="color:#BFBFBF;">Verified</strong></span>
             </div>
         </div>
         """
@@ -905,24 +946,25 @@ def risk_badge(val):
         lvl = str(val).upper()
 
     styles = {
-        "CRITICAL": ("rgba(244, 63, 94, 0.12)", "#FB7185", "rgba(244, 63, 94, 0.40)", "CRITICAL"),
-        "HIGH": ("rgba(249, 115, 22, 0.12)", "#FB923C", "rgba(249, 115, 22, 0.38)", "HIGH"),
-        "MEDIUM": ("rgba(234, 179, 8, 0.10)", "#FACC15", "rgba(234, 179, 8, 0.35)", "MEDIUM"),
-        "LOW": ("rgba(148, 163, 184, 0.08)", "var(--cl-muted)", "rgba(148, 163, 184, 0.25)", "LOW"),
-        "MINIMAL": ("rgba(100, 116, 139, 0.06)", "var(--cl-faint)", "rgba(100, 116, 139, 0.20)", "MINIMAL"),
+        "CRITICAL": ("rgba(142, 142, 142, 0.12)", "#A0A0A0", "rgba(142, 142, 142, 0.35)", "CRITICAL"),
+        "HIGH": ("rgba(160, 160, 160, 0.12)", "#A0A0A0", "rgba(160, 160, 160, 0.30)", "HIGH"),
+        "MEDIUM": ("rgba(142, 142, 142, 0.10)", "#8E8E8E", "rgba(142, 142, 142, 0.30)", "MEDIUM"),
+        "LOW": ("rgba(107, 107, 107, 0.08)", "var(--cl-muted)", "rgba(107, 107, 107, 0.20)", "LOW"),
+        "MINIMAL": ("rgba(53, 58, 62, 0.15)", "var(--cl-faint)", "rgba(53, 58, 62, 0.30)", "MINIMAL"),
     }
     bg, fg, border, txt = styles.get(lvl, styles["MINIMAL"])
     return f'<span style="background-color:{bg};color:{fg};border:1px solid {border};padding:2px 8px;border-radius:4px;font-size:0.675rem;font-weight:700;letter-spacing:0.04em;font-family:\'JetBrains Mono\',monospace;white-space:nowrap;display:inline-flex;align-items:center;">{txt}</span>'
 
 
-def render_quick_stat(label, value, icon="🛡️", badge=None, border_color="var(--cl-border)"):
+def render_quick_stat(label, value, icon="", badge=None, border_color="var(--cl-border)"):
     """Render a compact glassmorphic quick-stat telemetry block."""
-    badge_html = f'<span style="background:rgba(56,189,248,0.12);border:1px solid rgba(56,189,248,0.30);color:var(--cl-accent-strong);font-size:0.65rem;font-weight:700;padding:2px 6px;border-radius:4px;font-family:\'JetBrains Mono\',monospace;">{badge}</span>' if badge else ""
+    badge_html = f'<span style="background:rgba(224,224,224,0.12);border:1px solid rgba(224,224,224,0.30);color:var(--cl-accent-strong);font-size:0.65rem;font-weight:700;padding:2px 6px;border-radius:4px;font-family:\'JetBrains Mono\',monospace;">{badge}</span>' if badge else ""
+    icon_html = f'<div style="font-size:1.2rem;line-height:1;">{icon}</div>' if icon else ""
     render_html(
         f"""
         <div class="cl-card" style="padding:0.75rem 1rem;display:flex;align-items:center;justify-content:space-between;border-left:3px solid {border_color};min-height:68px;">
             <div style="display:flex;align-items:center;gap:10px;">
-                <div style="font-size:1.2rem;line-height:1;">{icon}</div>
+                {icon_html}
                 <div>
                     <div style="color:var(--cl-faint);font-size:0.675rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">{label}</div>
                     <div class="cl-mono" style="font-size:1.05rem;font-weight:700;color:var(--cl-text);margin-top:2px;">{value}</div>

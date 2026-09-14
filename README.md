@@ -5,7 +5,7 @@ Transforms raw vulnerability, asset, and transaction data into RBI‑regulated f
 
 ---
 
-## 📑 Table of Contents
+## Table of Contents
 - [Overview](#overview)
 - [Features](#features)
 - [Project Structure](#project-structure)
@@ -22,7 +22,7 @@ Transforms raw vulnerability, asset, and transaction data into RBI‑regulated f
 
 ---
 
-## 🚀 Overview
+## Overview
 CyberLens 2.0 addresses a critical gap: existing cyber‑risk tools give qualitative scores (Low/Medium/High) that do not translate into financial impact or actionable budget decisions. Regulators (RBI, SEBI, NPCI) require quantifiable risk exposure in monetary terms for effective cyber‑risk governance and budget allocation.
 
 The platform delivers:
@@ -35,7 +35,7 @@ The platform delivers:
 
 ---
 
-## ✨ Features
+## Features
 | Feature | Description |
 |---------|-------------|
 | **RBI‑Weighted CVSS** | Adjusts base CVSS with asset criticality, RBI multipliers, patch penalty, exploit boost, and optional threat/intel factors. |
@@ -54,7 +54,7 @@ The platform delivers:
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 ```
 cyberlens-2.0/
 ├── data/                         # Sample CSV files (assets, vulnerabilities, incidents, rbi_mappings)
@@ -97,7 +97,7 @@ cyberlens-2.0/
 
 ---
 
-## 📋 Requirements
+## Requirements
 - **Python 3.11+** (used in the Docker image)
 - **Docker Engine** (for the zero‑setup demo)
 - **Internet access** (only needed at build time to fetch dependencies; the demo runs fully offline)
@@ -119,7 +119,7 @@ pydantic==2.9.2
 
 ---
 
-## ▶️ Quick Start (Demo)
+## Quick Start (Demo)
 
 ### Using Docker (Recommended)
 ```bash
@@ -167,7 +167,7 @@ The app will be available at **http://localhost:8501**.
 
 ---
 
-## ⚙️ Running the API (Optional)
+## Running the API (Optional)
 If you wish to expose the risk engine as a RESTful service (e.g., for micro‑service deployment or integration with other systems):
 
 1. Set the environment variable `ENABLE_API=true` (or edit `docker-compose.yml` to uncomment the `api` service).
@@ -183,7 +183,7 @@ Refer to `API_SPEC.md` for the complete list of endpoints.
 
 ---
 
-## 🧪 Running Tests
+## Running Tests
 Unit and integration tests are written with `pytest`. To run them:
 
 ```bash
@@ -205,7 +205,7 @@ End‑to‑end (E2E) tests require a running Streamlit instance. A simple E2E ch
 
 ---
 
-## ✅ Validation Script
+## Validation Script
 The `validate.sh` script provides a quick sanity check that SIH judges can run to gain confidence in the demo.
 
 ```bash
@@ -231,7 +231,7 @@ You can also run it with Docker:
 
 ---
 
-## 📄 SIH Submission
+## SIH Submission
 To generate the required submission markdown:
 1. Run the demo (via Docker or directly).
 2. Optionally load the “UPI Switch Demo Scenario” for impactful metrics.
@@ -248,7 +248,7 @@ The generated markdown includes:
 
 ---
 
-## 🏗️ Architecture & Documentation
+## Architecture & Documentation
 For deeper details, refer to the following documents in the repository root:
 - **[PRD.md](./PRD.md)** – Product Requirements
 - **[TRD.md](./TRD.md)** – Technical Requirements
@@ -260,7 +260,7 @@ For deeper details, refer to the following documents in the repository root:
 
 ---
 
-## 🔮 Future Work & Scaling
+## Future Work & Scaling
 While the demo delivers full SIH‑ready functionality, the architecture is designed for growth:
 - **Real‑Time Feeds**: Integrate CERT‑In vulnerability alerts, NVD streams, or SIEM logs via the data loader plugin architecture.
 - **ML‑Enhanced Scoring**: Replace the rule‑based RBI‑weighted CVSS with an XGBoost model trained on NVD + RBI breach datasets (feature engineering script provided).
@@ -272,14 +272,14 @@ While the demo delivers full SIH‑ready functionality, the architecture is desi
 
 ---
 
-## 📄 License
+## License
 CyberLens 2.0 is released under the **GNU Affero General Public License v3.0 (AGPL‑3)**. See the [LICENSE](LICENSE) file for details.
 
 > This license ensures that any modifications or deployments of the software (including as a service over a network) must also make the source code available to users.
 
 ---
 
-## 🙏 Acknowledgements
+## Acknowledgements
 - **RBI, SEBI, NPCI** – For publishing the cybersecurity guidelines and circulars that informed the RBI‑weighted scoring and compliance mapping.
 - **NVD & CERT‑In** – For public vulnerability data used to calibrate and validate the model.
 - **Open‑Source Community** – For Streamlit, FastAPI, PyTorch, Hugging Face Transformers, and many other libraries that made rapid development possible.

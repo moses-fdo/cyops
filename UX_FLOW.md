@@ -73,7 +73,7 @@ This document outlines the key user interactions and flows within the CyberLens 
   - RBI‑Weighted Score (0‑10)
   - CR‑I Impact (derived)
   - Days Unpatched
-  - Exploit Available? (✓/✗)
+  - Exploit Available? (Yes/No)
   - Risk Contribution (₹/year)
   - Actions (buttons: “Show Details”, “Simulate Fix”)
 - Table is searchable and sortable via Streamlit’s built‑in features.

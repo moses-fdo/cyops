@@ -157,7 +157,7 @@ public-sector banks and payment systems.
         f.write(content)
     st.success("Generated `SIH_Submission.md` — ready for SIH portal upload.")
     st.download_button(
-        label="📥 Download SIH_Submission.md",
+        label="Download SIH_Submission.md",
         data=content,
         file_name="SIH_Submission.md",
         mime="text/markdown",

@@ -44,22 +44,22 @@ def render(session):
     theme = session.get("theme", "dark") or "dark"
     is_light = theme == "light"
     chart = {
-        "bg": "#FFFFFF" if is_light else "#10131B",
-        "axis": "#64748B" if is_light else "#94A3B8",
-        "title": "#94A3B8" if is_light else "#64748B",
-        "grid": "#E2E8F0" if is_light else "#161924",
-        "tick": "#CBD5E1" if is_light else "#1E2333",
+        "bg": "#FFFFFF" if is_light else "#1A1A1A",
+        "axis": "#64748B" if is_light else "#BFBFBF",
+        "title": "#94A3B8" if is_light else "#8E8E8E",
+        "grid": "#E2E8F0" if is_light else "#232426",
+        "tick": "#CBD5E1" if is_light else "#353A3E",
     }
 
     # Scenario indicator - Colorized
     is_demo = len(assets) <= 5
     scenario_html = (
         f'<div style="display:inline-flex;align-items:center;gap:7px;'
-        f'background:rgba(56,189,248,0.08);'
-        f'border:1px solid rgba(56,189,248,0.25);'
+        f'background:rgba(224,224,224,0.08);'
+        f'border:1px solid rgba(224,224,224,0.25);'
         f'padding:4px 11px;border-radius:4px;font-size:0.75rem;font-weight:600;'
         f'color:var(--cl-accent-strong);font-family:\'JetBrains Mono\',monospace;">'
-        f'<span style="width:7px;height:7px;border-radius:50%;background:#10B981;box-shadow:0 0 6px #10B981;"></span>'
+        f'<span style="width:7px;height:7px;border-radius:50%;background:#E0E0E0;box-shadow:0 0 6px #E0E0E0;"></span>'
         f'{"Demo Scenario Active" if is_demo else "Baseline Portfolio"}</div>'
     )
     section_header(
@@ -78,7 +78,6 @@ def render(session):
         render_html(
             f"""
             <div class="cl-card" style="padding:0.65rem 0.95rem;display:flex;align-items:center;gap:10px;border-left:3px solid var(--cl-accent-strong);">
-                <div style="font-size:1.15rem;">🏛️</div>
                 <div>
                     <div style="color:var(--cl-faint);font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;">Assessed Systems</div>
                     <div class="cl-mono" style="font-size:1.05rem;font-weight:700;color:var(--cl-text);margin-top:1px;">{len(assets)} <span style="font-size:0.7rem;font-weight:400;color:var(--cl-faint);">Nodes</span></div>
@@ -89,8 +88,7 @@ def render(session):
     with r_col2:
         render_html(
             f"""
-            <div class="cl-card" style="padding:0.65rem 0.95rem;display:flex;align-items:center;gap:10px;border-left:3px solid #10B981;">
-                <div style="font-size:1.15rem;">⚡</div>
+            <div class="cl-card" style="padding:0.65rem 0.95rem;display:flex;align-items:center;gap:10px;border-left:3px solid #E0E0E0;">
                 <div>
                     <div style="color:var(--cl-faint);font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;">Daily Txns Covered</div>
                     <div class="cl-mono" style="font-size:1.05rem;font-weight:700;color:var(--cl-text);margin-top:1px;">{total_txns/1_000_000:.1f}M <span style="font-size:0.7rem;font-weight:400;color:var(--cl-faint);">txns/day</span></div>
@@ -101,8 +99,7 @@ def render(session):
     with r_col3:
         render_html(
             f"""
-            <div class="cl-card" style="padding:0.65rem 0.95rem;display:flex;align-items:center;gap:10px;border-left:3px solid #F43F5E;">
-                <div style="font-size:1.15rem;">⏱️</div>
+            <div class="cl-card" style="padding:0.65rem 0.95rem;display:flex;align-items:center;gap:10px;border-left:3px solid #8E8E8E;">
                 <div>
                     <div style="color:var(--cl-faint);font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;">Max Outage Liability</div>
                     <div class="cl-mono" style="font-size:1.05rem;font-weight:700;color:var(--cl-text);margin-top:1px;">{inr(max_downtime)} <span style="font-size:0.7rem;font-weight:400;color:var(--cl-faint);">/hr</span></div>
@@ -113,8 +110,7 @@ def render(session):
     with r_col4:
         render_html(
             f"""
-            <div class="cl-card" style="padding:0.65rem 0.95rem;display:flex;align-items:center;gap:10px;border-left:3px solid #F59E0B;">
-                <div style="font-size:1.15rem;">🔍</div>
+            <div class="cl-card" style="padding:0.65rem 0.95rem;display:flex;align-items:center;gap:10px;border-left:3px solid #6B6B6B;">
                 <div>
                     <div style="color:var(--cl-faint);font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;">Quantified CVEs</div>
                     <div class="cl-mono" style="font-size:1.05rem;font-weight:700;color:var(--cl-text);margin-top:1px;">{total_vulns} <span style="font-size:0.7rem;font-weight:400;color:var(--cl-faint);">Active</span></div>
@@ -155,7 +151,7 @@ def render(session):
     for idx, (col, r) in enumerate(zip(risk_cols, top_risks), 1):
         with col:
             severity = "CRITICAL" if r["eal_inr"] >= 100_00_000 else ("HIGH" if r["eal_inr"] >= 50_00_000 else "MEDIUM")
-            top_border = "#F43F5E" if severity == "CRITICAL" else ("#F59E0B" if severity == "HIGH" else "var(--cl-accent-strong)")
+            top_border = "#8E8E8E" if severity == "CRITICAL" else ("#6B6B6B" if severity == "HIGH" else "var(--cl-accent-strong)")
             render_html(
                 f"""
                 <div class="cl-card" style="min-height:195px;display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;padding:1.1rem 1.25rem;margin-bottom:0.45rem;border-top:2px solid {top_border};">
@@ -261,7 +257,7 @@ def render(session):
                     table_html += f'<td style="padding:7px 10px;color:var(--cl-text);font-weight:500;">{c["name"]}</td>'
                     table_html += f'<td class="cl-mono" style="padding:7px 10px;text-align:right;color:var(--cl-muted);">{inr(cost)}</td>'
                     table_html += f'<td class="cl-mono" style="padding:7px 10px;text-align:right;color:var(--cl-text);font-weight:600;">{inr(red)}</td>'
-                    table_html += f'<td style="padding:7px 10px;text-align:right;"><span class="cl-mono" style="background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.35);color:#34D399;font-weight:700;padding:2px 7px;border-radius:4px;font-size:0.7rem;">+{rosi:.0f}%</span></td></tr>'
+                    table_html += f'<td style="padding:7px 10px;text-align:right;"><span class="cl-mono" style="background:rgba(224,224,224,0.10);border:1px solid rgba(224,224,224,0.25);color:#BFBFBF;font-weight:700;padding:2px 7px;border-radius:4px;font-size:0.7rem;">+{rosi:.0f}%</span></td></tr>'
 
                 total_cost = plan["total_cost"]
                 total_red = plan["total_reduction"]
@@ -270,8 +266,8 @@ def render(session):
                 table_html += f'<tr style="border-top:1px solid var(--cl-border);color:var(--cl-text);font-weight:700;background:var(--cl-hover);">'
                 table_html += f'<td style="padding:9px 10px;">Total Allocated Portfolio</td>'
                 table_html += f'<td class="cl-mono" style="padding:9px 10px;text-align:right;color:var(--cl-accent-strong);">{inr(total_cost)}</td>'
-                table_html += f'<td class="cl-mono" style="padding:9px 10px;text-align:right;color:#34D399;">{inr(total_red)}</td>'
-                table_html += f'<td style="padding:9px 10px;text-align:right;"><span class="cl-mono" style="background:#10B981;color:#041F16;border:1px solid #10B981;font-weight:800;padding:2px 8px;border-radius:4px;font-size:0.725rem;">+{overall_rosi:.0f}%</span></td></tr>'
+                table_html += f'<td class="cl-mono" style="padding:9px 10px;text-align:right;color:#BFBFBF;">{inr(total_red)}</td>'
+                table_html += f'<td style="padding:9px 10px;text-align:right;"><span class="cl-mono" style="background:#E0E0E0;color:#1A1A1A;border:1px solid #E0E0E0;font-weight:800;padding:2px 8px;border-radius:4px;font-size:0.725rem;">+{overall_rosi:.0f}%</span></td></tr>'
                 table_html += '</table>'
 
                 render_html(f'<div class="cl-card" style="padding:0.5rem 0.85rem;">{table_html}</div>')
@@ -280,7 +276,7 @@ def render(session):
                 render_html(
                     f'<div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.45rem;font-size:0.75rem;color:var(--cl-faint);font-family:\'JetBrains Mono\',monospace;">'
                     f'<span>Surplus Budget: <strong style="color:var(--cl-accent-strong);">{inr(remaining)}</strong></span>'
-                    f'<span>Interventions Funded: <strong style="color:#34D399;">{len(plan["controls"])}</strong></span>'
+                    f'<span>Interventions Funded: <strong style="color:#BFBFBF;">{len(plan["controls"])}</strong></span>'
                     f'</div>'
                 )
             else:
@@ -350,7 +346,7 @@ def render(session):
                             "State:N",
                             scale=alt.Scale(
                                 domain=["Current Exposure", "Mitigated Exposure"],
-                                range=["#F43F5E", "#10B981"],
+                                range=["#E0E0E0", "#6B6B6B"],
                             ),
                             legend=None,
                         ),
@@ -366,7 +362,7 @@ def render(session):
                 render_html('<div class="cl-card" style="padding:1.1rem 1.25rem;">')
                 st.altair_chart(bar_chart, width="stretch")
                 render_html(
-                    f'<div style="text-align:center;background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.35);color:#34D399;padding:9px 16px;border-radius:6px;font-weight:700;font-size:0.875rem;font-family:\'JetBrains Mono\',monospace;margin-top:10px;">'
+                    f'<div style="text-align:center;background:rgba(224,224,224,0.10);border:1px solid rgba(224,224,224,0.25);color:#BFBFBF;padding:9px 16px;border-radius:6px;font-weight:700;font-size:0.875rem;font-family:\'JetBrains Mono\',monospace;margin-top:10px;">'
                     f'↓ {pct_reduction:.1f}% Liability Reduction · <span class="cl-mono">{inr(total_red)}</span>/yr Averted</div>'
                     f'</div>'
                 )
@@ -393,14 +389,14 @@ def render(session):
                             "Category:N",
                             scale=alt.Scale(
                                 range=[
-                                    "#0284C7",
-                                    "#6366F1",
-                                    "#F43F5E",
-                                    "#F59E0B",
-                                    "#10B981",
-                                    "#8B5CF6",
-                                    "#06B6D4",
-                                    "#EC4899",
+                                    "#E0E0E0",
+                                    "#BFBFBF",
+                                    "#8E8E8E",
+                                    "#6B6B6B",
+                                    "#555B62",
+                                    "#434850",
+                                    "#353A3E",
+                                    "#2A2C2F",
                                 ]
                             ),
                             legend=alt.Legend(
@@ -428,7 +424,7 @@ def render(session):
                 render_html('<div class="cl-card" style="padding:1.1rem 1.25rem;">')
                 st.altair_chart(donut, width="stretch")
                 render_html(
-                    f'<div style="text-align:center;background:rgba(56,189,248,0.10);border:1px solid rgba(56,189,248,0.30);color:var(--cl-accent-strong);padding:9px 16px;border-radius:6px;font-weight:700;font-size:0.875rem;font-family:\'JetBrains Mono\',monospace;margin-top:10px;">'
+                    f'<div style="text-align:center;background:rgba(224,224,224,0.10);border:1px solid rgba(224,224,224,0.30);color:var(--cl-accent-strong);padding:9px 16px;border-radius:6px;font-weight:700;font-size:0.875rem;font-family:\'JetBrains Mono\',monospace;margin-top:10px;">'
                     f'ROSI Risk Mitigation Category Distribution</div>'
                     f'</div>'
                 )

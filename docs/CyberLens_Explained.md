@@ -317,7 +317,7 @@ AI Output (Hindi/English):
 ```
 ┌──────────────────────────────────────────────────────────────┐
 │ CyberLens 2.0 – RBI-Aligned Cyber Risk Dashboard            │
-│ 🔵 Baseline Portfolio                                       │
+│ Baseline Portfolio                                          │
 ├──────────────────────────────────────────────────────────────┤
 │  Total Annual Risk    │  Cyber Resilience   │  RBI Compliance │
 │  ₹4,200 Cr/yr         │  Index (CR-I)       │                 │
@@ -384,8 +384,8 @@ AI Output (Hindi/English):
 │ 2. Enable rate limiting on login API.                       │
 │ 3. Add IP whitelist for admin access.                       │
 │ What-If Simulator                                           │
-│ ☑ WAF Deployment      Cost: ₹25L   Effectiveness: 60%      │
-│ ☑ Rate Limiting       Cost: ₹15L   Effectiveness: 30%      │
+│ [X] WAF Deployment    Cost: ₹25L   Effectiveness: 60%      │
+│ [X] Rate Limiting     Cost: ₹15L   Effectiveness: 30%      │
 │ Current Risk: ₹800 Cr/yr   New Risk: ₹320 Cr/yr (Δ -60%)  │
 │ Updated CR-I: 38.5 → 62.1                                  │
 └──────────────────────────────────────────────────────────────┘
@@ -415,9 +415,9 @@ Vulnerability: Authentication Bypass on UPI Switch
 
 **You toggle switches:**
 ```
-☑ WAF Deployment (60% effective)
-☑ Rate Limiting (30% effective)
-☐ IP Whitelist (10% effective)
+[X] WAF Deployment (60% effective)
+[X] Rate Limiting (30% effective)
+[ ] IP Whitelist (10% effective)
 ```
 
 **After:**
@@ -445,16 +445,16 @@ A visual grid showing which RBI rules are violated across your assets:
 ```
                     │ UPI Switch │ Core DB │ Payment GW │
 ────────────────────┼────────────┼─────────┼────────────┤
-Authentication      │ 🔴 45%     │ 🟢 95% │ 🟡 78%     │
-Patch Management    │ 🟡 60%     │ 🔴 30% │ 🟢 92%     │
-Encryption          │ 🟢 100%    │ 🟢 100%│ 🟢 100%    │
-Network Segmentation│ 🟡 75%     │ 🟢 88% │ 🔴 55%     │
+Authentication      │ 45%        │ 95%     │ 78%        │
+Patch Management    │ 60%        │ 30%     │ 92%        │
+Encryption          │ 100%       │ 100%    │ 100%       │
+Network Segmentation│ 75%        │ 88%     │ 55%        │
 ```
 
 **Color coding:**
-- 🟢 Green (≥90%): Compliant
-- 🟡 Yellow (60-89%): Partially compliant
-- 🔴 Red (<60%): Non-compliant
+- Green (≥90%): Compliant
+- Yellow (60-89%): Partially compliant
+- Red (<60%): Non-compliant
 
 **This helps you:**
 - See at a glance where you're violating RBI rules

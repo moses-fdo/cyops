@@ -114,17 +114,17 @@ def render(session):
                         <span style="background:var(--cl-hover);border:1px solid var(--cl-border-3);color:var(--cl-accent-strong);font-size:0.68rem;font-weight:600;padding:2px 8px;border-radius:4px;font-family:'JetBrains Mono',monospace;">{a['asset_type']}</span>
                     </div>
                     <div style="color:var(--cl-faint);font-size:0.75rem;margin-top:6px;display:flex;gap:14px;font-weight:500;">
-                        <span>Criticality: <strong style="color:#FBBF24;">{a['criticality']}/10</strong></span>
+                        <span>Criticality: <strong style="color:#8E8E8E;">{a['criticality']}/10</strong></span>
                         <span>·</span>
                         <span>Daily Volume: <strong class="cl-mono" style="color:var(--cl-text-4);">{a['daily_transaction_volume']:,} txns</strong></span>
                         <span>·</span>
-                        <span>Downtime Impact: <strong class="cl-mono" style="color:#FB7185;">{inr(a['downtime_cost_per_hour'])}/hr</strong></span>
+                        <span>Downtime Impact: <strong class="cl-mono" style="color:#A0A0A0;">{inr(a['downtime_cost_per_hour'])}/hr</strong></span>
                     </div>
                 </div>
                 <div style="display:flex;align-items:center;gap:20px;">
                     <div style="text-align:right;">
                         <div style="font-size:0.65rem;color:var(--cl-faint);text-transform:uppercase;font-weight:700;letter-spacing:0.06em;">Resilience Score</div>
-                        <span class="cl-mono" style="background:rgba(56,189,248,0.10);border:1px solid rgba(56,189,248,0.30);color:var(--cl-accent-strong);font-size:0.95rem;font-weight:700;padding:3px 9px;border-radius:4px;display:inline-block;margin-top:3px;">
+                        <span class="cl-mono" style="background:rgba(224,224,224,0.10);border:1px solid rgba(224,224,224,0.30);color:var(--cl-accent-strong);font-size:0.95rem;font-weight:700;padding:3px 9px;border-radius:4px;display:inline-block;margin-top:3px;">
                             {a_cri:.1f}<span style="font-size:0.7rem;font-weight:500;opacity:0.7;">/100</span>
                         </span>
                     </div>
@@ -155,12 +155,12 @@ def render(session):
             eal = expected_annual_loss(v, v_asset)
             cri_impact = -round((10 - r_cvss) * (v_asset.get("criticality", 5) / 10.0), 1)
 
-            exploit_badge = '<span style="background:rgba(244,63,94,0.15);color:#FB7185;border:1px solid rgba(244,63,94,0.40);font-weight:800;padding:2px 7px;border-radius:4px;font-size:0.65rem;font-family:\'JetBrains Mono\',monospace;">YES</span>' if v["exploit_available"] else '<span style="color:var(--cl-faint);font-weight:500;">NO</span>'
+            exploit_badge = '<span style="background:rgba(142,142,142,0.15);color:#A0A0A0;border:1px solid rgba(142,142,142,0.35);font-weight:800;padding:2px 7px;border-radius:4px;font-size:0.65rem;font-family:\'JetBrains Mono\',monospace;">YES</span>' if v["exploit_available"] else '<span style="color:var(--cl-faint);font-weight:500;">NO</span>'
 
             if r_cvss >= 9.0:
-                score_badge = f'<span class="cl-mono" style="background:rgba(244,63,94,0.12);border:1px solid rgba(244,63,94,0.35);color:#FB7185;font-weight:700;padding:2px 7px;border-radius:4px;font-size:0.725rem;">{r_cvss:.1f}</span>'
+                score_badge = f'<span class="cl-mono" style="background:rgba(142,142,142,0.12);border:1px solid rgba(142,142,142,0.30);color:#A0A0A0;font-weight:700;padding:2px 7px;border-radius:4px;font-size:0.725rem;">{r_cvss:.1f}</span>'
             elif r_cvss >= 7.0:
-                score_badge = f'<span class="cl-mono" style="background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.35);color:#FBBF24;font-weight:700;padding:2px 7px;border-radius:4px;font-size:0.725rem;">{r_cvss:.1f}</span>'
+                score_badge = f'<span class="cl-mono" style="background:rgba(107,107,107,0.12);border:1px solid rgba(107,107,107,0.30);color:#8E8E8E;font-weight:700;padding:2px 7px;border-radius:4px;font-size:0.725rem;">{r_cvss:.1f}</span>'
             else:
                 score_badge = f'<span class="cl-mono" style="background:rgba(148,163,184,0.10);border:1px solid rgba(148,163,184,0.25);color:var(--cl-muted);font-weight:700;padding:2px 7px;border-radius:4px;font-size:0.725rem;">{r_cvss:.1f}</span>'
 
@@ -170,7 +170,7 @@ def render(session):
             tbl += f'<td style="padding:8px 12px;"><span style="background:var(--cl-hover);border:1px solid var(--cl-border-3);padding:2px 8px;border-radius:3px;font-size:0.7rem;color:var(--cl-text-4);">{v["category"]}</span></td>'
             tbl += f'<td class="cl-mono" style="padding:8px 12px;text-align:right;color:var(--cl-muted);">{v["cvss_base_score"]:.1f}</td>'
             tbl += f'<td style="padding:8px 12px;text-align:right;">{score_badge}</td>'
-            tbl += f'<td class="cl-mono" style="padding:8px 12px;text-align:right;color:#FB7185;">{cri_impact}</td>'
+            tbl += f'<td class="cl-mono" style="padding:8px 12px;text-align:right;color:#A0A0A0;">{cri_impact}</td>'
             tbl += f'<td class="cl-mono" style="padding:8px 12px;text-align:right;color:var(--cl-muted);">{v["days_unpatched"]}d</td>'
             tbl += f'<td style="padding:8px 12px;text-align:right;">{exploit_badge}</td>'
             tbl += f'<td class="cl-mono" style="padding:8px 12px;text-align:right;color:var(--cl-text);font-weight:700;">{inr(eal)}</td>'
@@ -204,7 +204,7 @@ def _render_vulnerability_detail_tabs(session, vuln, asset, controls, asset_vuln
     mapping = get_rbi_mapping(asset["asset_type"], vuln["category"])
 
     severity = "CRITICAL" if base_eal >= 100_00_000 else ("HIGH" if base_eal >= 50_00_000 else "MEDIUM")
-    top_color = "#F43F5E" if severity == "CRITICAL" else ("#F59E0B" if severity == "HIGH" else "var(--cl-accent-strong)")
+    top_color = "#8E8E8E" if severity == "CRITICAL" else ("#6B6B6B" if severity == "HIGH" else "var(--cl-accent-strong)")
     render_html(
         f"""
         <div class="cl-card" style="padding:0.85rem 1.25rem;margin-bottom:0.75rem;border-left:3px solid {top_color};">
@@ -229,13 +229,13 @@ def _render_vulnerability_detail_tabs(session, vuln, asset, controls, asset_vuln
     with tab_ov:
         c1, c2 = st.columns(2)
         with c1:
-            exploit_text = '<span style="color:#FB7185;font-weight:700;">Active In Wild</span>' if vuln['exploit_available'] else '<span style="color:var(--cl-faint);">None Reported</span>'
+            exploit_text = '<span style="color:#A0A0A0;font-weight:700;">Active In Wild</span>' if vuln['exploit_available'] else '<span style="color:var(--cl-faint);">None Reported</span>'
             render_html(
                 f"""
                 <div class="cl-card" style="font-size:0.825rem;padding:0.9rem 1.15rem;">
                     <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--cl-border);"><span style="color:var(--cl-faint);">Base CVSS Score:</span> <strong class="cl-mono" style="color:var(--cl-text);">{vuln['cvss_base_score']}/10</strong></div>
                     <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--cl-border);"><span style="color:var(--cl-faint);">RBI-Weighted Score:</span> <strong class="cl-mono" style="color:var(--cl-accent-strong);">{r_cvss:.2f}/10</strong></div>
-                    <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--cl-border);"><span style="color:var(--cl-faint);">Days Unpatched:</span> <strong class="cl-mono" style="color:#FBBF24;">{vuln['days_unpatched']} days</strong></div>
+                    <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--cl-border);"><span style="color:var(--cl-faint);">Days Unpatched:</span> <strong class="cl-mono" style="color:#8E8E8E;">{vuln['days_unpatched']} days</strong></div>
                     <div style="display:flex;justify-content:space-between;padding:6px 0;"><span style="color:var(--cl-faint);">Exploit Telemetry:</span> {exploit_text}</div>
                 </div>
                 """
@@ -246,7 +246,7 @@ def _render_vulnerability_detail_tabs(session, vuln, asset, controls, asset_vuln
                 <div class="cl-card" style="font-size:0.825rem;padding:0.9rem 1.15rem;">
                     <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--cl-border);"><span style="color:var(--cl-faint);">Vulnerability Category:</span> <strong style="color:var(--cl-text);">{vuln['category']}</strong></div>
                     <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--cl-border);"><span style="color:var(--cl-faint);">Host Asset Type:</span> <strong style="color:var(--cl-text);">{asset['asset_type']}</strong></div>
-                    <div style="display:flex;justify-content:space-between;padding:6px 0;"><span style="color:var(--cl-faint);">Annual Loss Contribution:</span> <strong class="cl-mono" style="color:#FB7185;font-size:0.95rem;">{inr(base_eal)}/yr</strong></div>
+                    <div style="display:flex;justify-content:space-between;padding:6px 0;"><span style="color:var(--cl-faint);">Annual Loss Contribution:</span> <strong class="cl-mono" style="color:#A0A0A0;font-size:0.95rem;">{inr(base_eal)}/yr</strong></div>
                 </div>
                 """
             )
@@ -282,7 +282,7 @@ def _render_vulnerability_detail_tabs(session, vuln, asset, controls, asset_vuln
         render_html(
             """
             <div style="font-size:0.75rem;color:var(--cl-faint);margin-bottom:10px;display:flex;align-items:center;gap:6px;">
-                <span style="color:#10B981;">●</span> Deterministic remediation instructions (Quantized LLM fallback active)
+                <span style="color:#E0E0E0;">●</span> Deterministic remediation instructions (Quantized LLM fallback active)
             </div>
             """
         )
@@ -290,7 +290,7 @@ def _render_vulnerability_detail_tabs(session, vuln, asset, controls, asset_vuln
             render_html(
                 f"""
                 <div class="cl-card" style="padding:0.7rem 1rem;margin-bottom:0.4rem;display:flex;align-items:flex-start;gap:12px;">
-                    <span class="cl-mono" style="background:rgba(56,189,248,0.12);border:1px solid rgba(56,189,248,0.30);color:var(--cl-accent-strong);font-weight:700;width:24px;height:24px;border-radius:4px;display:inline-flex;align-items:center;justify-content:center;font-size:0.725rem;flex-shrink:0;">{i:02d}</span>
+                    <span class="cl-mono" style="background:rgba(224,224,224,0.12);border:1px solid rgba(224,224,224,0.30);color:var(--cl-accent-strong);font-weight:700;width:24px;height:24px;border-radius:4px;display:inline-flex;align-items:center;justify-content:center;font-size:0.725rem;flex-shrink:0;">{i:02d}</span>
                     <span style="color:var(--cl-text);font-size:0.825rem;line-height:1.45;">{step}</span>
                 </div>
                 """
@@ -318,10 +318,10 @@ def _render_vulnerability_detail_tabs(session, vuln, asset, controls, asset_vuln
                 pct_red = (reduction / base_eal * 100) if base_eal > 0 else 0.0
                 render_html(
                     f"""
-                    <div class="cl-card" style="margin-top:0.75rem;padding:0.85rem 1.25rem;border-left:3px solid #10B981;">
+                    <div class="cl-card" style="margin-top:0.75rem;padding:0.85rem 1.25rem;border-left:3px solid #E0E0E0;">
                         <div style="font-size:0.7rem;color:var(--cl-faint);font-weight:700;text-transform:uppercase;letter-spacing:0.06em;">Simulated Residual Exposure</div>
                         <div class="cl-mono" style="font-size:1.25rem;font-weight:700;color:var(--cl-text);margin-top:0.25rem;">Residual Loss: {inr(new_eal)}/yr</div>
-                        <div class="cl-mono" style="color:#34D399;font-weight:700;font-size:0.85rem;margin-top:0.25rem;">↓ {pct_red:.1f}% Reduction · {inr(reduction)} Saved/year</div>
+                        <div class="cl-mono" style="color:#BFBFBF;font-weight:700;font-size:0.85rem;margin-top:0.25rem;">↓ {pct_red:.1f}% Reduction · {inr(reduction)} Saved/year</div>
                     </div>
                     """
                 )
@@ -341,15 +341,15 @@ def _render_vulnerability_detail_tabs(session, vuln, asset, controls, asset_vuln
                 <div style="text-align:center;padding:1.2rem;background:var(--cl-hover);border-radius:6px;border:1px solid var(--cl-border-3);">
                     <span style="background:var(--cl-panel);border:1px solid var(--cl-border);color:var(--cl-text-4);padding:6px 14px;border-radius:4px;font-size:0.8rem;font-weight:600;">Payer Application</span>
                     <span style="color:var(--cl-accent-strong);margin:0 10px;font-weight:700;">→</span>
-                    <span style="background:rgba(244,63,94,0.15);border:1px solid #F43F5E;color:#FB7185;padding:6px 14px;border-radius:4px;font-weight:800;font-size:0.8rem;">{asset['name']}</span>
+                    <span style="background:rgba(142,142,142,0.15);border:1px solid #8E8E8E;color:#A0A0A0;padding:6px 14px;border-radius:4px;font-weight:800;font-size:0.8rem;">{asset['name']}</span>
                     <span style="color:var(--cl-accent-strong);margin:0 10px;font-weight:700;">→</span>
                     <span style="background:var(--cl-panel);border:1px solid var(--cl-border);color:var(--cl-text-4);padding:6px 14px;border-radius:4px;font-size:0.8rem;font-weight:600;">NPCI Switch</span>
                     <span style="color:var(--cl-accent-strong);margin:0 10px;font-weight:700;">→</span>
                     <span style="background:var(--cl-panel);border:1px solid var(--cl-border);color:var(--cl-text-4);padding:6px 14px;border-radius:4px;font-size:0.8rem;font-weight:600;">CBS Core Banking</span>
                 </div>
                 <div style="color:var(--cl-text);font-size:0.775rem;margin-top:12px;display:flex;align-items:center;gap:8px;font-weight:500;">
-                    <span style="background:#F43F5E;color:#09090B;font-weight:800;padding:2px 7px;border-radius:3px;font-size:0.65rem;font-family:'JetBrains Mono',monospace;">CRITICAL NODE</span>
-                    <span>Exploit on <strong style="color:var(--cl-accent-strong);">{asset['name']}</strong> compromises <span class="cl-mono" style="color:#FB923C;">{asset['daily_transaction_volume']:,}</span> daily txns · <span class="cl-mono" style="color:#FB7185;">{inr(asset['downtime_cost_per_hour'])}/hr</span> downtime liability</span>
+                    <span style="background:#8E8E8E;color:#09090B;font-weight:800;padding:2px 7px;border-radius:3px;font-size:0.65rem;font-family:'JetBrains Mono',monospace;">CRITICAL NODE</span>
+                    <span>Exploit on <strong style="color:var(--cl-accent-strong);">{asset['name']}</strong> compromises <span class="cl-mono" style="color:#A0A0A0;">{asset['daily_transaction_volume']:,}</span> daily txns · <span class="cl-mono" style="color:#A0A0A0;">{inr(asset['downtime_cost_per_hour'])}/hr</span> downtime liability</span>
                 </div>
             </div>
             """
@@ -391,11 +391,11 @@ def _render_compliance_heatmap(assets, vulns_by_asset):
             score = max(45, min(98, 100 - int(unpatched_avg * 1.5) - (g_idx * 5)))
 
             if score >= 90:
-                bg, fg, border = "rgba(16,185,129,0.12)", "#34D399", "rgba(16,185,129,0.35)"
+                bg, fg, border = "rgba(224,224,224,0.10)", "#BFBFBF", "rgba(224,224,224,0.25)"
             elif score >= 60:
-                bg, fg, border = "rgba(245,158,11,0.12)", "#FBBF24", "rgba(245,158,11,0.35)"
+                bg, fg, border = "rgba(107,107,107,0.12)", "#8E8E8E", "rgba(107,107,107,0.30)"
             else:
-                bg, fg, border = "rgba(244,63,94,0.12)", "#FB7185", "rgba(244,63,94,0.35)"
+                bg, fg, border = "rgba(142,142,142,0.12)", "#A0A0A0", "rgba(142,142,142,0.30)"
 
             tbl += f'<td style="padding:8px 12px;text-align:center;"><span class="cl-mono" style="background:{bg};border:1px solid {border};color:{fg};padding:3px 8px;border-radius:4px;font-weight:700;font-size:0.725rem;">{score}%</span></td>'
         tbl += '</tr>'
