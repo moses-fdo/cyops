@@ -374,6 +374,123 @@ def inject_swiss_css(theme="dark"):
             box-shadow: var(--cl-shadow-hover), var(--cl-inset-hover) !important;
         }
 
+        /* === LANDING & LOGIN PAGE ANIMATIONS & ELEVATED STYLES === */
+        @keyframes clPulseDot {
+            0% { transform: scale(0.95); opacity: 0.8; box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 7px rgba(16, 185, 129, 0); }
+            100% { transform: scale(0.95); opacity: 0.8; box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+        .cl-login-card {
+            background: var(--cl-panel) !important;
+            border: 1px solid var(--cl-border-2) !important;
+            border-top: 3px solid var(--cl-accent-strong) !important;
+            border-radius: 12px !important;
+            padding: 28px 32px !important;
+            box-shadow: 0 16px 48px -12px rgba(0, 0, 0, 0.5), 0 0 32px -4px rgba(56, 189, 248, 0.15) !important;
+            backdrop-filter: blur(12px) !important;
+            transition: all 0.25s ease !important;
+        }
+        .cl-login-card:hover {
+            border-color: var(--cl-accent-strong) !important;
+            box-shadow: 0 20px 56px -12px rgba(0, 0, 0, 0.65), 0 0 40px -2px rgba(56, 189, 248, 0.25) !important;
+        }
+        .cl-status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.725rem;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(16, 185, 129, 0.10);
+            border: 1px solid rgba(16, 185, 129, 0.30);
+            color: #10B981;
+        }
+        .cl-status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10B981;
+            display: inline-block;
+            animation: clPulseDot 2s infinite;
+        }
+        .cl-feature-box {
+            background: var(--cl-panel) !important;
+            border: 1px solid var(--cl-border) !important;
+            border-radius: 8px !important;
+            padding: 18px 20px !important;
+            transition: all 0.2s ease !important;
+            box-shadow: var(--cl-shadow), var(--cl-inset) !important;
+        }
+        .cl-feature-box:hover {
+            border-color: var(--cl-border-hover) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: var(--cl-shadow-hover), var(--cl-inset-hover) !important;
+        }
+
+        /* === COMPACT HIGH-SECURITY PASSWORD INPUT FIELD === */
+        div[data-testid="stForm"] {
+            border: 1px solid var(--cl-border-2) !important;
+            background: var(--cl-panel) !important;
+            border-radius: 12px !important;
+            padding: 24px 28px !important;
+            max-width: 440px !important;
+            margin: 0 auto !important;
+            box-shadow: 0 12px 36px -8px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+            border-top: 3px solid var(--cl-accent-strong) !important;
+        }
+        div[data-testid="stForm"] .stTextInput {
+            max-width: 320px !important;
+            margin: 0 auto 12px auto !important;
+        }
+        div[data-testid="stForm"] .stTextInput input {
+            text-align: center !important;
+            font-family: 'JetBrains Mono', monospace !important;
+            letter-spacing: 0.18em !important;
+            font-size: 0.95rem !important;
+            font-weight: 600 !important;
+            padding: 10px 16px !important;
+            background-color: var(--cl-canvas) !important;
+            border: 1px solid var(--cl-border-3) !important;
+            border-radius: 8px !important;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4) !important;
+            transition: all 0.2s ease !important;
+        }
+        div[data-testid="stForm"] .stTextInput input:focus {
+            border-color: var(--cl-accent-strong) !important;
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2), inset 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+        }
+        div[data-testid="stForm"] .stButton {
+            max-width: 320px !important;
+            margin: 0 auto !important;
+        }
+        div[data-testid="stForm"] label {
+            text-align: center !important;
+            width: 100% !important;
+            font-size: 0.775rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: var(--cl-text-2) !important;
+            font-family: 'JetBrains Mono', monospace !important;
+            display: block !important;
+            margin-bottom: 6px !important;
+        }
+
+        /* === HIDE STREAMLIT FORM INSTRUCTIONS ("Press enter to submit form") === */
+        [data-testid="stFormInstructions"],
+        div[data-testid="stFormInstructions"],
+        small[data-testid="stFormInstructions"],
+        .stForm [data-testid="stFormInstructions"] {
+            display: none !important;
+            visibility: hidden !important;
+            height: 0px !important;
+            min-height: 0px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
         /* === CUSTOM MINIMALIST SCROLLBAR === */
         ::-webkit-scrollbar {
             width: 6px;

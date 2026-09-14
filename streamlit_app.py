@@ -40,36 +40,110 @@ def main():
     # Inject themed banking dashboard CSS (light/dark driven by session_state)
     inject_swiss_css(st.session_state.get("theme", "dark"))
 
-    # Authentication
+    # Authentication Landing Page
     session_auth = st.session_state.get("authenticated")
     if not session_auth:
         render_html(
             """
-            <div class="cl-card" style="max-width:460px;margin:80px auto 20px auto;padding:28px 26px;border:1px solid var(--cl-border);border-top:3px solid var(--cl-accent-strong);">
-                <div style="font-size:0.68rem;font-weight:700;color:var(--cl-accent-strong);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.35rem;font-family:'JetBrains Mono',monospace;">
-                    RESERVE BANK OF INDIA · FINANCIAL SUPERVISION PORTAL
+            <div style="max-width:920px;margin:20px auto 40px auto;">
+                <!-- TOP INSTITUTIONAL TELEMETRY BAR -->
+                <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px;padding:10px 18px;background:var(--cl-panel);border:1px solid var(--cl-border);border-radius:8px;box-shadow:var(--cl-shadow);">
+                    <div style="display:flex;align-items:center;gap:12px;">
+                        <div style="width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg, #0284C7 0%, #0369A1 100%);display:flex;align-items:center;justify-content:center;font-weight:800;color:#FFFFFF;font-size:1.1rem;box-shadow:0 0 14px rgba(56,189,248,0.35);">
+                            🛡️
+                        </div>
+                        <div>
+                            <div style="font-size:0.68rem;font-weight:700;color:var(--cl-accent-strong);text-transform:uppercase;letter-spacing:0.09em;font-family:'JetBrains Mono',monospace;">
+                                RESERVE BANK OF INDIA · FINANCIAL SUPERVISION PORTAL
+                            </div>
+                            <div style="font-size:0.775rem;color:var(--cl-text-3);font-weight:600;margin-top:1px;">
+                                Cyber Security & Payment Infrastructure Oversight Division
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:14px;">
+                        <div class="cl-status-badge">
+                            <span class="cl-status-dot"></span>
+                            PROD-GATEWAY-01 // SECURE
+                        </div>
+                        <div style="font-size:0.725rem;color:var(--cl-faint);font-family:'JetBrains Mono',monospace;background:var(--cl-panel-2);padding:4px 10px;border-radius:4px;border:1px solid var(--cl-border);">
+                            CIRCULAR: RBI/2023-24/105
+                        </div>
+                    </div>
                 </div>
-                <h1 style="font-size:1.35rem;margin-bottom:0.35rem;color:var(--cl-text);letter-spacing:-0.02em;">CyberLens Platform 2.0</h1>
-                <p style="color:var(--cl-muted);font-size:0.8rem;margin-bottom:1.15rem;line-height:1.45;">
-                    Cyber Risk Quantification (CRQ) & Capital Allocation System for Critical Payment Infrastructure (UPI, CBS, ATM).
-                </p>
-                <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(56,189,248,0.10);border:1px solid rgba(56,189,248,0.30);padding:3px 10px;border-radius:4px;font-size:0.725rem;color:var(--cl-accent-strong);margin-bottom:1rem;font-family:'JetBrains Mono',monospace;">
-                    Audit Compliance: RBI/2023-24/105
+
+                <!-- MAIN HERO HEADER -->
+                <div style="text-align:center;margin-bottom:32px;padding:10px 15px;">
+                    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.25);padding:4px 14px;border-radius:20px;font-size:0.75rem;font-weight:600;color:var(--cl-accent-strong);font-family:'JetBrains Mono',monospace;margin-bottom:14px;">
+                        ⚡ CYBER RISK QUANTIFICATION & CAPITAL ALLOCATION ENGINE
+                    </div>
+                    <h1 style="font-size:2.3rem;font-weight:800;letter-spacing:-0.03em;color:var(--cl-text);margin-bottom:12px;line-height:1.2;">
+                        CyberLens Platform <span style="color:var(--cl-accent-strong);background:linear-gradient(90deg, #38BDF8, #0284C7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">2.0</span>
+                    </h1>
+                    <p style="max-width:680px;margin:0 auto;color:var(--cl-muted);font-size:0.925rem;line-height:1.6;">
+                        Quantifying cyber vulnerabilities into monetary risk metrics (₹ Expected Annual Loss & VaR) and delivering AI-optimized ROSI budget allocation for critical national financial nodes (UPI, CBS, ATM).
+                    </p>
+                </div>
+
+                <!-- 3 FEATURE PILLARS GRID -->
+                <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:16px;margin-bottom:32px;">
+                    <div class="cl-feature-box">
+                        <div style="font-size:1.3rem;margin-bottom:8px;">📊</div>
+                        <div style="font-size:0.875rem;font-weight:700;color:var(--cl-text);margin-bottom:4px;">
+                            RBI Cyber Resilience Index (CR-I)
+                        </div>
+                        <div style="font-size:0.775rem;color:var(--cl-muted);line-height:1.5;">
+                            Weighted 0–100 score combining CVSS, asset criticality, patch timeliness, and threat feeds aligned with RBI Master Directions.
+                        </div>
+                    </div>
+                    <div class="cl-feature-box">
+                        <div style="font-size:1.3rem;margin-bottom:8px;">💸</div>
+                        <div style="font-size:0.875rem;font-weight:700;color:var(--cl-text);margin-bottom:4px;">
+                            Financial Loss Exposure (₹ EAL)
+                        </div>
+                        <div style="font-size:0.775rem;color:var(--cl-muted);line-height:1.5;">
+                            Real-time calculation of Expected Annual Loss in ₹ across banking transaction systems and critical payment gateways.
+                        </div>
+                    </div>
+                    <div class="cl-feature-box">
+                        <div style="font-size:1.3rem;margin-bottom:8px;">🎯</div>
+                        <div style="font-size:0.875rem;font-weight:700;color:var(--cl-text);margin-bottom:4px;">
+                            ROSI Capital Allocator
+                        </div>
+                        <div style="font-size:0.775rem;color:var(--cl-muted);line-height:1.5;">
+                            AI knapsack optimization recommending security controls that maximize financial risk reduction per rupee invested.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LOGIN PORTAL CONTAINER (COMPACT & CENTERED) -->
+                <div style="max-width:440px;margin:0 auto 20px auto;text-align:center;">
+                    <div style="font-size:0.68rem;font-weight:700;color:var(--cl-accent-strong);text-transform:uppercase;letter-spacing:0.09em;font-family:'JetBrains Mono',monospace;margin-bottom:4px;">
+                        RESTRICTED OFFICER ACCESS
+                    </div>
+                    <div style="font-size:1.2rem;font-weight:800;color:var(--cl-text);margin-bottom:12px;letter-spacing:-0.01em;">
+                        Security Credentials Required
+                    </div>
+                    <div style="background:rgba(56,189,248,0.06);border:1px dashed rgba(56,189,248,0.3);padding:8px 14px;border-radius:6px;margin-bottom:12px;display:inline-flex;align-items:center;gap:8px;font-size:0.75rem;color:var(--cl-text-3);">
+                        <span>🔑</span>
+                        <span>Demo Key: <code style="background:var(--cl-panel-3);padding:2px 7px;border-radius:4px;color:var(--cl-accent-strong);font-family:'JetBrains Mono',monospace;font-weight:600;">cyberlens-demo-2024</code></span>
+                    </div>
                 </div>
             </div>
             """
         )
-        st.warning("Authentication required. Demo key: `cyberlens-demo-2024`")
+
         with st.form("login_form"):
-            auth_key = st.text_input("Access Key", type="password")
-            submitted = st.form_submit_button("Authenticate →")
+            auth_key = st.text_input("Supervisor Access Key", type="password", help="Default demo access key: cyberlens-demo-2024")
+            submitted = st.form_submit_button("Authenticate Session →", use_container_width=True)
             if submitted:
                 if auth_key == "cyberlens-demo-2024":
                     st.session_state.authenticated = True
-                    st.success("Authenticated. Loading dashboard...")
+                    st.success("Authenticated successfully. Loading dashboard...")
                     st.rerun()
                 else:
-                    st.error("Invalid access key.")
+                    st.error("Invalid access key. Authentication failed.")
+
         st.stop()
 
     # Rate limiting
